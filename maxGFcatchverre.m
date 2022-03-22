@@ -59,8 +59,8 @@ ylabel('Grip force peak (N)')
 
 %% Plot des lignes correspondant à la moyenne des essais pour chaque participants
 hold on
-xdata= get (b(2),'XData')
-xlim=get(gca,'xlim')
+xdata= get (b(2),'XData');
+xlim=get(gca,'xlim');
 xparticipantmaxLF=[xlim(1)+0.2, xlim(1)+0.47];
 y1 = meanmaxLFparticipants;
 for i=1:nparticipants
