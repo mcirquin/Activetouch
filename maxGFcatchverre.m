@@ -182,7 +182,116 @@ xoffset = 0.18;
 plot(xdata(2)+xoffset,D(41:52),'k.', 'HandleVisibility','off');
 
 %% Code pour avoir tous les points data superposés sur le barplot (Young participants)
-% A compléter
+%{
+
+% Points pour la première barre (maximal weight, low friction)
+hold on;
+xoffset = -0.11; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,A(1:6),'k.','HandleVisibility','off');
+hold on 
+xoffset = -0.12; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,A(7:13),'k.','HandleVisibility','off');
+hold on 
+xoffset = -0.13; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,A(14:20),'k.','HandleVisibility','off');
+hold on 
+xoffset = -0.14; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,A(21:27),'k.','HandleVisibility','off');
+hold on 
+xoffset = -0.15; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,A(28:34),'k.', 'HandleVisibility','off');
+hold on 
+xoffset = -0.16; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,A(35:41),'k.', 'HandleVisibility','off');
+hold on
+xoffset = -0.17; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,A(42:48),'k.', 'HandleVisibility','off');
+hold on 
+xoffset = -0.18; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,A(49:60),'k.', 'HandleVisibility','off');
+
+
+% Points pour la deuxième barre (maximal weight, high friction)
+hold on;
+xoffset = 0.11; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,B(1:5),'k.','HandleVisibility','off');
+hold on 
+xoffset = 0.12; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,B(6:11),'k.','HandleVisibility','off');
+hold on 
+xoffset = 0.13; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,B(12:17),'k.','HandleVisibility','off');
+hold on 
+xoffset = 0.14; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,B(18:23),'k.','HandleVisibility','off');
+hold on 
+xoffset = 0.15; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,B(24:29),'k.', 'HandleVisibility','off');
+hold on 
+xoffset = 0.16; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,B(30:35),'k.', 'HandleVisibility','off');
+hold on
+xoffset = 0.17; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,B(36:40),'k.', 'HandleVisibility','off');
+hold on 
+xoffset = 0.18; % manual set of get from properties of bar handle
+plot(xdata(1)+xoffset,B(41:45),'k.', 'HandleVisibility','off');
+
+
+
+% Points pour la troisième barre (minimal weight, low friction)
+hold on;
+xoffset = -0.11; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,C(1:5),'k.','HandleVisibility','off');
+hold on 
+xoffset = -0.12; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,C(6:11),'k.','HandleVisibility','off');
+hold on 
+xoffset = -0.13; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,C(12:17),'k.','HandleVisibility','off');
+hold on 
+xoffset = -0.14; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,C(18:23),'k.','HandleVisibility','off');
+hold on 
+xoffset = -0.15; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,C(24:29),'k.', 'HandleVisibility','off');
+hold on 
+xoffset = -0.16; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,C(30:35),'k.', 'HandleVisibility','off');
+hold on 
+xoffset = -0.17; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,C(36:40),'k.', 'HandleVisibility','off');
+hold on 
+xoffset = -0.18; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,C(41:45),'k.', 'HandleVisibility','off');
+
+
+% Points pour la quatrième barre (minimal weight, high friction)
+hold on;
+xoffset = 0.11; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,D(1:6),'k.','HandleVisibility','off');
+hold on 
+xoffset = 0.12; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,D(7:13),'k.','HandleVisibility','off');
+hold on 
+xoffset = 0.13; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,D(14:20),'k.','HandleVisibility','off');
+hold on 
+xoffset = 0.14; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,D(21:27),'k.','HandleVisibility','off');
+hold on 
+xoffset = 0.15; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,D(28:34),'k.', 'HandleVisibility','off');
+hold on 
+xoffset = 0.16; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,D(35:41),'k.', 'HandleVisibility','off');
+hold on 
+xoffset = 0.17; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,D(42:48),'k.', 'HandleVisibility','off');
+hold on 
+xoffset = 0.18; % manual set of get from properties of bar handle
+plot(xdata(2)+xoffset,D(49:60),'k.', 'HandleVisibility','off');
+%}
 
 
 %% Code pour mettre les valeurs des pics de GF au-dessus des bars respectives
