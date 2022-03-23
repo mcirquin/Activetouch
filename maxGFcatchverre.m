@@ -57,6 +57,19 @@ title('Grip force peak magnitude for friction catch trials - Elderly participant
 %title('Grip force peak magnitude for friction catch trials - Young participants')
 ylabel('Grip force peak (N)')
 
+xdata= get (b(2),'XData');
+ydata= get (b(2),'YData');
+
+A=reshape(maxLF,1,[]);
+B=reshape(maxHF,1,[]);
+C=reshape(minLF,1,[]);
+D=reshape(minHF,1,[]);
+size(A)
+size(B)
+size(C)
+size(D)
+
+
 %% Plot des lignes correspondant à la moyenne des essais pour chaque participants
 hold on
 xdata= get (b(2),'XData');
@@ -95,17 +108,6 @@ end
 
 %% Code pour avoir tous les points data superposés sur le barplot (Elderly participants)
 
-xdata= get (b(2),'XData');
-ydata= get (b(2),'YData');
-
-A=reshape(maxLF,1,[]);
-B=reshape(maxHF,1,[]);
-C=reshape(minLF,1,[]);
-D=reshape(minHF,1,[]);
-size(A)
-size(B)
-size(C)
-size(D)
 
 % Points pour la première barre (maximal weight, low friction)
 hold on;
