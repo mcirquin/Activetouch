@@ -1,8 +1,8 @@
-function meanstabGF = at_importminstabilisation(fpath,tstart,tstop,tresholdmin, tresholdmax)
-%fonction qui extrait les valeurs de GF pour les périodes de stabilisation
+function meanstabGF = at_importminstabilisation(fpath,tstart,tstop,tresholdmin)
+%fonction qui extrait les valeurs de GF pour les pÃ©riodes de stabilisation
 %sur base des LF (dans le cas d'essais au poids minimal)
-%tsart: pas de temps du début; tstop: pas de temps de fin
-%treshold: seuil (par rapport au poids) à partir duquel on suppose que c'est la phase de stabilisation  
+%tsart: pas de temps du dÃ©but; tstop: pas de temps de fin
+%treshold: seuil (par rapport au poids) Ã  partir duquel on suppose que c'est la phase de stabilisation  
 
 
 x = at_import(fpath, 'freqFiltForces', 99); %importation du fichier
@@ -12,7 +12,7 @@ stabGF = []; %matrice de stockage des GF de stabilisation
 
 indexes = find(LF>=1.9*tresholdmin); %reprend les indexes de toutes les LF qui sont plus grandes que poids*treshold
 for i = indexes
-    stabGF = [stabGF, x.gf(i)]; %crée un vecteur avec les valeur des GF pour ces indexes
+    stabGF = [stabGF, x.gf(i)]; %crÃ©e un vecteur avec les valeur des GF pour ces indexes
 end
 
 meanstabGF = mean(stabGF);
