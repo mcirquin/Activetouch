@@ -1,4 +1,4 @@
-%Graphes catch weight. Max to min LF, Max to min HF, min to max LF, min to
+%Boxplots catch weight. Max to min LF, Max to min HF, min to max LF, min to
 %max HF
 function catchweight = maxGFerrorcatchweight(maxGFmatrix, nparticipants)
 % Max to min LF 
@@ -49,6 +49,7 @@ meanmintomaxHF=mean(meanmintomaxHFsub);
 
 meanmintomaxHFparticipants=mean(mintomaxHF);
 
+% Transformation en vecteur des matrices créées ci-dessus
 A=reshape(maxtominLF,1,[]).'; % reprend toutes les valeurs de tout le monde
 B=reshape(mintomaxLF,1,[]).';
 C=reshape(maxtominHF,1,[]).';
@@ -59,19 +60,33 @@ size(B);
 size(C);
 size(D);
 
+%Grand vecteur reprenant toutes les données des sous-vecteurs A,B,C,D
 x = [A;B;C;D];
-group1=ones(1,65);
-group2=ones(1,52)*2;
-group3=ones(1,52)*3;
-group4=ones(1,65)*4;
+
+%% Elderly participants
+%{
+group1=ones(1,65); %taille matrice A
+group2=ones(1,52)*2; %taille matrice B
+group3=ones(1,52)*3; %taille matrice C
+group4=ones(1,65)*4; %%taille matrice D
+%}
+
+%% Young participants
+group1=ones(1,75);
+group2=ones(1,60)*2;
+group3=ones(1,60)*3;
+group4=ones(1,75)*4;
+
+%% Boxplots 
 group = [group1,group2,group3,group4];
 positions = [1 1.25 2 2.25];
 boxplot(x,group, 'positions', positions);
 
+
 set(gca,'xtick',[mean(positions(1:2)) mean(positions(3:4)) ])
 set(gca,'xticklabel',{'Low friction','High friction'})
-title('Grip force peak magnitude for weight catch trials - Elderly participants')
-%title('Grip force peak magnitude for weight catch trials - Young participants')
+%title('Grip force peak magnitude for weight catch trials - Elderly participants')
+title('Grip force peak magnitude for weight catch trials - Young participants')
 ylabel('Grip force peak (N)');
 %ylim([0,20]);
 
