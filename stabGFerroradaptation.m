@@ -1,4 +1,4 @@
-%Graphe max GF lors des phases d'adaptation max LF, max HF, min LF, min HF
+%Boxplots stab GF lors des phases d'adaptation max LF, max HF, min LF, min HF
 function stabLF = stabGFerroradaptation(meanstabGFmatrix, nparticipants)
 %% Max GF adaptation max LF 
 nessais1=21;
@@ -115,19 +115,28 @@ C=reshape(minstabLF,1,[]).';
 D=reshape(minstabHF,1,[]).';
 
 x = [A;B;C;D];
-
+%% Elderly participants
+%{
 group1=ones(1,273);
 group2=ones(1,247)*2;
 group3=ones(1,221)*3;
 group4=ones(1,234)*4;
+%}
+%% Young participants
+group1=ones(1,315); % taille de la matrice A
+group2=ones(1,285)*2; %taille de la matrice B
+group3=ones(1,255)*3; %taille de la matrice C
+group4=ones(1,270)*4; %taille de la matrice D
+
+%% Boxplots
 group = [group1,group2,group3,group4];
 positions = [1 1.25 2 2.25];
 boxplot(x,group, 'positions', positions);
 
 set(gca,'xtick',[mean(positions(1:2)) mean(positions(3:4)) ])
 set(gca,'xticklabel',{'Maximal weight','Minimal weight'})
-title('Mean grip force during stabilization for adaptation trials - Elderly participants');
-%title('Mean grip force during stabilization for adaptation trials - Young participants')
+%title('Mean grip force during stabilization for adaptation trials - Elderly participants');
+title('Mean grip force during stabilization for adaptation trials - Young participants')
 ylabel('Grip force peak (N)')
 %ylim([0,20]);
 
