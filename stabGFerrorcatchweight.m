@@ -1,4 +1,4 @@
-%Graphes catch weight. Max to min LF, Max to min HF, min to max LF, min to
+%Boxplots stab GF catch weight. Max to min LF, Max to min HF, min to max LF, min to
 %max HF
 function stabcatchweight = stabGFerrorcatchweight(meanstabGFmatrix, nparticipants)
 % Max to min LF 
@@ -55,10 +55,22 @@ C=reshape(maxtominstabHF,1,[]).';
 D=reshape(mintomaxstabHF,1,[]).';
 
 x = [A;B;C;D];
-group1=ones(1,65);
-group2=ones(1,52)*2;
-group3=ones(1,52)*3;
-group4=ones(1,65)*4;
+
+%% Elderly participants
+%{
+group1=ones(1,65); %taille matrice A
+group2=ones(1,52)*2; %taille matrice B
+group3=ones(1,52)*3; %taille matrice C
+group4=ones(1,65)*4; %%taille matrice D
+%}
+
+%% Young participants
+group1=ones(1,75);
+group2=ones(1,60)*2;
+group3=ones(1,60)*3;
+group4=ones(1,75)*4;
+
+%% Boxplot
 group = [group1,group2,group3,group4];
 positions = [1 1.25 2 2.25];
 boxplot(x,group, 'positions', positions);
