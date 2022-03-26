@@ -1,4 +1,4 @@
-
+%Boxplots des pics de GF pour essais catch friction
 function maxLFerror = maxGFerrorcatchverre(maxGFmatrix, nparticipants)
 % Max LF catch verres
 nessais=4;
