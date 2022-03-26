@@ -109,19 +109,30 @@ meanminHF=mean(meanminHFsub);
 
 meanminHFparticipants=mean(minHF);
 
-
+% Transformation en vecteur des matrices créées ci-dessus
 A=reshape(maxLF,1,[]).';
 B=reshape(maxHF,1,[]).';
 C=reshape(minLF,1,[]).';
 D=reshape(minHF,1,[]).';
 
+%Grand vecteur reprenant toutes les données des sous-vecteurs A,B,C,D
 x = [A;B;C;D];
 
-group1=ones(1,273);
-group2=ones(1,247)*2;
+
+%% Eldery participants
+
+group1=ones(1,273); % 273 est la taille de la matrice A, ça correspond aux mêmes valeurs des points (code pour mettre les différents points sur les plots)
+group2=ones(1,247)*2; %247 est la taille de la matrice B
 group3=ones(1,221)*3;
 group4=ones(1,234)*4;
-group = [group1,group2,group3,group4];
+
+%% Young participants
+
+
+
+
+%% Code pour tracer les boxplots (commun aux young et elderly)
+group = [group1,group2,group3,group4]; 
 positions = [1 1.25 2 2.25];
 boxplot(x,group, 'positions', positions);
 
