@@ -17,7 +17,6 @@ S = std(A); %calcule la standard deviation
 error=S;%/(nessais*nparticipants)
 
 
-
 nessaisbis=3;
 maxHF=zeros(nessaisbis, nparticipants);
 maxHF(1,:)=maxGFmatrix(67,:);
@@ -53,23 +52,36 @@ meanminHF=mean(meanminHFsub);%moyenne des moyennes de tous les sujets
 
 meanminHFparticipants=mean(minHF);
 
+% Transformation en vecteur des matrices créées ci-dessus
 D=reshape(minHF,1,[]).';
 
-x = [A;B;C;D]
-group1=ones(1,52);
-group2=ones(1,39)*2;
-group3=ones(1,39)*3;
-group4=ones(1,52)*4;
+%Grand vecteur reprenant toutes les données des sous-vecteurs A,B,C,D
+x = [A;B;C;D];
+
+%% Elderly participants
+group1=ones(1,52); %taille matrice A
+group2=ones(1,39)*2; %taille matrice B
+group3=ones(1,39)*3; %taille matrice C
+group4=ones(1,52)*4; %taille matrice D
+
+%% Young participants
+group1=ones(1,60); %taille matrice A
+group2=ones(1,45)*2; %taille matrice B
+group3=ones(1,45)*3; %taille matrice C
+group4=ones(1,60)*4; %taille matrice D
+
+%% Boxplots
+
 group = [group1,group2,group3,group4];
 positions = [1 1.25 2 2.25];
 boxplot(x,group, 'positions', positions);
 
 set(gca,'xtick',[mean(positions(1:2)) mean(positions(3:4)) ])
 set(gca,'xticklabel',{'Maximal weight','Minimal weight'})
-title('Grip force peak magnitude for friction catch trials - Elderly participants')
-%title('Grip force peak magnitude for friction catch trials - Young participants')
+%title('Grip force peak magnitude for friction catch trials - Elderly participants')
+title('Grip force peak magnitude for friction catch trials - Young participants')
 ylabel('Grip force peak (N)')
-%ylim([0,20]);
+%ylim([0,12]);
 
 yellow=[0.8500, 0.3250, 0.0980]	;
 orange=[0.9290, 0.6940, 0.1250];
