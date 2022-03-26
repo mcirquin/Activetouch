@@ -127,7 +127,10 @@ group3=ones(1,221)*3;
 group4=ones(1,234)*4;
 
 %% Young participants
-
+group1=ones(1,315); % taille de la matrice A
+group2=ones(1,285)*2; %taille de la matrice B
+group3=ones(1,255)*3; %taille de la matrice C
+group4=ones(1,270)*4; %taille de la matrice D
 
 
 
@@ -138,8 +141,8 @@ boxplot(x,group, 'positions', positions);
 
 set(gca,'xtick',[mean(positions(1:2)) mean(positions(3:4)) ])
 set(gca,'xticklabel',{'Maximal weight','Minimal weight'})
-title('Grip force peak magnitude for adaptation trials - Elderly participants')
-%title('Grip force peak magnitude for friction catch trials - Young participants')
+%title('Grip force peak magnitude for adaptation trials - Elderly participants')
+title('Grip force peak magnitude for adaptation trials - Young participants')
 ylabel('Grip force peak (N)')
 %ylim([0,20]);
 
