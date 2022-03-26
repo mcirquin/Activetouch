@@ -1,4 +1,4 @@
-%Graphe max GF vs Max weight LF, Max weight HF, Min weight LF, Min weight HF
+%Boxplots pour essais ctach friction
 function stabLF = stabGFerrorcatchverre(meanstabGFmatrix, nparticipants)
 %% Max LF catch verres
 nessais=4;
@@ -7,7 +7,7 @@ maxstabLF(1,:)=meanstabGFmatrix(13,:);
 maxstabLF(2,:)=meanstabGFmatrix(25,:);
 maxstabLF(3,:)=meanstabGFmatrix(73,:);
 maxstabLF(4,:)=meanstabGFmatrix(91,:);
-meanmaxstabLFsub=mean(maxstabLF,2);%donne un tableau de 4 résultats donc moyennes des 4 essais
+meanmaxstabLFsub=mean(maxstabLF,2);%donne un tableau de 4 rÃ©sultats donc moyennes des 4 essais
 meanmaxstabLF=mean(meanmaxstabLFsub);
 
 meanmaxstabLFparticipant = mean(maxstabLF);
@@ -52,18 +52,30 @@ C=reshape(minstabLF,1,[]).';
 D=reshape(minstabHF,1,[]).';
 
 x = [A;B;C;D];
+
+%% Elderly participants
+%{
 group1=ones(1,52);
 group2=ones(1,39)*2;
 group3=ones(1,39)*3;
 group4=ones(1,52)*4;
+%}
+%% Young participants
+group1=ones(1,60);
+group2=ones(1,45)*2;
+group3=ones(1,45)*3;
+group4=ones(1,60)*4;
+
+
+%% Boxplots
 group = [group1,group2,group3,group4];
 positions = [1 1.25 2 2.25];
 boxplot(x,group, 'positions', positions);
 
 set(gca,'xtick',[mean(positions(1:2)) mean(positions(3:4)) ])
 set(gca,'xticklabel',{'Maximal weight','Minimal weight'})
-title('Mean grip force during stabilization for friction catch trials - Elderly participants')
-%title('Mean grip force during stabilization for friction catch trials - Young participants')
+%title('Mean grip force during stabilization for friction catch trials - Elderly participants')
+title('Mean grip force during stabilization for friction catch trials - Young participants')
 ylabel('Grip force peak (N)')
 %ylim([0,20]);
 
