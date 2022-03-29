@@ -6,8 +6,8 @@ nparticipants = 15;
 threshold = 2; %Valeur threshold pour l'alignement des courbes semon la LF 
 tstart = 2000;
 tsteps = 2759;  %nombre de pas de temps 
-GFtable = zeros(tsteps-tstart+1,nparticipants*trials); %matrice reprenant toutes les données de GF pour chaque essai pour chaque participant
-LFtable = zeros(tsteps-tstart+1,nparticipants*trials); %matrice reprenant toutes les données de LF pour chaque essai pour chaque participant
+GFtable = zeros(tsteps-tstart+1,nparticipants*trials); %matrice reprenant toutes les donnÃ©es de GF pour chaque essai pour chaque participant
+LFtable = zeros(tsteps-tstart+1,nparticipants*trials); %matrice reprenant toutes les donnÃ©es de LF pour chaque essai pour chaque participant
 l = 1;
 
 
@@ -25,15 +25,15 @@ for ii = 1:numel(N)    %loop going through each folder
     for jj = 1:numel(filelist)   % loop that takes each file of the folder
         F = fullfile(D,N{ii},C{jj});
         x = at_import(F, 'freqFiltForces', 20); %import table for each trial
-        GFtable(:,l)=x.gf(tstart:tsteps); %extraction et stockage données de GF pour l'essai dans la matrice globale
-        LFtable(:,l)=x.lf(tstart:tsteps); %extraction et stockage données de LF pour l'essai dans la matrice globale
+        GFtable(:,l)=x.gf(tstart:tsteps); %extraction et stockage donnÃ©es de GF pour l'essai dans la matrice globale
+        LFtable(:,l)=x.lf(tstart:tsteps); %extraction et stockage donnÃ©es de LF pour l'essai dans la matrice globale
         l = l+1;
     end
 end
 
 indices = zeros(nparticipants*trials,1); %Vecteur reprenant les outputs finaux
 for i = 1:nparticipants*trials   %loop going through every column of the matrix   
-    greaterThan = find(LFtable(:,i) > threshold); %fonction find: retourne 
+    greaterThan = find(LFtable(:,i) >= threshold); %fonction find: retourne 
     %vecteur avec les indices de toutes les valeurs qui sont plus grandes que
     %le treshold (2N pour la load force)
     indices(i) = greaterThan(1); %On prend le premier indice 
