@@ -1,20 +1,20 @@
-function output = stabGFcatchweightvsadaptation(meanstabGFmatrix, nparticipants)
+function output = stabGFcatchfrictiontvsadaptation(meanstabGFmatrix, nparticipants)
 %Barplots of the stabilization mean Grip Forces of catch weight trials vs 
 %the adaptation trials 
 %maxGFmatrix : matrix with all the peak GF values for all the trials of
 %all the participants
 
 %% Comparison of min weight trials (for HF and LF)
-%max to min catch weight LF
-nessais=5;
-maxtominstabLF=zeros(nessais, nparticipants);
-maxtominstabLF(1,:)=meanstabGFmatrix(16,:);
-maxtominstabLF(2,:)=meanstabGFmatrix(29,:);
-maxtominstabLF(3,:)=meanstabGFmatrix(63,:);
-maxtominstabLF(4,:)=meanstabGFmatrix(76,:);
-maxtominstabLF(5,:)=meanstabGFmatrix(95,:);
-meanmaxtominstabLFsub=mean(maxtominstabLF, 2);
-meanmaxtominstabLF=mean(meanmaxtominstabLFsub);
+%HF to LF catch friction min weight
+
+nessaisbis=3;
+mincatchLF=zeros(nessaisbis, nparticipants);
+mincatchLF(1,:)=meanstabGFmatrix(43,:);
+mincatchLF(2,:)=meanstabGFmatrix(55,:);
+mincatchLF(3,:)=meanstabGFmatrix(103,:);
+meanmincatchLFsub=mean(mincatchLF, 2);
+meanmincatchLF=mean(meanmincatchLFsub);
+meanmincatchLFparticipants=mean(mincatchLF);
 
 %min LF adaptation 
 nessaisbis = 17;
@@ -39,15 +39,16 @@ minstabLF(17,:)=meanstabGFmatrix(79,:);
 meanminstabLFsub=mean(minstabLF, 2);
 meanminstabLF=mean(meanminstabLFsub);
 
-%Max to min catch weight HF
-nessais2=4;
-maxtominstabHF=zeros(nessais2, nparticipants);
-maxtominstabHF(1,:)=meanstabGFmatrix(41,:);
-maxtominstabHF(2,:)=meanstabGFmatrix(69,:);
-maxtominstabHF(3,:)=meanstabGFmatrix(88,:);
-maxtominstabHF(4,:)=meanstabGFmatrix(112,:);
-meanmaxtominstabHFsub=mean(maxtominstabHF, 2);
-meanmaxtominstabHF=mean(meanmaxtominstabHFsub);
+%LF to HF catch friction min weight
+nessais=4;
+mincatchHF=zeros(nessais, nparticipants);
+mincatchHF(1,:)=meanstabGFmatrix(19,:);
+mincatchHF(2,:)=meanstabGFmatrix(31,:);
+mincatchHF(3,:)=meanstabGFmatrix(49,:);
+mincatchHF(4,:)=meanstabGFmatrix(97,:);
+meanmincatchHFsub=mean(mincatchHF, 2); %moyenne pour tous les sujets
+meanmincatchHF=mean(meanmincatchHFsub);%moyenne des moyennes de tous les sujets
+meanmincatchHFparticipants=mean(mincatchHF);
 
 
 %Min HF adaptation
@@ -77,15 +78,16 @@ meanminstabHF=mean(meanminstabHFsub);
 
 
 %% Comparison of max weight trials (for LF and HF)
-%%min to max catch weight LF
-nessais3=4;
-mintomaxstabLF=zeros(nessais3, nparticipants);
-mintomaxstabLF(1,:)=meanstabGFmatrix(45,:);
-mintomaxstabLF(2,:)=meanstabGFmatrix(58,:);
-mintomaxstabLF(3,:)=meanstabGFmatrix(83,:);
-mintomaxstabLF(4,:)=meanstabGFmatrix(105,:);
-meanmintomaxstabLFsub=mean(mintomaxstabLF, 2);
-meanmintomaxstabLF=mean(meanmintomaxstabLFsub);
+
+%%HF to LF catch friction max weight
+nessais=4;
+maxcatchLF=zeros(nessais, nparticipants);
+maxcatchLF(1,:)=meanstabGFmatrix(13,:);
+maxcatchLF(2,:)=meanstabGFmatrix(25,:);
+maxcatchLF(3,:)=meanstabGFmatrix(73,:);
+maxcatchLF(4,:)=meanstabGFmatrix(91,:);
+meanmaxcatchLFsub=mean(maxcatchLF, 2);
+meanmaxcatchLF=mean(meanmaxcatchLFsub);
 
 %max LF adaptation
 nessais3bis=21;
@@ -114,16 +116,15 @@ maxstabLF(21,:)=meanstabGFmatrix(61,:);
 meanmaxstabLFsub=mean(maxstabLF, 2);
 meanmaxstabLF=mean(meanmaxstabLFsub);
 
-%min to max catch weight HF
-nessais4=5;
-mintomaxstabHF=zeros(nessais4, nparticipants);
-mintomaxstabHF(1,:)=meanstabGFmatrix(21,:);
-mintomaxstabHF(2,:)=meanstabGFmatrix(33,:);
-mintomaxstabHF(3,:)=meanstabGFmatrix(52,:);
-mintomaxstabHF(4,:)=meanstabGFmatrix(101,:);
-mintomaxstabHF(5,:)=meanstabGFmatrix(119,:);
-meanmintomaxstabHFsub=mean(mintomaxstabHF, 2);
-meanmintomaxstabHF=mean(meanmintomaxstabHFsub);
+%LF to HF catch friction max weight
+nessaisbis=3;
+maxcatchHF=zeros(nessaisbis, nparticipants);
+maxcatchHF(1,:)=meanstabGFmatrix(67,:);
+maxcatchHF(2,:)=meanstabGFmatrix(85,:);
+maxcatchHF(3,:)=meanstabGFmatrix(109,:);
+meanmaxcatchHFsub=mean(maxcatchHF, 2);
+meanmaxcatchHF=mean(meanmaxcatchHFsub);
+meanmaxcatchHFparticipants=mean(maxcatchHF);
 
 %max HF adaptation
 nessais4bis=19;
@@ -169,13 +170,13 @@ ylabel('Mean grip force (N)')
 
 
 %% Boxplots
-A=reshape(maxtominstabLF,1,[]).';
+A=reshape(mincatchLF,1,[]).';
 B=reshape(minstabLF,1,[]).';
-C=reshape(maxtominstabHF,1,[]).';
+C=reshape(mincatchHF,1,[]).';
 D=reshape(minstabHF,1,[]).';
-E=reshape(mintomaxstabLF,1,[]).';
+E=reshape(maxcatchLF,1,[]).';
 F=reshape(maxstabLF,1,[]).';
-G=reshape(mintomaxstabHF,1,[]).';
+G=reshape(maxcatchHF,1,[]).';
 H=reshape(maxstabHF,1,[]).';
 
 x = [A;B;C;D;E;F;G;H];
@@ -203,8 +204,8 @@ boxplot(x,group, 'positions', positions);
 
 set(gca,'xtick',[mean(positions(1:2)) mean(positions(3:4)) mean(positions(5:6)) mean(positions(7:8)) ])
 set(gca,'xticklabel',{'Min weight LF','Min weight HF', 'Max weight LF', 'Max weight HF'})
-title('Stabilization GF for weight catch and adaptation trials - Elderly participants')
-%title('Stabilization GF for weight catch and adaptation trials - Young participants')
+title('Stabilization GF for friction catch and adaptation trials - Elderly participants')
+%title('Stabilization GF for friction catch and adaptation trials - Young participants')
 ylabel('Grip force peak (N)')
 %ylim([0,20]);
 
@@ -220,7 +221,7 @@ end
 
 c = get(gca, 'Children');
 
-hleg1 = legend(c(1:2), 'Friction catch trials', 'Adaptation trials' );
+hleg1 = legend(c(1:2), 'Friction catch trials', 'Adaptation' );
 
 
 
