@@ -34,7 +34,6 @@ minLF(13,:)=maxGFmatrix(80,:);
 minLF(14,:)=maxGFmatrix(81,:);
 minLF(15,:)=maxGFmatrix(82,:);
 minLF(16,:)=maxGFmatrix(104,:);
-minLF(17,:)=maxGFmatrix(79,:);
 meanminLFsub=mean(minLF, 2);
 meanminLF=mean(meanminLFsub);
 
@@ -68,7 +67,6 @@ minHF(14,:)=maxGFmatrix(100,:);
 minHF(15,:)=maxGFmatrix(116,:);
 minHF(16,:)=maxGFmatrix(117,:);
 minHF(17,:)=maxGFmatrix(118,:);
-minHF(18,:)=maxGFmatrix(115,:);
 meanminHFsub=mean(minHF, 2);
 meanminHF=mean(meanminHFsub);
 
@@ -106,7 +104,6 @@ maxLF(17,:)=maxGFmatrix(84,:);
 maxLF(18,:)=maxGFmatrix(106,:);
 maxLF(19,:)=maxGFmatrix(107,:);
 maxLF(20,:)=maxGFmatrix(108,:);
-maxLF(21,:)=maxGFmatrix(61,:);
 meanmaxLFsub=mean(maxLF, 2);
 meanmaxLF=mean(meanmaxLFsub);
 
@@ -142,7 +139,6 @@ maxHF(15,:)=maxGFmatrix(53,:);
 maxHF(16,:)=maxGFmatrix(54,:);
 maxHF(17,:)=maxGFmatrix(102,:);
 maxHF(18,:)=maxGFmatrix(120,:);
-maxHF(19,:)=maxGFmatrix(37,:);
 meanmaxHFsub=mean(maxHF, 2);
 meanmaxHF=mean(meanmaxHFsub);
 
