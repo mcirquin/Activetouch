@@ -16,7 +16,7 @@ meanmaxtominLFsub=mean(maxtominLF, 2);
 meanmaxtominLF=mean(meanmaxtominLFsub);
 
 %min LF adaptation 
-nessaisbis = 17;
+nessaisbis = 16;
 minLF=zeros(nessaisbis, nparticipants);
 minLF(1,:)=maxGFmatrix(17,:);
 minLF(2,:)=maxGFmatrix(18,:);
@@ -48,7 +48,7 @@ meanmaxtominHFsub=mean(maxtominHF, 2);
 meanmaxtominHF=mean(meanmaxtominHFsub);
 
 %Min HF adaptation
-nessais2bis = 18;
+nessais2bis = 17;
 minHF=zeros(nessais2bis, nparticipants);
 minHF(1,:)=maxGFmatrix(42,:);
 minHF(2,:)=maxGFmatrix(70,:);
@@ -82,7 +82,7 @@ meanmintomaxLFsub=mean(mintomaxLF, 2);
 meanmintomaxLF=mean(meanmintomaxLFsub);
 
 %max LF adaptation
-nessais3bis=21;
+nessais3bis=20;
 maxLF=zeros(nessais3bis, nparticipants);
 maxLF(1,:)=maxGFmatrix(14,:);
 maxLF(2,:)=maxGFmatrix(15,:);
@@ -119,7 +119,7 @@ meanmintomaxHFsub=mean(mintomaxHF, 2);
 meanmintomaxHF=mean(meanmintomaxHFsub);
 
 %max HF adaptation
-nessais4bis=19;
+nessais4bis=18;
 maxHF=zeros(nessais4bis, nparticipants);
 maxHF(1,:)=maxGFmatrix(38,:);
 maxHF(2,:)=maxGFmatrix(39,:);
