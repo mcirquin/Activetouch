@@ -17,7 +17,7 @@ meanmaxtominstabLFsub=mean(maxtominstabLF, 2);
 meanmaxtominstabLF=mean(meanmaxtominstabLFsub);
 
 %min LF adaptation 
-nessaisbis = 17;
+nessaisbis = 16;
 minstabLF=zeros(nessaisbis, nparticipants);
 minstabLF(1,:)=meanstabGFmatrix(17,:);
 minstabLF(2,:)=meanstabGFmatrix(18,:);
@@ -50,7 +50,7 @@ meanmaxtominstabHF=mean(meanmaxtominstabHFsub);
 
 
 %Min HF adaptation
-nessais2bis = 18;
+nessais2bis = 17;
 minstabHF=zeros(nessais2bis, nparticipants);
 minstabHF(1,:)=meanstabGFmatrix(42,:);
 minstabHF(2,:)=meanstabGFmatrix(70,:);
@@ -86,7 +86,7 @@ meanmintomaxstabLFsub=mean(mintomaxstabLF, 2);
 meanmintomaxstabLF=mean(meanmintomaxstabLFsub);
 
 %max LF adaptation
-nessais3bis=21;
+nessais3bis=20;
 maxstabLF=zeros(nessais3bis, nparticipants);
 maxstabLF(1,:)=meanstabGFmatrix(14,:);
 maxstabLF(2,:)=meanstabGFmatrix(15,:);
@@ -123,7 +123,7 @@ meanmintomaxstabHFsub=mean(mintomaxstabHF, 2);
 meanmintomaxstabHF=mean(meanmintomaxstabHFsub);
 
 %max HF adaptation
-nessais4bis=19;
+nessais4bis=18;
 maxstabHF=zeros(nessais4bis, nparticipants);
 maxstabHF(1,:)=meanstabGFmatrix(38,:);
 maxstabHF(2,:)=meanstabGFmatrix(39,:);
