@@ -1,7 +1,7 @@
 %Graphe max GF lors des phases d'adaptation max LF, max HF, min LF, min HF
 function maxLF = maxGFerroradaptation(maxGFmatrix, nparticipants)
 %% Max GF adaptation max LF 
-nessais1=21;
+nessais1=20;
 maxLF=zeros(nessais1, nparticipants);
 maxLF(1,:)=maxGFmatrix(14,:);
 maxLF(2,:)=maxGFmatrix(15,:);
@@ -30,7 +30,7 @@ meanmaxLFparticipants=mean(maxLF);
 
 
 %% Max GF adaptation max HF 
-nessais2=19;
+nessais2=18;
 maxHF=zeros(nessais2, nparticipants);
 maxHF(1,:)=maxGFmatrix(38,:);
 maxHF(2,:)=maxGFmatrix(39,:);
@@ -56,7 +56,7 @@ meanmaxHF=mean(meanmaxHFsub);
 meanmaxHFparticipants=mean(maxHF); %moyenne par participants
 
 %% Max GF adaptation min LF 
-nessais3 = 17;
+nessais3 = 16;
 minLF=zeros(nessais3, nparticipants);
 minLF(1,:)=maxGFmatrix(17,:);
 minLF(2,:)=maxGFmatrix(18,:);
@@ -80,7 +80,7 @@ meanminLF=mean(meanminLFsub);
 meanminLFparticipants=mean(minLF);
 
 %% Max GF adaptation min HF 
-nessais4 = 18;
+nessais4 = 17;
 minHF=zeros(nessais4, nparticipants);
 minHF(1,:)=maxGFmatrix(42,:);
 minHF(2,:)=maxGFmatrix(70,:);
@@ -114,10 +114,10 @@ D=reshape(minHF,1,[]).';
 %Grand vecteur reprenant toutes les données des sous-vecteurs A,B,C,D
 x = [A;B;C;D];
 
-sizeA=size(A);
-sizeB=size(B);
-sizeC=size(C);
-sizeD=size(D);
+sizeA=size(A,1);
+sizeB=size(B,1);
+sizeC=size(C,1);
+sizeD=size(D,1);
 
 %% Eldery participants
 
