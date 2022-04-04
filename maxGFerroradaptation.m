@@ -23,7 +23,6 @@ maxLF(17,:)=maxGFmatrix(84,:);
 maxLF(18,:)=maxGFmatrix(106,:);
 maxLF(19,:)=maxGFmatrix(107,:);
 maxLF(20,:)=maxGFmatrix(108,:);
-maxLF(21,:)=maxGFmatrix(61,:);
 meanmaxLFsub=mean(maxLF, 2);
 meanmaxLF=mean(meanmaxLFsub);
 
@@ -51,7 +50,6 @@ maxHF(15,:)=maxGFmatrix(53,:);
 maxHF(16,:)=maxGFmatrix(54,:);
 maxHF(17,:)=maxGFmatrix(102,:);
 maxHF(18,:)=maxGFmatrix(120,:);
-maxHF(19,:)=maxGFmatrix(37,:);
 meanmaxHFsub=mean(maxHF, 2);
 meanmaxHF=mean(meanmaxHFsub);
 
@@ -76,7 +74,6 @@ minLF(13,:)=maxGFmatrix(80,:);
 minLF(14,:)=maxGFmatrix(81,:);
 minLF(15,:)=maxGFmatrix(82,:);
 minLF(16,:)=maxGFmatrix(104,:);
-minLF(17,:)=maxGFmatrix(79,:);
 meanminLFsub=mean(minLF, 2);
 meanminLF=mean(meanminLFsub);
 
@@ -103,7 +100,6 @@ minHF(14,:)=maxGFmatrix(100,:);
 minHF(15,:)=maxGFmatrix(116,:);
 minHF(16,:)=maxGFmatrix(117,:);
 minHF(17,:)=maxGFmatrix(118,:);
-minHF(18,:)=maxGFmatrix(115,:);
 meanminHFsub=mean(minHF, 2);
 meanminHF=mean(meanminHFsub);
 
@@ -118,20 +114,17 @@ D=reshape(minHF,1,[]).';
 %Grand vecteur reprenant toutes les données des sous-vecteurs A,B,C,D
 x = [A;B;C;D];
 
+sizeA=size(A);
+sizeB=size(B);
+sizeC=size(C);
+sizeD=size(D);
 
 %% Eldery participants
 
-group1=ones(1,273); % 273 est la taille de la matrice A, ça correspond aux mêmes valeurs des points (code pour mettre les différents points sur les plots)
-group2=ones(1,247)*2; %247 est la taille de la matrice B
-group3=ones(1,221)*3;
-group4=ones(1,234)*4;
-
-%% Young participants
-group1=ones(1,315); % taille de la matrice A
-group2=ones(1,285)*2; %taille de la matrice B
-group3=ones(1,255)*3; %taille de la matrice C
-group4=ones(1,270)*4; %taille de la matrice D
-
+group1=ones(1,sizeA); % 273 est la taille de la matrice A, ça correspond aux mêmes valeurs des points (code pour mettre les différents points sur les plots)
+group2=ones(1,sizeB)*2; %247 est la taille de la matrice B
+group3=ones(1,sizeC)*3;
+group4=ones(1,sizeD)*4;
 
 
 %% Code pour tracer les boxplots (commun aux young et elderly)
