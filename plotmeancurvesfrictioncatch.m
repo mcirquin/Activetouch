@@ -14,7 +14,7 @@ lfmaxcatchLF1 = [lfmaxcatchLF1 alignedLFtable(:,79:108:end)];
 gfmaxcatchLF1=alignedGFtable(:,1:108:end);
 gfmaxcatchLF1=[gfmaxcatchLF1 alignedGFtable(:,13:108:end)];
 gfmaxcatchLF1=[gfmaxcatchLF1 alignedGFtable(:,61:108:end)];
-gfmaxcatchLF1=[gfmaxcatchLF1 alignedGFtable(:,61:108:end)];
+gfmaxcatchLF1=[gfmaxcatchLF1 alignedGFtable(:,79:108:end)];
 
 %high friction adaptation under max weight 
 nessais2=18;
