@@ -15,7 +15,7 @@ meanmincatchLF=mean(meanmincatchLFsub);
 meanmincatchLFparticipants=mean(mincatchLF);
 
 %min weight LF adaptation 
-nessais3 = 17;
+nessais3 = 16;
 minLF=zeros(nessais3, nparticipants);
 minLF(1,:)=maxLFmatrix(17,:);
 minLF(2,:)=maxLFmatrix(18,:);
@@ -33,7 +33,6 @@ minLF(13,:)=maxLFmatrix(80,:);
 minLF(14,:)=maxLFmatrix(81,:);
 minLF(15,:)=maxLFmatrix(82,:);
 minLF(16,:)=maxLFmatrix(104,:);
-minLF(17,:)=maxLFmatrix(79,:);
 meanminLFsub=mean(minLF, 2);
 meanminLF=mean(meanminLFsub);
 meanminLFparticipants=mean(minLF);
@@ -50,7 +49,7 @@ meanmincatchHF=mean(meanmincatchHFsub);%moyenne des moyennes de tous les sujets
 meanmincatchHFparticipants=mean(mincatchHF);
 
 %Min HF adaptation
-nessais2bis = 18;
+nessais2bis = 17;
 minHF=zeros(nessais2bis, nparticipants);
 minHF(1,:)=maxLFmatrix(42,:);
 minHF(2,:)=maxLFmatrix(70,:);
@@ -69,7 +68,6 @@ minHF(14,:)=maxLFmatrix(100,:);
 minHF(15,:)=maxLFmatrix(116,:);
 minHF(16,:)=maxLFmatrix(117,:);
 minHF(17,:)=maxLFmatrix(118,:);
-minHF(18,:)=maxLFmatrix(115,:);
 meanminHFsub=mean(minHF, 2);
 meanminHF=mean(meanminHFsub);
 
@@ -85,7 +83,7 @@ meanmaxcatchLFsub=mean(maxcatchLF, 2);
 meanmaxcatchLF=mean(meanmaxcatchLFsub);
 
 %max LF adaptation
-nessais3bis=21;
+nessais3bis=20;
 maxLF=zeros(nessais3bis, nparticipants);
 maxLF(1,:)=maxLFmatrix(14,:);
 maxLF(2,:)=maxLFmatrix(15,:);
@@ -107,7 +105,6 @@ maxLF(17,:)=maxLFmatrix(84,:);
 maxLF(18,:)=maxLFmatrix(106,:);
 maxLF(19,:)=maxLFmatrix(107,:);
 maxLF(20,:)=maxLFmatrix(108,:);
-maxLF(21,:)=maxLFmatrix(61,:);
 meanmaxLFsub=mean(maxLF, 2);
 meanmaxLF=mean(meanmaxLFsub);
 
@@ -122,7 +119,7 @@ meanmaxcatchHF=mean(meanmaxcatchHFsub);
 meanmaxcatchHFparticipants=mean(maxcatchHF);
 
 %max HF adaptation
-nessais4bis=19;
+nessais4bis=18;
 maxHF=zeros(nessais4bis, nparticipants);
 maxHF(1,:)=maxLFmatrix(38,:);
 maxHF(2,:)=maxLFmatrix(39,:);
@@ -142,7 +139,6 @@ maxHF(15,:)=maxLFmatrix(53,:);
 maxHF(16,:)=maxLFmatrix(54,:);
 maxHF(17,:)=maxLFmatrix(102,:);
 maxHF(18,:)=maxLFmatrix(120,:);
-maxHF(19,:)=maxLFmatrix(37,:);
 meanmaxHFsub=mean(maxHF, 2);
 meanmaxHF=mean(meanmaxHFsub);
 
