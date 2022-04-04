@@ -1,7 +1,7 @@
 %Graphe max Load Force lors des phases d'adaptation max LF, max HF, min LF, min HF
 function maxLF = maxLFadaptation(maxLFmatrix, nparticipants)
 %% Max LF adaptation max LF 
-nessais1=21;
+nessais1=20;
 maxLF=zeros(nessais1, nparticipants);
 maxLF(1,:)=maxLFmatrix(14,:);
 maxLF(2,:)=maxLFmatrix(15,:);
@@ -23,7 +23,6 @@ maxLF(17,:)=maxLFmatrix(84,:);
 maxLF(18,:)=maxLFmatrix(106,:);
 maxLF(19,:)=maxLFmatrix(107,:);
 maxLF(20,:)=maxLFmatrix(108,:);
-maxLF(21,:)=maxLFmatrix(61,:);
 meanmaxLFsub=mean(maxLF, 2);
 meanmaxLF=mean(meanmaxLFsub);
 
@@ -31,7 +30,7 @@ meanmaxLFparticipants=mean(maxLF);
 
 
 %% Max LF adaptation max HF 
-nessais2=19;
+nessais2=18;
 maxHF=zeros(nessais2, nparticipants);
 maxHF(1,:)=maxLFmatrix(38,:);
 maxHF(2,:)=maxLFmatrix(39,:);
@@ -51,14 +50,13 @@ maxHF(15,:)=maxLFmatrix(53,:);
 maxHF(16,:)=maxLFmatrix(54,:);
 maxHF(17,:)=maxLFmatrix(102,:);
 maxHF(18,:)=maxLFmatrix(120,:);
-maxHF(19,:)=maxLFmatrix(37,:);
 meanmaxHFsub=mean(maxHF, 2);
 meanmaxHF=mean(meanmaxHFsub);
 
 meanmaxHFparticipants=mean(maxHF); %moyenne par participants
 
 %% Max LF adaptation min LF 
-nessais3 = 17;
+nessais3 = 16;
 minLF=zeros(nessais3, nparticipants);
 minLF(1,:)=maxLFmatrix(17,:);
 minLF(2,:)=maxLFmatrix(18,:);
@@ -76,14 +74,13 @@ minLF(13,:)=maxLFmatrix(80,:);
 minLF(14,:)=maxLFmatrix(81,:);
 minLF(15,:)=maxLFmatrix(82,:);
 minLF(16,:)=maxLFmatrix(104,:);
-minLF(17,:)=maxLFmatrix(79,:);
 meanminLFsub=mean(minLF, 2);
 meanminLF=mean(meanminLFsub);
 
 meanminLFparticipants=mean(minLF);
 
 %% Max LF adaptation min HF 
-nessais4 = 18;
+nessais4 = 17;
 minHF=zeros(nessais4, nparticipants);
 minHF(1,:)=maxLFmatrix(42,:);
 minHF(2,:)=maxLFmatrix(70,:);
@@ -103,7 +100,6 @@ minHF(14,:)=maxLFmatrix(100,:);
 minHF(15,:)=maxLFmatrix(116,:);
 minHF(16,:)=maxLFmatrix(117,:);
 minHF(17,:)=maxLFmatrix(118,:);
-minHF(18,:)=maxLFmatrix(115,:);
 meanminHFsub=mean(minHF, 2);
 meanminHF=mean(meanminHFsub);
 
@@ -172,9 +168,9 @@ for i=1:nparticipants
 end
 
 
-%% Code pour avoir tous les points data superposÈs sur le barplot (Elderly participants)
+%% Code pour avoir tous les points data superpos√©s sur le barplot (Elderly participants)
 %{
-% Points pour la premiËre barre (maximal weight, low friction)
+% Points pour la premiƒçre barre (maximal weight, low friction)
 hold on;
 xoffset = -0.08; 
 plot(xdata(1)+xoffset,A(1:21),'k.','HandleVisibility','off');
@@ -216,7 +212,7 @@ xoffset = -0.2;
 plot(xdata(1)+xoffset,A(256:273),'k.', 'HandleVisibility','off');
 hold on;
 
-% Points pour la deuxiËme barre (maximal weight, high friction)
+% Points pour la deuxiƒçme barre (maximal weight, high friction)
 
 xoffset = 0.1; 
 plot(xdata(1)+xoffset,B(1:21),'k.','HandleVisibility','off');
@@ -254,7 +250,7 @@ hold on
 xoffset = 0.08; 
 plot(xdata(1)+xoffset,B(231:247),'k.', 'HandleVisibility','off');
 
-% Points pour la troisiËme barre (minimal weight, low friction)
+% Points pour la troisiƒçme barre (minimal weight, low friction)
 
 hold on;
 xoffset = -0.1; 
@@ -288,7 +284,7 @@ xoffset = -0.19;
 plot(xdata(2)+xoffset,C(198:221),'k.', 'HandleVisibility','off');
 
 
-% Points pour la quatriËme barre (minimal weight, high friction)
+% Points pour la quatriƒçme barre (minimal weight, high friction)
 hold on;
 xoffset = 0.1; 
 plot(xdata(2)+xoffset,D(1:23),'k.','HandleVisibility','off');
@@ -320,10 +316,10 @@ hold on
 xoffset = 0.19; 
 plot(xdata(2)+xoffset,D(207:234),'k.', 'HandleVisibility','off');
 %}
-%% Code pour avoir tous les points data superposÈs sur le barplot (Young participants)
+%% Code pour avoir tous les points data superpos√©s sur le barplot (Young participants)
 
 %{
-% Points pour la premiËre barre (maximal weight, low friction)
+% Points pour la premiƒçre barre (maximal weight, low friction)
 hold on;
 xoffset = -0.11; % manual set of get from properties of bar handle
 plot(xdata(1)+xoffset,A(1:29),'k.','HandleVisibility','off');
@@ -354,7 +350,7 @@ plot(xdata(1)+xoffset,A(250:289),'k.', 'HandleVisibility','off');
 hold on
 xoffset = -0.2; % manual set of get from properties of bar handle
 plot(xdata(1)+xoffset,A(290:315),'k.', 'HandleVisibility','off');
-% Points pour la deuxiËme barre (maximal weight, high friction)
+% Points pour la deuxiƒçme barre (maximal weight, high friction)
 hold on;
 xoffset = 0.11; % manual set of get from properties of bar handle
 plot(xdata(1)+xoffset,B(1:29),'k.','HandleVisibility','off');
@@ -382,7 +378,7 @@ plot(xdata(1)+xoffset,B(210:249),'k.', 'HandleVisibility','off');
 hold on
 xoffset = 0.19; % manual set of get from properties of bar handle
 plot(xdata(1)+xoffset,B(250:285),'k.', 'HandleVisibility','off');
-% Points pour la troisiËme barre (minimal weight, low friction)
+% Points pour la troisiƒçme barre (minimal weight, low friction)
 hold on;
 xoffset = -0.11; % manual set of get from properties of bar handle
 plot(xdata(2)+xoffset,C(1:29),'k.','HandleVisibility','off');
@@ -407,7 +403,7 @@ plot(xdata(2)+xoffset,C(180:209),'k.', 'HandleVisibility','off');
 hold on 
 xoffset = -0.18; % manual set of get from properties of bar handle
 plot(xdata(2)+xoffset,C(210:255),'k.', 'HandleVisibility','off');
-% Points pour la quatriËme barre (minimal weight, high friction)
+% Points pour la quatriƒçme barre (minimal weight, high friction)
 hold on;
 xoffset = 0.11; % manual set of get from properties of bar handle
 plot(xdata(2)+xoffset,D(1:29),'k.','HandleVisibility','off');
