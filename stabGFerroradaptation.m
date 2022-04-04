@@ -1,7 +1,7 @@
 %Boxplots stab GF lors des phases d'adaptation max LF, max HF, min LF, min HF
 function stabLF = stabGFerroradaptation(meanstabGFmatrix, nparticipants)
 %% Max GF adaptation max LF 
-nessais1=21;
+nessais1=20;
 maxstabLF=zeros(nessais1, nparticipants);
 maxstabLF(1,:)=meanstabGFmatrix(14,:);
 maxstabLF(2,:)=meanstabGFmatrix(15,:);
@@ -23,7 +23,6 @@ maxstabLF(17,:)=meanstabGFmatrix(84,:);
 maxstabLF(18,:)=meanstabGFmatrix(106,:);
 maxstabLF(19,:)=meanstabGFmatrix(107,:);
 maxstabLF(20,:)=meanstabGFmatrix(108,:);
-maxstabLF(21,:)=meanstabGFmatrix(61,:);
 meanmaxstabLFsub=mean(maxstabLF, 2);
 meanmaxstabLF=mean(meanmaxstabLFsub);
 
@@ -31,7 +30,7 @@ meanmaxstabLFparticipants=mean(maxstabLF);
 
 
 %% Max GF adaptation max HF 
-nessais2=19;
+nessais2=18;
 maxstabHF=zeros(nessais2, nparticipants);
 maxstabHF(1,:)=meanstabGFmatrix(38,:);
 maxstabHF(2,:)=meanstabGFmatrix(39,:);
@@ -51,14 +50,13 @@ maxstabHF(15,:)=meanstabGFmatrix(53,:);
 maxstabHF(16,:)=meanstabGFmatrix(54,:);
 maxstabHF(17,:)=meanstabGFmatrix(102,:);
 maxstabHF(18,:)=meanstabGFmatrix(120,:);
-maxstabHF(19,:)=meanstabGFmatrix(37,:);
 meanmaxstabHFsub=mean(maxstabHF, 2);
 meanmaxstabHF=mean(meanmaxstabHFsub);
 
 meanmaxstabHFparticipants=mean(maxstabHF);
 
 %% Max GF adaptation min LF 
-nessais3 = 17;
+nessais3 = 16;
 minstabLF=zeros(nessais3, nparticipants);
 minstabLF(1,:)=meanstabGFmatrix(17,:);
 minstabLF(2,:)=meanstabGFmatrix(18,:);
@@ -76,14 +74,13 @@ minstabLF(13,:)=meanstabGFmatrix(80,:);
 minstabLF(14,:)=meanstabGFmatrix(81,:);
 minstabLF(15,:)=meanstabGFmatrix(82,:);
 minstabLF(16,:)=meanstabGFmatrix(104,:);
-minstabLF(17,:)=meanstabGFmatrix(79,:);
 meanminstabLFsub=mean(minstabLF, 2);
 meanminstabLF=mean(meanminstabLFsub);
 
 meanminstabLFparticipants=mean(minstabLF);
 
 %% Max GF adaptation min HF 
-nessais4 = 18;
+nessais4 = 17;
 minstabHF=zeros(nessais4, nparticipants);
 minstabHF(1,:)=meanstabGFmatrix(42,:);
 minstabHF(2,:)=meanstabGFmatrix(70,:);
@@ -103,7 +100,6 @@ minstabHF(14,:)=meanstabGFmatrix(100,:);
 minstabHF(15,:)=meanstabGFmatrix(116,:);
 minstabHF(16,:)=meanstabGFmatrix(117,:);
 minstabHF(17,:)=meanstabGFmatrix(118,:);
-minstabHF(18,:)=meanstabGFmatrix(115,:);
 meanminstabHFsub=mean(minstabHF, 2);
 meanminstabHF=mean(meanminstabHFsub);
 
@@ -114,19 +110,18 @@ B=reshape(maxstabHF,1,[]).';
 C=reshape(minstabLF,1,[]).';
 D=reshape(minstabHF,1,[]).';
 
+sizeA=size(A,1);
+sizeB=size(B,1);
+sizeC=size(C,1);
+sizeD=size(D,1);
+
+
 x = [A;B;C;D];
-%% Elderly participants
-%{
-group1=ones(1,273);
-group2=ones(1,247)*2;
-group3=ones(1,221)*3;
-group4=ones(1,234)*4;
-%}
-%% Young participants
-group1=ones(1,315); % taille de la matrice A
-group2=ones(1,285)*2; %taille de la matrice B
-group3=ones(1,255)*3; %taille de la matrice C
-group4=ones(1,270)*4; %taille de la matrice D
+
+group1=ones(1,sizeA); % taille de la matrice A
+group2=ones(1,sizeB)*2; %taille de la matrice B
+group3=ones(1,sizeC)*3; %taille de la matrice C
+group4=ones(1,sizeD)*4; %taille de la matrice D
 
 %% Boxplots
 group = [group1,group2,group3,group4];
