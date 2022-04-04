@@ -17,7 +17,7 @@ meanmincatchLF=mean(meanmincatchLFsub);
 meanmincatchLFparticipants=mean(mincatchLF);
 
 %min LF adaptation 
-nessaisbis = 17;
+nessaisbis = 16;
 minstabLF=zeros(nessaisbis, nparticipants);
 minstabLF(1,:)=meanstabGFmatrix(17,:);
 minstabLF(2,:)=meanstabGFmatrix(18,:);
@@ -35,7 +35,6 @@ minstabLF(13,:)=meanstabGFmatrix(80,:);
 minstabLF(14,:)=meanstabGFmatrix(81,:);
 minstabLF(15,:)=meanstabGFmatrix(82,:);
 minstabLF(16,:)=meanstabGFmatrix(104,:);
-minstabLF(17,:)=meanstabGFmatrix(79,:);
 meanminstabLFsub=mean(minstabLF, 2);
 meanminstabLF=mean(meanminstabLFsub);
 
@@ -52,7 +51,7 @@ meanmincatchHFparticipants=mean(mincatchHF);
 
 
 %Min HF adaptation
-nessais2bis = 18;
+nessais2bis = 17;
 minstabHF=zeros(nessais2bis, nparticipants);
 minstabHF(1,:)=meanstabGFmatrix(42,:);
 minstabHF(2,:)=meanstabGFmatrix(70,:);
@@ -72,7 +71,6 @@ minstabHF(14,:)=meanstabGFmatrix(100,:);
 minstabHF(15,:)=meanstabGFmatrix(116,:);
 minstabHF(16,:)=meanstabGFmatrix(117,:);
 minstabHF(17,:)=meanstabGFmatrix(118,:);
-minstabHF(18,:)=meanstabGFmatrix(115,:);
 meanminstabHFsub=mean(minstabHF, 2);
 meanminstabHF=mean(meanminstabHFsub);
 
@@ -90,7 +88,7 @@ meanmaxcatchLFsub=mean(maxcatchLF, 2);
 meanmaxcatchLF=mean(meanmaxcatchLFsub);
 
 %max LF adaptation
-nessais3bis=21;
+nessais3bis=20;
 maxstabLF=zeros(nessais3bis, nparticipants);
 maxstabLF(1,:)=meanstabGFmatrix(14,:);
 maxstabLF(2,:)=meanstabGFmatrix(15,:);
@@ -112,7 +110,6 @@ maxstabLF(17,:)=meanstabGFmatrix(84,:);
 maxstabLF(18,:)=meanstabGFmatrix(106,:);
 maxstabLF(19,:)=meanstabGFmatrix(107,:);
 maxstabLF(20,:)=meanstabGFmatrix(108,:);
-maxstabLF(21,:)=meanstabGFmatrix(61,:);
 meanmaxstabLFsub=mean(maxstabLF, 2);
 meanmaxstabLF=mean(meanmaxstabLFsub);
 
@@ -127,7 +124,7 @@ meanmaxcatchHF=mean(meanmaxcatchHFsub);
 meanmaxcatchHFparticipants=mean(maxcatchHF);
 
 %max HF adaptation
-nessais4bis=19;
+nessais4bis=18;
 maxstabHF=zeros(nessais4bis, nparticipants);
 maxstabHF(1,:)=meanstabGFmatrix(38,:);
 maxstabHF(2,:)=meanstabGFmatrix(39,:);
@@ -147,7 +144,6 @@ maxstabHF(15,:)=meanstabGFmatrix(53,:);
 maxstabHF(16,:)=meanstabGFmatrix(54,:);
 maxstabHF(17,:)=meanstabGFmatrix(102,:);
 maxstabHF(18,:)=meanstabGFmatrix(120,:);
-maxstabHF(19,:)=meanstabGFmatrix(37,:);
 meanmaxstabHFsub=mean(maxstabHF, 2);
 meanmaxstabHF=mean(meanmaxstabHFsub);
 
