@@ -1,7 +1,7 @@
 function output = stabGFcatchweightvsadaptation(meanstabGFmatrix, nparticipants)
 %Barplots of the stabilization mean Grip Forces of catch weight trials vs 
 %the adaptation trials 
-%maxGFmatrix : matrix with all the peak GF values for all the trials of
+%meanstabGFmatrix : matrix with all the mean stab GF values for all the trials of
 %all the participants
 
 %% Comparison of min weight trials (for HF and LF)
