@@ -1,5 +1,7 @@
 %Creates 2 tables (GF and LF) containing the alligned data
 %for each trial of each participant
+%!!!use data files without the 2 first blocks!!!
+
 
 trials = 120;
 nparticipants = 15;
