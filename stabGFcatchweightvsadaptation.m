@@ -216,7 +216,7 @@ end
 
 c = get(gca, 'Children');
 
-hleg1 = legend(c(1:2), 'Friction catch trials', 'Adaptation trials' );
+hleg1 = legend(c(1:2), 'Weight catch trials', 'Adaptation trials' );
 
 
 
