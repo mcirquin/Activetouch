@@ -202,7 +202,7 @@ set(gca,'xtick',[mean(positions(1:2)) mean(positions(3:4)) mean(positions(5:6)) 
 set(gca,'xticklabel',{'Min weight LF','Min weight HF', 'Max weight LF', 'Max weight HF'})
 title('Stabilization GF for friction catch and adaptation trials - Elderly participants')
 %title('Stabilization GF for friction catch and adaptation trials - Young participants')
-ylabel('Grip force peak (N)')
+ylabel('Mean grip force (N)')
 %ylim([0,20]);
 
 blue=[0 0.4470 0.7410];
