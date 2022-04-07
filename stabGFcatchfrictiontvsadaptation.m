@@ -160,7 +160,7 @@ b = bar(y);
 set(gca,'XTickLabel',{'Min weight LF';' Min weight HF';'Max weight LF';'Max weight HF'});
 b(1).FaceColor = [0.6350 0.0780 0.1840];
 b(2).FaceColor = [0 0.4470 0.7410];
-legend('Weight catch trials','Adaptation trials', 'Location','northeast')
+legend('Friction catch trials','Adaptation trials', 'Location','northeast')
 %title('Stabilization GF for friction catch and adaptation trials - Elderly participants')
 title('Stabilization GF for friction catch and adaptation trials - Young participants')
 ylabel('Mean grip force (N)')
