@@ -57,12 +57,24 @@ set(gca,'XTickLabel',{'Low friction';'High friction'});
 b(1).FaceColor = 'b';
 b(2).FaceColor = 'r';
 legend('Maximal to minimal weight', 'Minimal to maximal weight', 'Location','northeast')
-title('Grip force peak magnitude for weight catch trials - Elderly participants')
-%title('Grip force peak magnitude for weight catch trials - Young participants')
+%title('Grip force peak magnitude for weight catch trials - Elderly participants')
+title('Grip force peak magnitude for weight catch trials - Young participants')
 ylabel('Grip force peak (N)')
 
-%% Plot des lignes correspondant ŕ la moyenne des essais pour chaque participants
+xdata= get (b(2),'XData');
+ydata= get (b(2),'YData');
 
+A=reshape(maxtominLF,1,[]);
+B=reshape(mintomaxLF,1,[]);
+C=reshape(maxtominHF,1,[]);
+D=reshape(mintomaxHF,1,[]);
+size(A)
+size(B)
+size(C)
+size(D)
+
+%% Plot des lignes correspondant ŕ la moyenne des essais pour chaque participants
+%{
 hold on
 
 xdata= get (b(2),'XData');
@@ -98,21 +110,46 @@ for i=1:nparticipants
     figure(1); hold on;
     plot(xparticipantmintomaxHF,y4(i)*ones(size(xparticipantmintomaxHF)), 'k','HandleVisibility','off')
 end
+%}
+
+%% Barplots with subject slopes
+%color cell
+C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colros.
+xdata= get (b(2),'XData');
+xoffset1 = -0.14;
+xoffset2 = 0.14;
+
+hold on
+y1 = meanmaxtominLFparticipants;
+y2 = meanmintomaxLFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(1)+xoffset1,y1(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(1)+xoffset2,y2(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(1)+xoffset1,xdata(1)+xoffset2], [y1(i), y2(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+hold on
+y3 = meanmaxtominHFparticipants;
+y4 = meanmintomaxHFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(2)+xoffset1,y3(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(2)+xoffset2,y4(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(2)+xoffset1,xdata(2)+xoffset2], [y3(i), y4(i)], 'Color', C{i},'HandleVisibility','off')
+end
 
 %% Code pour avoir tous les points data superposés sur le barplot (Elderly participants)
 
-xdata= get (b(2),'XData');
-ydata= get (b(2),'YData');
-
-A=reshape(maxtominLF,1,[]);
-B=reshape(mintomaxLF,1,[]);
-C=reshape(maxtominHF,1,[]);
-D=reshape(mintomaxHF,1,[]);
-size(A)
-size(B)
-size(C)
-size(D)
-
+%{
 hold on;
 xoffset = -0.10; 
 plot(xdata(1)+xoffset,A(1:10),'k.','HandleVisibility','off');
@@ -183,7 +220,7 @@ plot(xdata(2)+xoffset,D(41:52),'k.', 'HandleVisibility','off');
 hold on 
 xoffset = 0.2; 
 plot(xdata(2)+xoffset,D(43:65),'k.', 'HandleVisibility','off');
-
+%} 
 %% Code pour avoir tous les points data superposés sur le barplot (Young participants)
 %{
 hold on;
@@ -213,7 +250,6 @@ plot(xdata(1)+xoffset,A(63:70),'k.', 'HandleVisibility','off');
 hold on
 xoffset = -0.19; % manual set of get from properties of bar handle
 plot(xdata(1)+xoffset,A(71:75),'k.', 'HandleVisibility','off');
-
 hold on;
 xoffset = 0.11; % manual set of get from properties of bar handle
 plot(xdata(1)+xoffset,B(1:6),'k.','HandleVisibility','off');
@@ -238,8 +274,6 @@ plot(xdata(1)+xoffset,B(42:48),'k.', 'HandleVisibility','off');
 hold on 
 xoffset = 0.18; % manual set of get from properties of bar handle
 plot(xdata(1)+xoffset,B(49:60),'k.', 'HandleVisibility','off');
-
-
 hold on;
 xoffset = -0.11; % manual set of get from properties of bar handle
 plot(xdata(2)+xoffset,C(1:6),'k.','HandleVisibility','off');
@@ -264,8 +298,6 @@ plot(xdata(2)+xoffset,C(42:48),'k.', 'HandleVisibility','off');
 hold on 
 xoffset = -0.18; % manual set of get from properties of bar handle
 plot(xdata(2)+xoffset,C(49:60),'k.', 'HandleVisibility','off');
-
-
 hold on;
 xoffset = 0.11; % manual set of get from properties of bar handle
 plot(xdata(2)+xoffset,D(1:8),'k.','HandleVisibility','off');
@@ -309,8 +341,6 @@ text(1.14,y1right,labels2,'HorizontalAlignment','center',...
     'VerticalAlignment','bottom')
 text(2.14,y2right,labels3,'HorizontalAlignment','center',...
     'VerticalAlignment','bottom')
-
-
 ytips2= get (b(1),'YData')
 y1left = ytips2(1)
 y2left = ytips2(2)
@@ -321,4 +351,3 @@ text(0.86,y1left,labels4,'HorizontalAlignment','center',...
 text(1.86,y2left,labels5,'HorizontalAlignment','center',...
     'VerticalAlignment','bottom')
 %}
-
