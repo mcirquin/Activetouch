@@ -70,6 +70,7 @@ minHF(16,:)=maxGFmatrix(117,:);
 minHF(17,:)=maxGFmatrix(118,:);
 meanminHFsub=mean(minHF, 2);
 meanminHF=mean(meanminHFsub);
+meanminHFparticipants=mean(minHF);
 
 %% Comparison of max weight trials (for LF and HF)
 %%HF to LF catch friction max weight
@@ -81,6 +82,8 @@ maxcatchLF(3,:)=maxGFmatrix(73,:);
 maxcatchLF(4,:)=maxGFmatrix(91,:);
 meanmaxcatchLFsub=mean(maxcatchLF, 2);
 meanmaxcatchLF=mean(meanmaxcatchLFsub);
+meanmaxcatchLFparticipants=mean(maxcatchLF);
+
 
 %max LF adaptation
 nessais3bis=20;
@@ -107,6 +110,7 @@ maxLF(19,:)=maxGFmatrix(107,:);
 maxLF(20,:)=maxGFmatrix(108,:);
 meanmaxLFsub=mean(maxLF, 2);
 meanmaxLF=mean(meanmaxLFsub);
+meanmaxLFparticipants=mean(maxLF);
 
 %LF to HF catch friction max weight
 nessaisbis=3;
@@ -141,24 +145,87 @@ maxHF(17,:)=maxGFmatrix(102,:);
 maxHF(18,:)=maxGFmatrix(120,:);
 meanmaxHFsub=mean(maxHF, 2);
 meanmaxHF=mean(meanmaxHFsub);
+meanmaxHFparticipants=mean(maxHF);
 
 
-%{
 %% Plot of the graph
 figure
-y=[meanminLF meanmaxtominLF ; meanminHF meanmaxtominHF ; meanmaxLF meanmintomaxLF ; meanmaxHF meanmintomaxHF];
+y=[meanmincatchLF meanminLF ; meanmincatchHF meanminHF ;meanmaxcatchLF meanmaxLF ; meanmaxcatchHF meanmaxHF];
 b = bar(y);
 set(gca,'XTickLabel',{'Min weight LF';' Min weight HF';'Max weight LF';'Max weight HF'});
-b(1).FaceColor = [0 0.4470 0.7410];
-b(2).FaceColor = [0.6350 0.0780 0.1840];
-legend('Adaptation trials', 'Weight catch trials', 'Location','northeast')
-%title('Comparison of GF peaks for weight catch and adaptation trials - Young participants')
-title('Comparison of GF peaks for weight catch and adaptation trials - Elderly participants')
+b(1).FaceColor = [0.6350 0.0780 0.1840];
+b(2).FaceColor = [0 0.4470 0.7410];
+legend('Weight catch trials', 'Adaptation trials', 'Location','northeast')
+title('GF peaks for weight catch and adaptation trials - Young participants')
+%title('GF peaks for weight catch and adaptation trials - Elderly participants')
 ylabel('Grip force peak (N)')
-%}
+
+
+%% Barplots with subject slopes
+%color cell (suppress colors if less participants!)
+C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colros.
+xdata= get (b(2),'XData');
+xoffset1 = -0.14;
+xoffset2 = 0.14;
+
+hold on
+y1 = meanmincatchLFparticipants;
+y2 = meanminLFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(1)+xoffset1,y1(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(1)+xoffset2,y2(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(1)+xoffset1,xdata(1)+xoffset2], [y1(i), y2(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+hold on
+y3 = meanmincatchHFparticipants;
+y4 = meanminHFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(2)+xoffset1,y3(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(2)+xoffset2,y4(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(2)+xoffset1,xdata(2)+xoffset2], [y3(i), y4(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+hold on
+y5 = meanmaxcatchLFparticipants;
+y6 = meanmaxLFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(3)+xoffset1,y5(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(3)+xoffset2,y6(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(3)+xoffset1,xdata(3)+xoffset2], [y5(i), y6(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+hold on
+y7 = meanmaxcatchHFparticipants;
+y8 = meanmaxHFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(4)+xoffset1,y7(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(4)+xoffset2,y8(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(4)+xoffset1,xdata(4)+xoffset2], [y7(i), y8(i)], 'Color', C{i},'HandleVisibility','off')
+end
 
 %% Boxplots
-
+%{
 A=reshape(mincatchLF,1,[]).';
 B=reshape(minLF,1,[]).';
 C=reshape(mincatchHF,1,[]).';
@@ -212,7 +279,5 @@ c = get(gca, 'Children');
 
 hleg1 = legend(c(1:2), 'Friction catch trials', 'Adaptation trials' );
 
-
-
-
 end
+%}
