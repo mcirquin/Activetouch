@@ -14,7 +14,7 @@ mincatchLF(2,:)=meanstabGFmatrix(55,:);
 mincatchLF(3,:)=meanstabGFmatrix(103,:);
 meanmincatchLFsub=mean(mincatchLF, 2);
 meanmincatchLF=mean(meanmincatchLFsub);
-meanmincatchLFparticipants=mean(mincatchLF);
+meanmincatchstabLFparticipants=mean(mincatchLF);
 
 %min LF adaptation 
 nessaisbis = 16;
@@ -37,6 +37,7 @@ minstabLF(15,:)=meanstabGFmatrix(82,:);
 minstabLF(16,:)=meanstabGFmatrix(104,:);
 meanminstabLFsub=mean(minstabLF, 2);
 meanminstabLF=mean(meanminstabLFsub);
+meanminstabLFparticipants=mean(minstabLF);
 
 %LF to HF catch friction min weight
 nessais=4;
@@ -47,7 +48,7 @@ mincatchHF(3,:)=meanstabGFmatrix(49,:);
 mincatchHF(4,:)=meanstabGFmatrix(97,:);
 meanmincatchHFsub=mean(mincatchHF, 2); %moyenne pour tous les sujets
 meanmincatchHF=mean(meanmincatchHFsub);%moyenne des moyennes de tous les sujets
-meanmincatchHFparticipants=mean(mincatchHF);
+meanmincatchstabHFparticipants=mean(mincatchHF);
 
 
 %Min HF adaptation
@@ -73,7 +74,7 @@ minstabHF(16,:)=meanstabGFmatrix(117,:);
 minstabHF(17,:)=meanstabGFmatrix(118,:);
 meanminstabHFsub=mean(minstabHF, 2);
 meanminstabHF=mean(meanminstabHFsub);
-
+meanminstabHFparticipants=mean(minstabHF);
 
 %% Comparison of max weight trials (for LF and HF)
 
@@ -86,6 +87,7 @@ maxcatchLF(3,:)=meanstabGFmatrix(73,:);
 maxcatchLF(4,:)=meanstabGFmatrix(91,:);
 meanmaxcatchLFsub=mean(maxcatchLF, 2);
 meanmaxcatchLF=mean(meanmaxcatchLFsub);
+meanmaxcatchstabLFparticipants=mean(maxcatchLF);
 
 %max LF adaptation
 nessais3bis=20;
@@ -112,6 +114,7 @@ maxstabLF(19,:)=meanstabGFmatrix(107,:);
 maxstabLF(20,:)=meanstabGFmatrix(108,:);
 meanmaxstabLFsub=mean(maxstabLF, 2);
 meanmaxstabLF=mean(meanmaxstabLFsub);
+meanmaxstabLFparticipants=mean(maxstabLF);
 
 %LF to HF catch friction max weight
 nessaisbis=3;
@@ -121,7 +124,7 @@ maxcatchHF(2,:)=meanstabGFmatrix(85,:);
 maxcatchHF(3,:)=meanstabGFmatrix(109,:);
 meanmaxcatchHFsub=mean(maxcatchHF, 2);
 meanmaxcatchHF=mean(meanmaxcatchHFsub);
-meanmaxcatchHFparticipants=mean(maxcatchHF);
+meanmaxcatchstabHFparticipants=mean(maxcatchHF);
 
 %max HF adaptation
 nessais4bis=18;
@@ -146,26 +149,89 @@ maxstabHF(17,:)=meanstabGFmatrix(102,:);
 maxstabHF(18,:)=meanstabGFmatrix(120,:);
 meanmaxstabHFsub=mean(maxstabHF, 2);
 meanmaxstabHF=mean(meanmaxstabHFsub);
-
+meanmaxstabHFparticipants=mean(maxstabHF);
 
 
 %% Plot of the graph
-%{
+
 figure
-y=[meanminstabLF meanmaxtominstabLF ; meanminstabHF meanmaxtominstabHF ; meanmaxstabLF meanmintomaxstabLF ; meanmaxstabHF meanmintomaxstabHF];
+y=[meanmincatchLF meanminstabLF; meanmincatchHF meanminstabHF ;meanmaxcatchLF meanmaxstabLF ; meanmaxcatchHF meanmaxstabHF];
 b = bar(y);
 set(gca,'XTickLabel',{'Min weight LF';' Min weight HF';'Max weight LF';'Max weight HF'});
-b(1).FaceColor = [0 0.4470 0.7410];
-b(2).FaceColor = [0.6350 0.0780 0.1840];
-legend('Adaptation trials', 'Weight catch trials', 'Location','northeast')
-title('Stabilization GF for weight catch and adaptation trials - Elderly participants')
-%title('Stabilization GF for weight catch and adaptation trials - Young participants')
+b(1).FaceColor = [0.6350 0.0780 0.1840];
+b(2).FaceColor = [0 0.4470 0.7410];
+legend('Weight catch trials','Adaptation trials', 'Location','northeast')
+%title('Stabilization GF for friction catch and adaptation trials - Elderly participants')
+title('Stabilization GF for friction catch and adaptation trials - Young participants')
 ylabel('Mean grip force (N)')
 %ylim([0 3])
-%}
+
+%% Barplots with subject slopes
+%color cell (suppress colors if less participants!)
+C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colros.
+xdata= get (b(2),'XData');
+xoffset1 = -0.14;
+xoffset2 = 0.14;
+
+hold on
+y1 = meanmincatchstabLFparticipants;
+y2 = meanminstabLFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(1)+xoffset1,y1(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(1)+xoffset2,y2(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(1)+xoffset1,xdata(1)+xoffset2], [y1(i), y2(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+hold on
+y3 = meanmincatchstabHFparticipants;
+y4 = meanminstabHFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(2)+xoffset1,y3(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(2)+xoffset2,y4(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(2)+xoffset1,xdata(2)+xoffset2], [y3(i), y4(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+hold on
+y5 = meanmaxcatchstabLFparticipants;
+y6 = meanmaxstabLFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(3)+xoffset1,y5(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(3)+xoffset2,y6(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(3)+xoffset1,xdata(3)+xoffset2], [y5(i), y6(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+hold on
+y7 = meanmaxcatchstabHFparticipants;
+y8 = meanmaxstabHFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(4)+xoffset1,y7(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(4)+xoffset2,y8(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(4)+xoffset1,xdata(4)+xoffset2], [y7(i), y8(i)], 'Color', C{i},'HandleVisibility','off')
+end
 
 
 %% Boxplots
+%{
 A=reshape(mincatchLF,1,[]).';
 B=reshape(minstabLF,1,[]).';
 C=reshape(mincatchHF,1,[]).';
@@ -200,8 +266,8 @@ boxplot(x,group, 'positions', positions);
 
 set(gca,'xtick',[mean(positions(1:2)) mean(positions(3:4)) mean(positions(5:6)) mean(positions(7:8)) ])
 set(gca,'xticklabel',{'Min weight LF','Min weight HF', 'Max weight LF', 'Max weight HF'})
-title('Stabilization GF for friction catch and adaptation trials - Elderly participants')
-%title('Stabilization GF for friction catch and adaptation trials - Young participants')
+%title('Stabilization GF for friction catch and adaptation trials - Elderly participants')
+title('Stabilization GF for friction catch and adaptation trials - Young participants')
 ylabel('Mean grip force (N)')
 %ylim([0,20]);
 
@@ -219,7 +285,5 @@ c = get(gca, 'Children');
 
 hleg1 = legend(c(1:2), 'Friction catch trials', 'Adaptation' );
 
-
-
-
+%}
 end
