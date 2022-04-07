@@ -15,6 +15,7 @@ maxtominstabLF(4,:)=meanstabGFmatrix(76,:);
 maxtominstabLF(5,:)=meanstabGFmatrix(95,:);
 meanmaxtominstabLFsub=mean(maxtominstabLF, 2);
 meanmaxtominstabLF=mean(meanmaxtominstabLFsub);
+meanmaxtominstabLFparticipants = mean(maxtominstabLF);
 
 %min LF adaptation 
 nessaisbis = 16;
@@ -37,6 +38,7 @@ minstabLF(15,:)=meanstabGFmatrix(82,:);
 minstabLF(16,:)=meanstabGFmatrix(104,:);
 meanminstabLFsub=mean(minstabLF, 2);
 meanminstabLF=mean(meanminstabLFsub);
+meanminstabLFparticipants = mean(minstabLF);
 
 %Max to min catch weight HF
 nessais2=4;
@@ -47,6 +49,7 @@ maxtominstabHF(3,:)=meanstabGFmatrix(88,:);
 maxtominstabHF(4,:)=meanstabGFmatrix(112,:);
 meanmaxtominstabHFsub=mean(maxtominstabHF, 2);
 meanmaxtominstabHF=mean(meanmaxtominstabHFsub);
+meanmaxtominstabHFparticipants = mean(maxtominstabHF);
 
 
 %Min HF adaptation
@@ -72,7 +75,7 @@ minstabHF(16,:)=meanstabGFmatrix(117,:);
 minstabHF(17,:)=meanstabGFmatrix(118,:);
 meanminstabHFsub=mean(minstabHF, 2);
 meanminstabHF=mean(meanminstabHFsub);
-
+meanminstabHFparticipants = mean(minstabHF);
 
 %% Comparison of max weight trials (for LF and HF)
 %%min to max catch weight LF
@@ -84,6 +87,7 @@ mintomaxstabLF(3,:)=meanstabGFmatrix(83,:);
 mintomaxstabLF(4,:)=meanstabGFmatrix(105,:);
 meanmintomaxstabLFsub=mean(mintomaxstabLF, 2);
 meanmintomaxstabLF=mean(meanmintomaxstabLFsub);
+meanmintomaxstabLFparticipants = mean(mintomaxstabLF);
 
 %max LF adaptation
 nessais3bis=20;
@@ -110,6 +114,7 @@ maxstabLF(19,:)=meanstabGFmatrix(107,:);
 maxstabLF(20,:)=meanstabGFmatrix(108,:);
 meanmaxstabLFsub=mean(maxstabLF, 2);
 meanmaxstabLF=mean(meanmaxstabLFsub);
+meanmaxstabLFparticipants = mean(maxstabLF);
 
 %min to max catch weight HF
 nessais4=5;
@@ -121,6 +126,7 @@ mintomaxstabHF(4,:)=meanstabGFmatrix(101,:);
 mintomaxstabHF(5,:)=meanstabGFmatrix(119,:);
 meanmintomaxstabHFsub=mean(mintomaxstabHF, 2);
 meanmintomaxstabHF=mean(meanmintomaxstabHFsub);
+meanmintomaxstabHFparticipants = mean(mintomaxstabHF);
 
 %max HF adaptation
 nessais4bis=18;
@@ -145,26 +151,89 @@ maxstabHF(17,:)=meanstabGFmatrix(102,:);
 maxstabHF(18,:)=meanstabGFmatrix(120,:);
 meanmaxstabHFsub=mean(maxstabHF, 2);
 meanmaxstabHF=mean(meanmaxstabHFsub);
+meanmaxstabHFparticipants = mean(maxstabHF);
 
 
 
 %% Plot of the graph
-%{
+
 figure
-y=[meanminstabLF meanmaxtominstabLF ; meanminstabHF meanmaxtominstabHF ; meanmaxstabLF meanmintomaxstabLF ; meanmaxstabHF meanmintomaxstabHF];
+y=[meanmaxtominstabLF meanminstabLF  ; meanmaxtominstabHF meanminstabHF  ; meanmintomaxstabLF meanmaxstabLF  ; meanmintomaxstabHF meanmaxstabHF ];
 b = bar(y);
 set(gca,'XTickLabel',{'Min weight LF';' Min weight HF';'Max weight LF';'Max weight HF'});
-b(1).FaceColor = [0 0.4470 0.7410];
-b(2).FaceColor = [0.6350 0.0780 0.1840];
-legend('Adaptation trials', 'Weight catch trials', 'Location','northeast')
-title('Stabilization GF for weight catch and adaptation trials - Elderly participants')
-%title('Stabilization GF for weight catch and adaptation trials - Young participants')
-ylabel('Mean grip force (N)')
-%ylim([0 3])
-%}
+b(1).FaceColor = [0.6350 0.0780 0.1840];
+b(2).FaceColor = [0 0.4470 0.7410];
+legend('Weight catch trials','Adaptation trials', 'Location','northeast')
+title('GF peaks for weight catch and adaptation trials - Young participants')
+%title('GF peaks for weight catch and adaptation trials - Elderly participants')
+ylabel('Grip force peak (N)')
+
+%% Barplots with subject slopes
+%color cell (suppress colors if less participants!)
+C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colros.
+xdata= get (b(2),'XData');
+xoffset1 = -0.14;
+xoffset2 = 0.14;
+
+hold on
+y1 = meanmaxtominstabLFparticipants;
+y2 = meanminstabLFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(1)+xoffset1,y1(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(1)+xoffset2,y2(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(1)+xoffset1,xdata(1)+xoffset2], [y1(i), y2(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+hold on
+y3 = meanmaxtominstabHFparticipants;
+y4 = meanminstabHFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(2)+xoffset1,y3(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(2)+xoffset2,y4(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(2)+xoffset1,xdata(2)+xoffset2], [y3(i), y4(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+hold on
+y5 = meanmintomaxstabLFparticipants;
+y6 = meanmaxstabLFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(3)+xoffset1,y5(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(3)+xoffset2,y6(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(3)+xoffset1,xdata(3)+xoffset2], [y5(i), y6(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+hold on
+y7 = meanmintomaxstabHFparticipants;
+y8 = meanmaxstabHFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(4)+xoffset1,y7(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(4)+xoffset2,y8(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(4)+xoffset1,xdata(4)+xoffset2], [y7(i), y8(i)], 'Color', C{i},'HandleVisibility','off')
+end
 
 
 %% Boxplots
+%{
 A=reshape(maxtominstabLF,1,[]).';
 B=reshape(minstabLF,1,[]).';
 C=reshape(maxtominstabHF,1,[]).';
@@ -218,7 +287,5 @@ c = get(gca, 'Children');
 
 hleg1 = legend(c(1:2), 'Weight catch trials', 'Adaptation trials' );
 
-
-
-
+%}
 end
