@@ -248,6 +248,9 @@ gfHFadaptmax2=[gfHFadaptmax2 alignedGFtable(:,108:108:end)];
 
 %% Calculation of means and standard deviations 
 %Load Forces
+
+%Création des matrices vides
+
 meanlfLFcatchmax1 = zeros(tsteps-1999,1);
 meanlfLFadaptmin1 = zeros(tsteps-1999,1);
 stdlfLFcatchmax1 = zeros(tsteps-1999,1);
@@ -269,70 +272,74 @@ stdlfHFcatchmin2= zeros(1,tsteps-1999);
 stdlfHFadaptmax2 = zeros(1,tsteps-1999);
 
 
+% Remplissage avec moyennes et standards deviation 
 meanlfLFcatchmax1=mean(lfLFcatchmax1,2);
 meanlfLFadaptmin1=mean(lfLFadaptmin1,2);
 stdlfLFcatchmax1=std(lfLFcatchmax1, 0, 2);
 stdlfLFadaptmin1=std(lfLFadaptmin1, 0, 2);
----------------------------------------------------------
+
 
 meanlfHFcatchmax1=mean(lfHFcatchmax1,2);
-meanlfLFadaptmax2=mean(lfLFadaptmax2,2);
-stdlfHFcatchmax2=std(lfHFcatchmax1,0,2);
-stdlfLFadaptmax2=std(lfLFadaptmax2,0,2);
-
-meanlfLFcatchmin2=mean(lfLFcatchmin2,2);
 meanlfHFadaptmin1=mean(lfHFadaptmin1,2);
-stdlfLFcatchmin2=std(lfLFcatchmin2,0,2);
+stdlfHFcatchmax1=std(lfHFcatchmax1,0,2);
 stdlfHFadaptmin1=std(lfHFadaptmin1,0,2);
 
-meanlfHFcatchmin2=mean(lfmincatchHF2,2);
-meanlfHFadaptmax2=mean(lfLFadaptmin1,2);
-stdlfmincatchHF2=std(lfmincatchHF2,0,2);
-stdlfminadaptLF2=std(lfLFadaptmin1,0,2);
+meanlfLFcatchmin2=mean(lfLFcatchmin2,2);
+meanlfLFadaptmax2=mean(lfLFadaptmax2,2);
+stdlfLFcatchmin2=std(lfLFcatchmin2,0,2);
+stdlfLFadaptmax2=std(lfLFadaptmax2,0,2);
+
+meanlfHFcatchmin2=mean(lfHFcatchmin2,2);
+meanlfHFadaptmax2=mean(lfHFadaptmax2,2);
+stdlfHFcatchmin2=std(lfHFcatchmin2,0,2);
+stdlfHFadaptmax2=std(lfHFadaptmax2,0,2);
 
 
 %Grip Forces
-meangfLFcatchmax1 = zeros(1,tsteps-1999);
-meangfLFadaptmin1 = zeros(1,tsteps-1999);
-stdgfLFcatchmax1 = zeros(1,tsteps-1999);
-stdgfLFadaptmin1 = zeros(1,tsteps-1999);
+%Création des matrices vides
+
+meangfLFcatchmax1 = zeros(tsteps-1999,1);
+meangfLFadaptmin1 = zeros(tsteps-1999,1);
+stdgfLFcatchmax1 = zeros(tsteps-1999,1);
+stdgfLFadaptmin1 = zeros(tsteps-1999,1);
+
+meangfHFcatchmax1 = zeros(1,tsteps-1999);
+meangfHFadaptmin1 = zeros(1,tsteps-1999);
+stdgfHFcatchmax1 = zeros(1,tsteps-1999);
+stdgfHFadaptmin1 = zeros(1,tsteps-1999);
 
 meangfLFcatchmin2 = zeros(1,tsteps-1999);
 meangfLFadaptmax2 = zeros(1,tsteps-1999);
 stdgfLFcatchmin2 = zeros(1,tsteps-1999);
 stdgfLFadaptmax2 = zeros(1,tsteps-1999);
 
-meangfLFcatchmin2 = zeros(1,tsteps-1999);
-meangfHFadaptmin1 = zeros(1,tsteps-1999);
-stdgfLFcatchmin2 = zeros(1,tsteps-1999);
-stdgfHFadaptmin1 = zeros(1,tsteps-1999);
-
-meangfmincatchHF2 = zeros(1,tsteps-1999);
-meangfminadaptLF2 = zeros(1,tsteps-1999);
-stdgfmincatchHF2 = zeros(1,tsteps-1999);
-stdgfminadaptLF2 = zeros(1,tsteps-1999);
+meangfHFcatchmin2 = zeros(1,tsteps-1999);
+meangfHFadaptmax2 = zeros(1,tsteps-1999);
+stdgfHFcatchmin2= zeros(1,tsteps-1999);
+stdgfHFadaptmax2 = zeros(1,tsteps-1999);
 
 
+% Remplissage avec moyennes et standards deviation 
 meangfLFcatchmax1=mean(gfLFcatchmax1,2);
-meangfLFadaptmin1=mean(gfHFadaptmax2,2);
-stdgfLFcatchmax1=std(gfLFcatchmax1, 0,2);
-stdgfLFadaptmin1=std(lfHFadaptmax2,0,2);
+meangfLFadaptmin1=mean(gfLFadaptmin1,2);
+stdgfLFcatchmax1=std(gfLFcatchmax1, 0, 2);
+stdgfLFadaptmin1=std(gfLFadaptmin1, 0, 2);
+
+
+meangfHFcatchmax1=mean(gfHFcatchmax1,2);
+meangfHFadaptmin1=mean(gfHFadaptmin1,2);
+stdgfHFcatchmax1=std(gfHFcatchmax1,0,2);
+stdgfHFadaptmin1=std(gfHFadaptmin1,0,2);
 
 meangfLFcatchmin2=mean(gfLFcatchmin2,2);
 meangfLFadaptmax2=mean(gfLFadaptmax2,2);
 stdgfLFcatchmin2=std(gfLFcatchmin2,0,2);
 stdgfLFadaptmax2=std(gfLFadaptmax2,0,2);
 
-meangfLFcatchmin2=mean(gfLFcatchmin2,2);
-meangfHFadaptmin1=mean(gfHFadaptmin1,2);
-stdgfLFcatchmin2=std(gfLFcatchmin2,0,2);
-stdgfHFadaptmin1=std(gfHFadaptmin1,0,2);
-
-meangfmincatchHF2=mean(gfmincatchHF2,2);
-meangfminadaptLF2=mean(gfLFadaptmin1,2);
-stdgfmincatchHF2=std(gfmincatchHF2,0,2);
-stdgfminadaptLF2=std(gfLFadaptmin1,0,2);
-
+meangfHFcatchmin2=mean(gfHFcatchmin2,2);
+meangfHFadaptmax2=mean(gfHFadaptmax2,2);
+stdgfHFcatchmin2=std(gfHFcatchmin2,0,2);
+stdgfHFadaptmax2=std(gfHFadaptmax2,0,2);
 
 %% Standard deviation boundaries computation
 %load force boundaries matrices
@@ -342,27 +349,33 @@ ll_lfLFcatchmax1 = zeros(1,tsteps-1999); %matrix for lower limit
 ul_lfLFadaptmin1 = zeros(1,tsteps-1999); 
 ll_lfLFadaptmin1 = zeros(1,tsteps-1999);
 
-ul_lfHFcatchmax2 = zeros(1,tsteps-1999); 
-ll_lfHFcatchmax2 = zeros(1,tsteps-1999);
+ul_lfHFcatchmax1 = zeros(1,tsteps-1999); 
+ll_lfHFcatchmax1 = zeros(1,tsteps-1999);
 
-ul_lfLFadaptmax2 = zeros(1,tsteps-1999); 
-ll_lfLFadaptmax2 = zeros(1,tsteps-1999);
+ul_lfLFadaptmin1 = zeros(1,tsteps-1999); 
+ll_lfLFadaptmin1 = zeros(1,tsteps-1999);
 
 ul_lfLFcatchmin2 = zeros(1,tsteps-1999); 
 ll_lfLFcatchmin2 = zeros(1,tsteps-1999);
 
-ul_lfHFadaptmin1 = zeros(1,tsteps-1999); 
-ll_lfHFadaptmin1 = zeros(1,tsteps-1999);
+ul_lfLFadaptmax2 = zeros(1,tsteps-1999); 
+ll_lfLFadaptmax2 = zeros(1,tsteps-1999);
 
-ul_lfmincatchHF2 = zeros(1,tsteps-1999); 
-ll_lfmincatchHF2 = zeros(1,tsteps-1999);
+ul_lfHFcatchmin2 = zeros(1,tsteps-1999); 
+ll_lfHFcatchmin2 = zeros(1,tsteps-1999);
 
-ul_lfminadaptLF2 = zeros(1,tsteps-1999); 
-ll_lfminadaptLF2 = zeros(1,tsteps-1999);
+ul_lfHFadaptmax2 = zeros(1,tsteps-1999); 
+ll_lfHFadaptmax2 = zeros(1,tsteps-1999);
 
 %grip forces boundaries matrices
 ul_gfLFcatchmax1 = zeros(1,tsteps-1999); %matrix for upper limit 
 ll_gfLFcatchmax1 = zeros(1,tsteps-1999); %matrix for lower limit
+
+ul_gfLFadaptmin1 = zeros(1,tsteps-1999); 
+ll_gfLFadaptmin1 = zeros(1,tsteps-1999);
+
+ul_gfHFcatchmax1 = zeros(1,tsteps-1999); 
+ll_gfHFcatchmax1 = zeros(1,tsteps-1999);
 
 ul_gfLFadaptmin1 = zeros(1,tsteps-1999); 
 ll_gfLFadaptmin1 = zeros(1,tsteps-1999);
@@ -373,17 +386,11 @@ ll_gfLFcatchmin2 = zeros(1,tsteps-1999);
 ul_gfLFadaptmax2 = zeros(1,tsteps-1999); 
 ll_gfLFadaptmax2 = zeros(1,tsteps-1999);
 
-ul_gfLFcatchmin2 = zeros(1,tsteps-1999); 
-ll_gfLFcatchmin2 = zeros(1,tsteps-1999);
+ul_gfHFcatchmin2 = zeros(1,tsteps-1999); 
+ll_gfHFcatchmin2 = zeros(1,tsteps-1999);
 
-ul_gfHFadaptmin1 = zeros(1,tsteps-1999); 
-ll_gfHFadaptmin1 = zeros(1,tsteps-1999);
-
-ul_gfmincatchHF2 = zeros(1,tsteps-1999); 
-ll_gfmincatchHF2 = zeros(1,tsteps-1999);
-
-ul_gfminadaptLF2 = zeros(1,tsteps-1999); 
-ll_gfminadaptLF2 = zeros(1,tsteps-1999);
+ul_gfHFadaptmax2 = zeros(1,tsteps-1999); 
+ll_gfHFadaptmax2 = zeros(1,tsteps-1999);
 
 %computation of the boundaries
 for i=1:length(meanlfLFcatchmax1)
@@ -394,23 +401,23 @@ for i=1:length(meanlfLFcatchmax1)
     ul_lfLFadaptmin1(i) = meanlfLFadaptmin1(i) + stdlfLFadaptmin1(i);
     ll_lfLFadaptmin1(i) = meanlfLFadaptmin1(i) - stdlfLFadaptmin1(i);
 
-    ul_lfHFcatchmax2(i) = meanlfHFcatchmax1(i) + stdlfHFcatchmax2(i); 
-    ll_lfHFcatchmax2(i) = meanlfHFcatchmax1(i) - stdlfHFcatchmax2(i);
+    ul_lfHFcatchmax1(i) = meanlfHFcatchmax1(i) + stdlfHFcatchmax1(i); 
+    ll_lfHFcatchmax1(i) = meanlfHFcatchmax1(i) - stdlfHFcatchmax1(i);
 
-    ul_lfLFadaptmax2(i) = meanlfLFadaptmax2(i) + stdlfLFadaptmax2(i);
-    ll_lfLFadaptmax2(i) = meanlfLFadaptmax2(i) - stdlfLFadaptmax2(i);
+    ul_lfHFadaptmin1(i) = meanlfHFadaptmin1(i) + stdlfHFadaptmin1(i);
+    ll_lfHFadaptmin1(i) = meanlfHFadaptmin1(i) - stdlfHFadaptmin1(i);
 
     ul_lfLFcatchmin2(i) = meanlfLFcatchmin2(i) + stdlfLFcatchmin2(i);
     ll_lfLFcatchmin2(i) = meanlfLFcatchmin2(i) - stdlfLFcatchmin2(i);
 
-    ul_lfHFadaptmin1(i) = meanlfHFadaptmin1(i) + stdlfHFadaptmin1(i); 
-    ll_lfHFadaptmin1(i) = meanlfHFadaptmin1(i) - stdlfHFadaptmin1(i);
+    ul_lfLFadaptmax2(i) = meanlfLFadaptmax2(i) + stdlfLFadaptmax2(i); 
+    ll_lfLFadaptmax2(i) = meanlfLFadaptmax2(i) - stdlfLFadaptmax2(i);
 
-    ul_lfmincatchHF2(i) = meanlfHFcatchmin2(i) + stdlfmincatchHF2(i); 
-    ll_lfmincatchHF2(i) = meanlfHFcatchmin2(i) - stdlfmincatchHF2(i);
+    ul_lfHFcatchmin2(i) = meanlfHFcatchmin2(i) + stdlfHFcatchmin2(i); 
+    ll_lfHFcatchmin2(i) = meanlfHFcatchmin2(i) - stdlfHFcatchmin2(i);
 
-    ul_lfminadaptLF2(i) = meanlfHFadaptmax2(i) + stdlfminadaptLF2(i); 
-    ll_lfminadaptLF2(i) = meanlfHFadaptmax2(i) - stdlfminadaptLF2(i);
+    ul_lfHFadaptmax2(i) = meanlfHFadaptmax2(i) + stdlfHFadaptmax2(i); 
+    ll_lfHFadaptmax2(i) = meanlfHFadaptmax2(i) - stdlfHFadaptmax2(i);
     
     %grip forces
     ul_gfLFcatchmax1(i) = meangfLFcatchmax1(i) + stdgfLFcatchmax1(i); 
@@ -419,23 +426,23 @@ for i=1:length(meanlfLFcatchmax1)
     ul_gfLFadaptmin1(i) = meangfLFadaptmin1(i) + stdgfLFadaptmin1(i);
     ll_gfLFadaptmin1(i) = meangfLFadaptmin1(i) - stdgfLFadaptmin1(i);
 
-    ul_gfLFcatchmin2(i) = meangfLFcatchmin2(i) + stdgfLFcatchmin2(i); 
-    ll_gfLFcatchmin2(i) = meangfLFcatchmin2(i) - stdgfLFcatchmin2(i);
+    ul_gfHFcatchmax1(i) = meangfHFcatchmax1(i) + stdgfHFcatchmax1(i); 
+    ll_gfHFcatchmax1(i) = meangfHFcatchmax1(i) - stdgfHFcatchmax1(i);
 
-    ul_gfLFadaptmax2(i) = meangfLFadaptmax2(i) + stdgfLFadaptmax2(i);
-    ll_gfLFadaptmax2(i) = meangfLFadaptmax2(i) - stdgfLFadaptmax2(i);
+    ul_gfHFadaptmin1(i) = meangfHFadaptmin1(i) + stdgfHFadaptmin1(i);
+    ll_gfHFadaptmin1(i) = meangfHFadaptmin1(i) - stdgfHFadaptmin1(i);
 
     ul_gfLFcatchmin2(i) = meangfLFcatchmin2(i) + stdgfLFcatchmin2(i);
     ll_gfLFcatchmin2(i) = meangfLFcatchmin2(i) - stdgfLFcatchmin2(i);
-
-    ul_gfHFadaptmin1(i) = meangfHFadaptmin1(i) + stdgfHFadaptmin1(i); 
-    ll_gfHFadaptmin1(i) = meangfHFadaptmin1(i) - stdgfHFadaptmin1(i);
     
-    ul_gfmincatchHF2(i) = meangfmincatchHF2(i) + stdgfmincatchHF2(i); 
-    ll_gfmincatchHF2(i) = meangfmincatchHF2(i) - stdgfmincatchHF2(i);
+    ul_gfLFadaptmax2(i) = meangfLFadaptmax2(i) + stdgfLFadaptmax2(i); 
+    ll_gfLFadaptmax2(i) = meangfLFadaptmax2(i) - stdgfLFadaptmax2(i);
 
-    ul_gfminadaptLF2(i) = meangfminadaptLF2(i) + stdgfminadaptLF2(i); 
-    ll_gfminadaptLF2(i) = meangfminadaptLF2(i) - stdgfminadaptLF2(i);
+    ul_gfHFcatchmin2(i) = meangfHFcatchmin2(i) + stdgfHFcatchmin2(i); 
+    ll_gfHFcatchmin2(i) = meangfHFcatchmin2(i) - stdgfHFcatchmin2(i);
+
+    ul_gfHFadaptmax2(i) = meangfHFadaptmax2(i) + stdgfHFadaptmax2(i); 
+    ll_gfHFadaptmax2(i) = meangfHFadaptmax2(i) - stdgfHFadaptmax2(i);
 end
 
 %% Plots 
@@ -453,49 +460,49 @@ fill([x fliplr(x)], [ul_lfLFcatchmax1 fliplr(ll_lfLFcatchmax1)], 'r', 'FaceAlpha
 hold on
 fill([x fliplr(x)], [ul_lfLFadaptmin1 fliplr(ll_lfLFadaptmin1)], 'b', 'FaceAlpha', 0.2)
 legend('', '')
-title('Maximal manipulandum weight')
+title('Low friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
-legend('Low friction catch', 'High friction normal');
+legend('Maximal weight catch', 'Minimal weight normal');
 
 subplot(2,2,2)
-y3 = meanlfLFcatchmin2;
+y3 = meanlfHFcatchmax1;
 y4 = meanlfHFadaptmin1;
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
 hold on
-fill([x fliplr(x)], [ul_lfLFcatchmin2 fliplr(ll_lfLFcatchmin2)], 'r', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfHFcatchmax1 fliplr(ll_lfLFcatchmax1)], 'r', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_lfHFadaptmin1 fliplr(ll_lfHFadaptmin1)], 'b', 'FaceAlpha', 0.2)
-title('Minimal manipulandum weight')
+title('High friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
-legend('Low friction catch', 'High friction normal');
+legend('Maximal weight catch', 'Minimal weight normal');
 
 subplot(2,2,3)
-y5 = meanlfHFcatchmax1;
+y5 = meanlfLFcatchmin2;
 y6 = meanlfLFadaptmax2;
 plot(x,y6,'r', x,y5,'b--','LineWidth', 1.5)
 hold on
-fill([x fliplr(x)], [ul_lfHFcatchmax2 fliplr(ll_lfHFcatchmax2)], 'r', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_lfLFadaptmax2 fliplr(ll_lfLFadaptmax2)], 'b', 'FaceAlpha', 0.2)
-title('Maximal manipulandum weight')
+fill([x fliplr(x)], [ul_lfLFcatchmin2 fliplr(ll_lfLFcatchmin2)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfLFadaptmax2 fliplr(ll_lfLFadaptmax2)], 'r', 'FaceAlpha', 0.2)
+title('Low friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
-legend('Low friction normal', 'High friction catch');
+legend('Maximal weight normal','Minimal weight catch');
 
 subplot(2,2,4)
 y7 = meanlfHFcatchmin2;
 y8 = meanlfHFadaptmax2;
 plot(x,y8,'r', x,y7,'b--','LineWidth', 1.5)
 hold on 
-fill([x fliplr(x)], [ul_lfmincatchHF2 fliplr(ll_lfmincatchHF2)], 'r', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_lfminadaptLF2 fliplr(ll_lfminadaptLF2)], 'b', 'FaceAlpha', 0.2)
-title('Minimal manipulandum weight')
+fill([x fliplr(x)], [ul_lfHFcatchmin2 fliplr(ll_lfHFcatchmin2)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfHFadaptmax2 fliplr(ll_lfHFadaptmax2)], 'r', 'FaceAlpha', 0.2)
+title('High friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
-legend('Low friction normal', 'High friction catch');
+legend('Maximal weight normal','Minimal weight catch');
 
-suptitle( 'Adaptation to friction during the first movement of friction catch trials - Elderly participants');
-suptitle( 'Adaptation to friction during the first movement of friction catch trials - Young participants');
+suptitle( 'Adaptation to weight during the first movement of weight catch trials - Elderly participants');
+%suptitle( 'Adaptation to weight during the first movement of weight catch trials - Young participants');
 
 % Figures GF
 
@@ -511,52 +518,52 @@ fill([x fliplr(x)], [ul_gfLFcatchmax1 fliplr(ll_gfLFcatchmax1)], 'r', 'FaceAlpha
 hold on
 fill([x fliplr(x)], [ul_gfLFadaptmin1 fliplr(ll_gfLFadaptmin1)], 'b', 'FaceAlpha', 0.2)
 legend('', '')
-title('Maximal manipulandum weight')
+title('Low friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 15]);
-legend('Low friction catch', 'High friction normal');
+legend('Maximal weight catch', 'Minimal weight normal');
 
 subplot(2,2,2)
-y3 = meangfLFcatchmin2;
+y3 = meangfHFcatchmax1;
 y4 = meangfHFadaptmin1;
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
 hold on
-fill([x fliplr(x)], [ul_gfLFcatchmin2 fliplr(ll_gfLFcatchmin2)], 'r', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfHFcatchmax1 fliplr(ll_gfHFcatchmax1)], 'r', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_gfHFadaptmin1 fliplr(ll_gfHFadaptmin1)], 'b', 'FaceAlpha', 0.2)
-title('Minimal manipulandum weight')
+title('High friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 15]);
-legend('Low friction catch', 'High friction normal');
+legend('Maximal weight catch', 'Minimal weight normal');
 
 subplot(2,2,3)
 y5 = meangfLFcatchmin2;
 y6 = meangfLFadaptmax2;
 plot(x,y6,'r',x,y5,'b--', 'LineWidth', 1.5)
 hold on
-fill([x fliplr(x)], [ul_gfLFcatchmin2 fliplr(ll_gfLFcatchmin2)], 'r', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_gfLFadaptmax2 fliplr(ll_gfLFadaptmax2)], 'b', 'FaceAlpha', 0.2)
-title('Maximal manipulandum weight')
+fill([x fliplr(x)], [ul_gfLFcatchmin2 fliplr(ll_gfLFcatchmin2)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfLFadaptmax2 fliplr(ll_gfLFadaptmax2)], 'r', 'FaceAlpha', 0.2)
+title('Low friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 15]);
-legend('Low friction normal', 'High friction catch');
+legend('Maximal weight normal','Minimal weight catch');
 
 subplot(2,2,4)
-y7 = meangfmincatchHF2;
-y8 = meangfminadaptLF2;
+y7 = meangfHFcatchmin2;
+y8 = meangfHFadaptmax2;
 plot(x,y8,'r',x,y7,'b--','LineWidth', 1.5)
 hold on 
-fill([x fliplr(x)], [ul_gfmincatchHF2 fliplr(ll_lfmincatchHF2)], 'r', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_gfminadaptLF2 fliplr(ll_lfminadaptLF2)], 'b', 'FaceAlpha', 0.2)
-title('Minimal manipulandum weight')
+fill([x fliplr(x)], [ul_gfHFcatchmin2 fliplr(ll_gfHFcatchmin2)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfHFadaptmax2 fliplr(ll_gfHFadaptmax2)], 'r', 'FaceAlpha', 0.2)
+title('High friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 15]);
-legend('Low friction normal', 'High friction catch');
+legend('Maximal weight normal','Minimal weight catch');
 
-suptitle( 'Adaptation to friction during the first movement of friction catch trials - Elderly participants');
-suptitle( 'Adaptation to friction during the first movement of friction catch trials - Young participants');
+suptitle( 'Adaptation to weight during the first movement of weight catch trials - Elderly participants');
+%suptitle( 'Adaptation to weight during the first movement of weight catch trials - Young participants');
 
 end
