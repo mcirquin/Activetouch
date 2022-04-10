@@ -310,7 +310,7 @@ meanmintomaxstabHF=mean(meanmintomaxstabHFsub);
 meanmintomaxstabHFparticipants = mean(mintomaxstabHF);
 
 %% Boxplots GF peaks
-
+%{
 A=reshape(maxLF,1,[]).';
 B=reshape(maxtominLF,1,[]).';
 C=reshape(maxHF,1,[]).';
@@ -337,7 +337,7 @@ group3=ones(1,sizeC)*3;
 group4=ones(1,sizeD)*4;
 group1 = [group1,group2,group3,group4];
 
-%Deuxi�me subplot
+%Deuxième subplot
 group5=ones(1,sizeE)*1;
 group6=ones(1,sizeF)*2;
 group7=ones(1,sizeG)*3;
@@ -397,6 +397,7 @@ text(-0.75, 31,{'Comparison of GF peaks for weight catch and normal trials';''},
 
 %% Boxplots GF stab
 
+
 I=reshape(maxstabLF,1,[]).';
 J=reshape(maxtominstabLF,1,[]).';
 K=reshape(maxstabHF,1,[]).';
@@ -416,13 +417,13 @@ sizeN=size(N,1);
 sizeO=size(O,1);
 sizeP=size(P,1);
 
-%Troisi�me subplot
+%Troisième subplot
 group9=ones(1,sizeI);
 group10=ones(1,sizeJ)*2;
 group11=ones(1,sizeK)*3;
 group12=ones(1,sizeL)*4;
 
-%Quatri�me subplot
+%Quatrième subplot
 group13=ones(1,sizeM)*1;
 group14=ones(1,sizeN)*2;
 group15=ones(1,sizeO)*3;
@@ -439,7 +440,7 @@ boxplot(x3,group3, 'positions', positions);
 
 set(gca,'xtick',[mean(positions(1:2)) mean(positions(3:4))])
 set(gca,'xticklabel',{'Low friction','High friction'})
-ylabel('Grip force (N)')
+ylabel('Mean grip force (N)')
 ylim([0 30])
 set(gca,'YTick',0:5:30)
 
@@ -461,7 +462,7 @@ boxplot(x4,group4, 'positions', positions);
 
 set(gca,'xtick',[mean(positions(1:2)) mean(positions(3:4))])
 set(gca,'xticklabel',{'Low friction','High friction'})
-ylabel('Grip force (N)');
+ylabel('Mean grip force (N)');
 ylim([0 30])
 set(gca,'YTick',0:5:30)
 
@@ -478,9 +479,182 @@ c = get(gca, 'Children');
 hleg1 = legend(c(1:2), 'Minimal weight normal', 'Maximal weight catch', 'Location', 'north');
 
 text(-1.2, 31,{'Comparison of GF during stabilization for weight catch and normal trials';''}, 'FontSize', 14)
+%}
+
+%% Mean bars + slopes
+% Premier subplot
+subplot(1,4,1)
+y=[meanmaxLF meanmaxtominLF; meanmaxHF meanmaxtominHF]
+b = bar(y);
+set(gca,'XTickLabel',{'Low friction';'High friction'})%;'Max weight LF';'Max weight HF'});
+b(2).FaceColor = [0.6350 0.0780 0.1840];
+b(1).FaceColor = [0 0.4470 0.7410];
+legend('Maximal weight normal','Minimal weight catch', 'Location','north')
+ylabel('Mean grip force(N)')
+ylim([0 30])
+
+%color cell (suppress colors if less participants!)
+
+C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1]}%,[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colros.
+xdata= get (b(2),'XData');
+xoffset1 = -0.14;
+xoffset2 = 0.14;
 
 
+hold on
+y1 = meanmaxLFparticipants
+y2 = meanmaxtominLFparticipants
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(1)+xoffset1,y1(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(1)+xoffset2,y2(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(1)+xoffset1,xdata(1)+xoffset2], [y1(i), y2(i)], 'Color', C{i},'HandleVisibility','off')
+end
+ 
+hold on
+y3 = meanmaxHFparticipants;
+y4 = meanmaxtominHFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(2)+xoffset1,y3(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(2)+xoffset2,y4(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(2)+xoffset1,xdata(2)+xoffset2], [y3(i), y4(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+%Deuxième subplot
+
+subplot(1,4,2)
+ysecond=[meanminLF meanmintomaxLF ; meanminHF meanmintomaxHF];
+b = bar(ysecond);
+set(gca,'XTickLabel',{'Low friction';' High friction'})%;'Max weight LF';'Max weight HF'});
+b(1).FaceColor = [0.6350 0.0780 0.1840];
+b(2).FaceColor = [0 0.4470 0.7410];
+legend('Minimal weight normal','Maximal weight catch', 'Location','north')
+ylabel('Grip force peak (N)')
+ylim([0 30])
+
+hold on
+y5 = meanminLFparticipants;
+y6 = meanmintomaxLFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(1)+xoffset1,y5(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(1)+xoffset2,y6(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(1)+xoffset1,xdata(1)+xoffset2], [y5(i), y6(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+hold on
+y7 = meanminHFparticipants;
+y8 = meanmintomaxHFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(2)+xoffset1,y7(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(2)+xoffset2,y8(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(2)+xoffset1,xdata(2)+xoffset2], [y7(i), y8(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+text(-1.7, 31,{'Comparison of GF peaks for weight catch and normal trials';''}, 'FontSize', 14)
+
+% Troisième subplot
+subplot(1,4,3)
+ythird=[meanmaxstabLF meanmaxtominstabLF; meanmaxstabHF meanmaxtominstabHF];
+b = bar(ythird);
+set(gca,'XTickLabel',{'Low friction';'High friction'});
+b(2).FaceColor = [0.6350 0.0780 0.1840];
+b(1).FaceColor = [0 0.4470 0.7410];
+legend('Maximal weight normal','Minimal weight catch', 'Location','north')
+ylabel('Mean grip force (N)')
+ylim([0 30])
+
+
+hold on
+y9 = meanmaxstabLFparticipants
+y10 = meanmaxtominstabLFparticipants
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(1)+xoffset1,y9(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(1)+xoffset2,y10(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(1)+xoffset1,xdata(1)+xoffset2], [y9(i), y10(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+hold on
+y11 = meanmaxstabHFparticipants;
+y12 = meanmaxtominstabHFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(2)+xoffset1,y11(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(2)+xoffset2,y12(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(2)+xoffset1,xdata(2)+xoffset2], [y11(i), y12(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+%Quatrième subplot
+
+subplot(1,4,4)
+yforth=[meanminstabLF meanmintomaxstabLF ; meanminstabHF meanmintomaxstabHF];
+b = bar(yforth);
+set(gca,'XTickLabel',{'Low friction';'High friction'})%;'Max weight LF';'Max weight HF'});
+b(1).FaceColor = [0.6350 0.0780 0.1840];
+b(2).FaceColor = [0 0.4470 0.7410];
+legend('Minimal weight normal','Maximal weight catch', 'Location','north')
+ylabel('Mean grip force (N)')
+ylim([0 30])
+
+hold on
+y13 = meanminstabLFparticipants;
+y14 = meanmintomaxstabLFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(1)+xoffset1,y13(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(1)+xoffset2,y14(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(1)+xoffset1,xdata(1)+xoffset2], [y13(i), y14(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+hold on
+y15 = meanminstabHFparticipants;
+y16 = meanmintomaxstabLFparticipants;
+for i=1:nparticipants
+    figure(1); hold on;
+    plot(xdata(2)+xoffset1,y15(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+
+    hold on
+    figure(1); hold on;
+    plot(xdata(2)+xoffset2,y16(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
+    
+    line([xdata(2)+xoffset1,xdata(2)+xoffset2], [y15(i), y16(i)], 'Color', C{i},'HandleVisibility','off')
+end
+
+text(-2.3, 31,{'Comparison of GF during stabilization for weight catch and normal trials';''}, 'FontSize', 14)
 
 
 end
+
+
 
