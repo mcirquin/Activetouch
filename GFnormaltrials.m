@@ -213,30 +213,24 @@ meanmaxstabHF=mean(meanmaxstabHFsub);
 meanmaxstabHFparticipants=mean(maxstabHF);
 
 %{
-
 %% Boxplots comparison of GF peaks vs stabilization friction comparison
 %Boxplots of GF peaks
 A=reshape(minLF,1,[]).';
 B=reshape(minHF,1,[]).'; 
 C=reshape(maxLF,1,[]).';
 D=reshape(maxHF,1,[]).';
-
 x1 = [A;B;C;D];
 sizeA=size(A,1);
 sizeB=size(B,1);
 sizeC=size(C,1);
 sizeD=size(D,1);
-
-
 %subplot
 group1=ones(1,sizeA);
 group2=ones(1,sizeB)*2;
 group3=ones(1,sizeC)*3;
 group4=ones(1,sizeD)*4;
 group1 = [group1,group2,group3,group4];
-
 positions = [1 1.25 2 2.25]; 
-
 %Figure plot
 figure(1);
 subplot(1,2,1)
@@ -254,30 +248,23 @@ for j=1:length(h)
 end
 c = get(gca, 'Children');
 hleg1 = legend(c(1:2), 'Low Friction normal', 'High Friction normal', 'Location', 'north' );
-
-
 %boxplots of stabilization GF 
 E=reshape(minstabLF,1,[]).';
 F=reshape(minstabHF,1,[]).';
 J=reshape(maxstabLF,1,[]).';
 K=reshape(maxstabHF,1,[]).';
-
 x2=[E;F;J;K];
 sizeE=size(E,1);
 sizeF=size(F,1);
 sizeJ=size(J,1);
 sizeK=size(K,1);
-
 %subplot
-
 group5=ones(1,sizeE);
 group6=ones(1,sizeF)*2;
 group7=ones(1,sizeJ)*3;
 group8=ones(1,sizeK)*4;
 group5 = [group5,group6,group7,group8];
-
 positions = [1 1.25 2 2.25];
-
 subplot(1,2,2)
 boxplot(x2,group5, 'positions', positions);
 set(gca,'xtick',[mean(positions(1:2)) mean(positions(3:4))])
@@ -293,32 +280,25 @@ for j=1:length(h)
 end
 c = get(gca, 'Children');
 hleg1 = legend(c(1:2), 'Low Friction normal', 'High Friction normal', 'Location', 'north' );
-
 suptitle('Grip Force magnitude for GF peaks and stabilization of normal trials');
-
 %% Boxplots comparison of GF peaks vs stabilization weight comparison
 %Boxplots of GF peaks
 Abis=reshape(minLF,1,[]).';
 Bbis=reshape(maxLF,1,[]).';
 Cbis=reshape(minHF,1,[]).';
 Dbis=reshape(maxHF,1,[]).';
-
 x1bis = [Abis;Bbis;Cbis;Dbis];
 sizeAbis=size(Abis,1);
 sizeBbis=size(Bbis,1);
 sizeCbis=size(Cbis,1);
 sizeDbis=size(Dbis,1);
-
-
 %subplot
 group1bis=ones(1,sizeAbis);
 group2bis=ones(1,sizeBbis)*2;
 group3bis=ones(1,sizeCbis)*3;
 group4bis=ones(1,sizeDbis)*4;
 group1bis = [group1bis,group2bis,group3bis,group4bis];
-
 positions = [1 1.25 2 2.25]; 
-
 %Figure plot
 figure(2);
 subplot(1,2,1)
@@ -336,30 +316,23 @@ for j=1:length(h)
 end
 c = get(gca, 'Children');
 hleg1 = legend(c(1:2), 'Min weight normal', 'Max weight normal', 'Location', 'north' );
-
-
 %boxplots of stabilization GF 
 Ebis=reshape(minstabLF,1,[]).';
 Fbis=reshape(maxstabLF,1,[]).';
 Jbis=reshape(minstabHF,1,[]).';
 Kbis=reshape(maxstabHF,1,[]).';
-
 x2bis=[Ebis;Fbis;Jbis;Kbis];
 sizeEbis=size(Ebis,1);
 sizeFbis=size(Fbis,1);
 sizeJbis=size(Jbis,1);
 sizeKbis=size(Kbis,1);
-
 %subplot
-
 group5bis=ones(1,sizeEbis);
 group6bis=ones(1,sizeFbis)*2;
 group7bis=ones(1,sizeJbis)*3;
 group8bis=ones(1,sizeKbis)*4;
 group5bis = [group5bis,group6bis,group7bis,group8bis];
-
 positions = [1 1.25 2 2.25];
-
 subplot(1,2,2)
 boxplot(x2bis,group5bis, 'positions', positions);
 set(gca,'xtick',[mean(positions(1:2)) mean(positions(3:4))])
@@ -375,19 +348,18 @@ for j=1:length(h)
 end
 c = get(gca, 'Children');
 hleg1 = legend(c(1:2), 'Min weight normal', 'Max weight normal', 'Location', 'north' );
-
 suptitle('Grip Force magnitude for GF peaks and stabilization of normal trials');
-
 %}
 %% Quantification GF normal for HF and LF (GF peaks and stabilization)
 C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colors.
-xfriction1=linspace(0,9);
-yfriction1=linspace(0,9);
+xfriction1=linspace(0,20);
+yfriction1=linspace(0,20);
 figure(3);
 
 for i= 1:nparticipants
     %GF peaks: Comparison friction under min weight
-    subplot(2,2,1)
+    pos1 = [0.1 0.6 0.25 0.35];
+    subplot('Position',pos1);
     figure(3); hold on;
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
     figure(3); hold on;
@@ -397,7 +369,8 @@ for i= 1:nparticipants
     title('Min weight')
     
     %relative difference 
-    subplot(2,2,2)
+    pos2 = [0.4 0.6 0.05 0.35];
+    subplot('Position',pos2);
     Rd1 = (abs(meanminLFparticipants(i)-meanminHFparticipants(i))/min(meanminLFparticipants(i),meanminHFparticipants(i)))*100;
     figure(3); hold on;
     plot(0.5,Rd1,'.', 'MarkerSize',10,'Color', C{i});
@@ -409,8 +382,8 @@ for i= 1:nparticipants
     
     
     %GF peaks: Comparison friction under max weight
-    subplot(2,2,3)
-    figure(3); hold on;
+    pos3 = [0.1 0.1 0.25 0.35];
+    subplot('Position',pos3); hold on;
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
     figure(3); hold on;
     plot(meanmaxLFparticipants(i),meanmaxHFparticipants(i),'.', 'MarkerSize',10,'Color', C{i});
@@ -419,7 +392,8 @@ for i= 1:nparticipants
     title('Max weight')   
     
     %relative difference 
-    subplot(2,2,4)
+    pos4 = [0.4 0.1 0.05 0.35];
+    subplot('Position',pos4);
     Rd2 = (abs(meanmaxLFparticipants(i)-meanmaxHFparticipants(i))/min(meanmaxLFparticipants(i),meanmaxHFparticipants(i)))*100;
     figure(3); hold on;
     plot(0.5,Rd2,'.', 'MarkerSize',10,'Color', C{i});
@@ -430,6 +404,7 @@ for i= 1:nparticipants
     ylabel('Relative change in GF [%]')
     
 end
+%{
 suptitle('Grip Force magnitude of GF peaks for normal trials');
 %{figure(4);
 for i= 1:nparticipants
@@ -563,5 +538,5 @@ for i= 1:nparticipants
     ylabel('Relative change in GF [%]')
 end
 suptitle('Grip Force magnitude during stabilization for normal trials');
-
+%}
 end
