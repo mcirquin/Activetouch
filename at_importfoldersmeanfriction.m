@@ -9,15 +9,13 @@ Fmin = 1;
 Fmax = 5;
 Fint = [Fmin:Fmax];
 
-D = 'Data Friction 55-75';
+D = 'Aged_friction';
 S = dir(fullfile(D, '*'));
 N = setdiff({S([S.isdir]).name},{'.','..'}); % list of subfolders of D.
 
 x=linspace(0,1.6);
 y=linspace(0,1.6);
-figure(1); hold on;
-h1=plot(x,y,'Color',[0.2 0.2 0.2]) %identity line (x=y)
-h(1)=h1(1);
+h1=plot(x,y,'Color',[0.2 0.2 0.2]) %identity line (x=y
 
 figure(2);
 
@@ -35,12 +33,15 @@ for ii = 1:numel(N)  %loop going through the folders
     meanCF_HF = mean(indexglassHF.k.*Fint.^(indexglassHF.n-1));
     
     %relative difference in friction
-    Rd = (abs(meanCF_HF-meanCF_LF)/min(meanCF_LF,meanCF_HF))*100;
+    Rd = abs(meanCF_HF-meanCF_LF)/(meanCF_LF)*100;
     
     %graph plots
-    figure(1); hold on;
+    pos1 = [0.1 0.15 0.5 0.7];
+    subplot('Position',pos1);
+    hold on;
     C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colors.
     h2= plot(meanCF_LF,meanCF_HF,'.', 'MarkerSize',10,'Color', C{ii});
+    h1=plot(x,y,'Color',[0.2 0.2 0.2]) %identity line (x=y)
     h(2)=h2(1);   
     h=[h(1);h(2)]
     
@@ -50,7 +51,8 @@ for ii = 1:numel(N)  %loop going through the folders
     ylabel('Coefficient of friction - High [-]')
     yticks([0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6])
     
-    figure(2); hold on;
+    pos2 = [0.7 0.15 0.1 0.7];
+    subplot('Position',pos2); hold on;
     h1 = plot(1,Rd,'.', 'MarkerSize',10,'Color', C{ii});
     set(gca,'XTick',[])
     set(gca, 'YDir','reverse')
