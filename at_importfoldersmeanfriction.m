@@ -33,7 +33,7 @@ for ii = 1:numel(N)  %loop going through the folders
     meanCF_HF = mean(indexglassHF.k.*Fint.^(indexglassHF.n-1));
     
     %relative difference in friction
-    Rd = abs(meanCF_HF-meanCF_LF)/(meanCF_LF)*100;
+    Rd = abs(meanCF_HF-meanCF_LF)/(meanCF_HF)*100;
     
     %graph plots
     pos1 = [0.1 0.15 0.5 0.7];
