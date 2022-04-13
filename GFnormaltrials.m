@@ -352,8 +352,9 @@ suptitle('Grip Force magnitude for GF peaks and stabilization of normal trials')
 %}
 %% Quantification GF normal for HF and LF (GF peaks and stabilization)
 C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colors.
-xfriction1=linspace(0,9);
-yfriction1=linspace(0,9);
+axis=10;% axis limits of the plots
+xfriction1=linspace(0,axis);
+yfriction1=linspace(0,axis);
 figure(3);
 
 for i= 1:nparticipants
@@ -366,6 +367,9 @@ for i= 1:nparticipants
     plot(meanminLFparticipants(i),meanminHFparticipants(i),'.', 'MarkerSize',10,'Color', C{i});
     xlabel('GF - Low friction normal [N]')
     ylabel('GF - High friction normal [N]')
+    xlim([0 axis])
+    ylim([0 axis])
+    xticks(0:1:axis)
     title('Min weight')
     
     %relative difference 
@@ -389,6 +393,9 @@ for i= 1:nparticipants
     plot(meanmaxLFparticipants(i),meanmaxHFparticipants(i),'.', 'MarkerSize',10,'Color', C{i});
     xlabel('GF - Low friction normal [N]')
     ylabel('GF - High friction normal [N]')
+    xlim([0 axis])
+    ylim([0 axis])
+    xticks(0:1:axis)
     title('Max weight')   
     
     %relative difference 
@@ -418,6 +425,9 @@ for i= 1:nparticipants
     plot(meanminstabLFparticipants(i),meanminstabHFparticipants(i),'.', 'MarkerSize',10,'Color', C{i});
     xlabel('GF - Low friction normal [N]')
     ylabel('GF - High friction normal [N]')
+    xlim([0 axis])
+    ylim([0 axis])
+    xticks(0:1:axis)
     title('Min weight')
     
     %relative difference
@@ -440,6 +450,9 @@ for i= 1:nparticipants
     plot(meanmaxstabLFparticipants(i),meanmaxstabHFparticipants(i),'.', 'MarkerSize',10,'Color', C{i});
     xlabel('GF - Low friction normal [N]')
     ylabel('GF - High friction normal [N]')
+    xlim([0 axis])
+    ylim([0 axis])
+    xticks(0:1:axis)
     title('Max weight')
     
     %relative difference 
@@ -466,6 +479,9 @@ for i= 1:nparticipants
     plot(meanminLFparticipants(i),meanmaxLFparticipants(i),'.', 'MarkerSize',10,'Color', C{i});
     xlabel('GF - Min weight normal [N]')
     ylabel('GF - Max weight normal [N]')
+    xlim([0 axis])
+    ylim([0 axis])
+    xticks(0:1:axis)
     title('Low friction')
     
     %relative difference 
@@ -488,6 +504,9 @@ for i= 1:nparticipants
     plot(meanminHFparticipants(i),meanmaxHFparticipants(i),'.', 'MarkerSize',10,'Color', C{i});
     xlabel('GF - Min weight normal [N]')
     ylabel('GF - Max weight normal [N]')
+    xlim([0 axis])
+    ylim([0 axis])
+    xticks(0:1:axis)
     title('High friction')
     
     %relative difference 
@@ -514,6 +533,9 @@ for i= 1:nparticipants
     plot(meanminstabLFparticipants(i),meanmaxstabLFparticipants(i),'.', 'MarkerSize',10,'Color', C{i});
     xlabel('GF - Min weight normal [N]')
     ylabel('GF - Max weight normal [N]')
+    xlim([0 axis])
+    ylim([0 axis])
+    xticks(0:1:axis)
     title('Low friction')
     
     %relative difference 
@@ -536,6 +558,9 @@ for i= 1:nparticipants
     plot(meanminstabHFparticipants(i),meanmaxstabHFparticipants(i),'.', 'MarkerSize',10,'Color', C{i});
     xlabel('GF - Min weight normal [N]')
     ylabel('GF - Max weight normal [N]')
+    xlim([0 axis])
+    ylim([0 axis])
+    xticks(0:1:axis)
     title('High friction')
     
     %relative difference 
