@@ -437,7 +437,7 @@ end
 figure; 
 
 %x=10.005:0.005:13.8;
-x=10:0.005:12.5
+x=10:0.005:12.495;
 subplot(2,2,1)
 %y1 = meanlfmaxcatchLF1;
 %y2 = meanlfmaxadaptHF1;
@@ -445,9 +445,9 @@ y1 = meanlfmaxcatchLF1(1:500);
 y2 = meanlfmaxadaptHF1(1:500);
 plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
 hold on 
-fill([x fliplr(x)], [ul_lfmaxcatchLF1 fliplr(ll_lfmaxcatchLF1)], 'r', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfmaxcatchLF1(1:500) fliplr(ll_lfmaxcatchLF1(1:500))], 'r', 'FaceAlpha', 0.2)
 hold on
-fill([x fliplr(x)], [ul_lfmaxadaptHF1 fliplr(ll_lfmaxadaptHF1)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfmaxadaptHF1(1:500) fliplr(ll_lfmaxadaptHF1(1:500))], 'b', 'FaceAlpha', 0.2)
 legend('', '')
 title('Maximal manipulandum weight')
 xlabel('Time (s)');
@@ -455,56 +455,56 @@ ylabel('LF (N)');
 legend('Low friction catch', 'High friction normal');
 
 subplot(2,2,2)
-y3 = meanlfmincatchLF1;
-y4 = meanlfminadaptHF1;
+y3 = meanlfmincatchLF1(1:500);
+y4 = meanlfminadaptHF1(1:500);
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
 hold on
-fill([x fliplr(x)], [ul_lfmincatchLF1 fliplr(ll_lfmincatchLF1)], 'r', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_lfminadaptHF1 fliplr(ll_lfminadaptHF1)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfmincatchLF1(1:500) fliplr(ll_lfmincatchLF1(1:500))], 'r', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfminadaptHF1(1:500) fliplr(ll_lfminadaptHF1(1:500))], 'b', 'FaceAlpha', 0.2)
 title('Minimal manipulandum weight')
 xlabel('Time (s)');
 ylabel('LF (N)');
 legend('Low friction catch', 'High friction normal');
 
 subplot(2,2,3)
-y5 = meanlfmaxcatchHF2;
-y6 = meanlfmaxadaptLF2;
+y5 = meanlfmaxcatchHF2(1:500);
+y6 = meanlfmaxadaptLF2(1:500);
 plot(x,y6,'r', x,y5,'b--','LineWidth', 1.5)
 hold on
-fill([x fliplr(x)], [ul_lfmaxcatchHF2 fliplr(ll_lfmaxcatchHF2)], 'r', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_lfmaxadaptLF2 fliplr(ll_lfmaxadaptLF2)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfmaxcatchHF2(1:500) fliplr(ll_lfmaxcatchHF2(1:500))], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfmaxadaptLF2(1:500) fliplr(ll_lfmaxadaptLF2(1:500))], 'r', 'FaceAlpha', 0.2)
 title('Maximal manipulandum weight')
 xlabel('Time (s)');
 ylabel('LF (N)');
 legend('Low friction normal', 'High friction catch');
 
 subplot(2,2,4)
-y7 = meanlfmincatchHF2;
-y8 = meanlfminadaptLF2;
+y7 = meanlfmincatchHF2(1:500);
+y8 = meanlfminadaptLF2(1:500);
 plot(x,y8,'r', x,y7,'b--','LineWidth', 1.5)
 hold on 
-fill([x fliplr(x)], [ul_lfmincatchHF2 fliplr(ll_lfmincatchHF2)], 'r', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_lfminadaptLF2 fliplr(ll_lfminadaptLF2)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfmincatchHF2(1:500) fliplr(ll_lfmincatchHF2(1:500))], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfminadaptLF2(1:500) fliplr(ll_lfminadaptLF2(1:500))], 'r', 'FaceAlpha', 0.2)
 title('Minimal manipulandum weight')
 xlabel('Time (s)');
 ylabel('LF (N)');
 legend('Low friction normal', 'High friction catch');
 
-suptitle( 'Adaptation to friction during the first movement of friction catch trials');
+suptitle( 'Adaptation to friction during the first movement of friction catch trials - Elderly participants');
+%suptitle( 'Adaptation to friction during the first movement of friction catch trials - Young participants');
 
 % Figures GF
 
 figure; 
 
-x=10.005:0.005:13.8;
 subplot(2,2,1)
-y1 = meangfmaxcatchLF1;
-y2 = meangfmaxadaptHF1;
+y1 = meangfmaxcatchLF1(1:500);
+y2 = meangfmaxadaptHF1(1:500);
 plot(x,y1,'r--',x, y2, 'b', 'LineWidth', 1.5)
 hold on 
-fill([x fliplr(x)], [ul_gfmaxcatchLF1 fliplr(ll_gfmaxcatchLF1)], 'r', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfmaxcatchLF1(1:500) fliplr(ll_gfmaxcatchLF1(1:500))], 'r', 'FaceAlpha', 0.2)
 hold on
-fill([x fliplr(x)], [ul_gfmaxadaptHF1 fliplr(ll_gfmaxadaptHF1)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfmaxadaptHF1(1:500) fliplr(ll_gfmaxadaptHF1(1:500))], 'b', 'FaceAlpha', 0.2)
 legend('', '')
 title('Maximal manipulandum weight')
 xlabel('Time (s)');
@@ -513,12 +513,12 @@ ylim([0 15]);
 legend('Low friction catch', 'High friction normal');
 
 subplot(2,2,2)
-y3 = meangfmincatchLF1;
-y4 = meangfminadaptHF1;
+y3 = meangfmincatchLF1(1:500);
+y4 = meangfminadaptHF1(1:500);
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
 hold on
-fill([x fliplr(x)], [ul_gfmincatchLF1 fliplr(ll_gfmincatchLF1)], 'r', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_gfminadaptHF1 fliplr(ll_gfminadaptHF1)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfmincatchLF1(1:500) fliplr(ll_gfmincatchLF1(1:500))], 'r', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfminadaptHF1(1:500) fliplr(ll_gfminadaptHF1(1:500))], 'b', 'FaceAlpha', 0.2)
 title('Minimal manipulandum weight')
 xlabel('Time (s)');
 ylabel('GF (N)');
@@ -526,12 +526,12 @@ ylim([0 15]);
 legend('Low friction catch', 'High friction normal');
 
 subplot(2,2,3)
-y5 = meangfmaxcatchHF2;
-y6 = meangfmaxadaptLF2;
+y5 = meangfmaxcatchHF2(1:500);
+y6 = meangfmaxadaptLF2(1:500);
 plot(x,y6,'r',x,y5,'b--', 'LineWidth', 1.5)
 hold on
-fill([x fliplr(x)], [ul_gfmaxcatchHF2 fliplr(ll_gfmaxcatchHF2)], 'r', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_gfmaxadaptLF2 fliplr(ll_gfmaxadaptLF2)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfmaxcatchHF2(1:500) fliplr(ll_gfmaxcatchHF2(1:500))], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfmaxadaptLF2(1:500) fliplr(ll_gfmaxadaptLF2(1:500))], 'r', 'FaceAlpha', 0.2)
 title('Maximal manipulandum weight')
 xlabel('Time (s)');
 ylabel('GF (N)');
@@ -539,17 +539,19 @@ ylim([0 15]);
 legend('Low friction normal', 'High friction catch');
 
 subplot(2,2,4)
-y7 = meangfmincatchHF2;
-y8 = meangfminadaptLF2;
+y7 = meangfmincatchHF2(1:500);
+y8 = meangfminadaptLF2(1:500);
 plot(x,y8,'r',x,y7,'b--','LineWidth', 1.5)
 hold on 
-fill([x fliplr(x)], [ul_gfmincatchHF2 fliplr(ll_lfmincatchHF2)], 'r', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_gfminadaptLF2 fliplr(ll_lfminadaptLF2)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfmincatchHF2(1:500) fliplr(ll_lfmincatchHF2(1:500))], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfminadaptLF2(1:500) fliplr(ll_lfminadaptLF2(1:500))], 'r', 'FaceAlpha', 0.2)
 title('Minimal manipulandum weight')
 xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 15]);
 legend('Low friction normal', 'High friction catch');
 
-suptitle( 'Adaptation to friction during the first movement of friction catch trials');
+suptitle( 'Adaptation to friction during the first movement of friction catch trials - Elderly participants');
+%suptitle( 'Adaptation to friction during the first movement of friction catch trials - Young participants');
+
 end
