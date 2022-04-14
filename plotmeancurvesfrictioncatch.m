@@ -436,10 +436,13 @@ end
 
 figure; 
 
-x=10.005:0.005:13.8;
+%x=10.005:0.005:13.8;
+x=10:0.005:12.5
 subplot(2,2,1)
-y1 = meanlfmaxcatchLF1;
-y2 = meanlfmaxadaptHF1;
+%y1 = meanlfmaxcatchLF1;
+%y2 = meanlfmaxadaptHF1;
+y1 = meanlfmaxcatchLF1(1:500);
+y2 = meanlfmaxadaptHF1(1:500);
 plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
 hold on 
 fill([x fliplr(x)], [ul_lfmaxcatchLF1 fliplr(ll_lfmaxcatchLF1)], 'r', 'FaceAlpha', 0.2)
