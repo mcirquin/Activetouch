@@ -450,52 +450,56 @@ end
 
 figure; 
 
-x=10.005:0.005:13.8;
+%x=10.005:0.005:13.8;
+x=10:0.005:12.495;
 subplot(2,2,1)
-y1 = meanlfLFcatchmax1;
-y2 = meanlfLFadaptmin1;
+%y1 = meanlfLFcatchmax1;
+%y2 = meanlfLFadaptmin1;
+y1 = meanlfLFcatchmax1(1:500);
+y2 = meanlfLFadaptmin1(1:500);
 plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
 hold on 
-fill([x fliplr(x)], [ul_lfLFcatchmax1 fliplr(ll_lfLFcatchmax1)], 'r', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfLFcatchmax1(1:500) fliplr(ll_lfLFcatchmax1(1:500))], 'r', 'FaceAlpha', 0.2)
 hold on
-fill([x fliplr(x)], [ul_lfLFadaptmin1 fliplr(ll_lfLFadaptmin1)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfLFadaptmin1(1:500) fliplr(ll_lfLFadaptmin1(1:500))], 'b', 'FaceAlpha', 0.2)
 legend('', '')
 title('Low friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
 legend('Maximal weight catch', 'Minimal weight normal');
 
+
 subplot(2,2,2)
-y3 = meanlfHFcatchmax1;
-y4 = meanlfHFadaptmin1;
+y3 = meanlfHFcatchmax1(1:500);
+y4 = meanlfHFadaptmin1(1:500);
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
 hold on
-fill([x fliplr(x)], [ul_lfHFcatchmax1 fliplr(ll_lfLFcatchmax1)], 'r', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_lfHFadaptmin1 fliplr(ll_lfHFadaptmin1)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfHFcatchmax1(1:500) fliplr(ll_lfLFcatchmax1(1:500))], 'r', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfHFadaptmin1(1:500) fliplr(ll_lfHFadaptmin1(1:500))], 'b', 'FaceAlpha', 0.2)
 title('High friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
 legend('Maximal weight catch', 'Minimal weight normal');
 
 subplot(2,2,3)
-y5 = meanlfLFcatchmin2;
-y6 = meanlfLFadaptmax2;
+y5 = meanlfLFcatchmin2(1:500);
+y6 = meanlfLFadaptmax2(1:500);
 plot(x,y6,'r', x,y5,'b--','LineWidth', 1.5)
 hold on
-fill([x fliplr(x)], [ul_lfLFcatchmin2 fliplr(ll_lfLFcatchmin2)], 'b', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_lfLFadaptmax2 fliplr(ll_lfLFadaptmax2)], 'r', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfLFcatchmin2(1:500) fliplr(ll_lfLFcatchmin2(1:500))], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfLFadaptmax2(1:500) fliplr(ll_lfLFadaptmax2(1:500))], 'r', 'FaceAlpha', 0.2)
 title('Low friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
 legend('Maximal weight normal','Minimal weight catch');
 
 subplot(2,2,4)
-y7 = meanlfHFcatchmin2;
-y8 = meanlfHFadaptmax2;
+y7 = meanlfHFcatchmin2(1:500);
+y8 = meanlfHFadaptmax2(1:500);
 plot(x,y8,'r', x,y7,'b--','LineWidth', 1.5)
 hold on 
-fill([x fliplr(x)], [ul_lfHFcatchmin2 fliplr(ll_lfHFcatchmin2)], 'b', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_lfHFadaptmax2 fliplr(ll_lfHFadaptmax2)], 'r', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfHFcatchmin2(1:500) fliplr(ll_lfHFcatchmin2(1:500))], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_lfHFadaptmax2(1:500) fliplr(ll_lfHFadaptmax2(1:500))], 'r', 'FaceAlpha', 0.2)
 title('High friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
@@ -508,15 +512,15 @@ suptitle( 'Adaptation to weight during the first movement of weight catch trials
 
 figure; 
 
-x=10.005:0.005:13.8;
+%x=10.005:0.005:13.8;
 subplot(2,2,1)
-y1 = meangfLFcatchmax1;
-y2 = meangfLFadaptmin1;
+y1 = meangfLFcatchmax1(1:500);
+y2 = meangfLFadaptmin1(1:500);
 plot(x,y1,'r--',x, y2, 'b', 'LineWidth', 1.5)
 hold on 
-fill([x fliplr(x)], [ul_gfLFcatchmax1 fliplr(ll_gfLFcatchmax1)], 'r', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfLFcatchmax1(1:500) fliplr(ll_gfLFcatchmax1(1:500))], 'r', 'FaceAlpha', 0.2)
 hold on
-fill([x fliplr(x)], [ul_gfLFadaptmin1 fliplr(ll_gfLFadaptmin1)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfLFadaptmin1(1:500) fliplr(ll_gfLFadaptmin1(1:500))], 'b', 'FaceAlpha', 0.2)
 legend('', '')
 title('Low friction')
 xlabel('Time (s)');
@@ -525,12 +529,12 @@ ylim([0 15]);
 legend('Maximal weight catch', 'Minimal weight normal');
 
 subplot(2,2,2)
-y3 = meangfHFcatchmax1;
-y4 = meangfHFadaptmin1;
+y3 = meangfHFcatchmax1(1:500);
+y4 = meangfHFadaptmin1(1:500);
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
 hold on
-fill([x fliplr(x)], [ul_gfHFcatchmax1 fliplr(ll_gfHFcatchmax1)], 'r', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_gfHFadaptmin1 fliplr(ll_gfHFadaptmin1)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfHFcatchmax1(1:500) fliplr(ll_gfHFcatchmax1(1:500))], 'r', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfHFadaptmin1(1:500) fliplr(ll_gfHFadaptmin1(1:500))], 'b', 'FaceAlpha', 0.2)
 title('High friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
@@ -538,12 +542,12 @@ ylim([0 15]);
 legend('Maximal weight catch', 'Minimal weight normal');
 
 subplot(2,2,3)
-y5 = meangfLFcatchmin2;
-y6 = meangfLFadaptmax2;
+y5 = meangfLFcatchmin2(1:500);
+y6 = meangfLFadaptmax2(1:500);
 plot(x,y6,'r',x,y5,'b--', 'LineWidth', 1.5)
 hold on
-fill([x fliplr(x)], [ul_gfLFcatchmin2 fliplr(ll_gfLFcatchmin2)], 'b', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_gfLFadaptmax2 fliplr(ll_gfLFadaptmax2)], 'r', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfLFcatchmin2(1:500) fliplr(ll_gfLFcatchmin2(1:500))], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfLFadaptmax2(1:500) fliplr(ll_gfLFadaptmax2(1:500))], 'r', 'FaceAlpha', 0.2)
 title('Low friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
@@ -551,12 +555,12 @@ ylim([0 15]);
 legend('Maximal weight normal','Minimal weight catch');
 
 subplot(2,2,4)
-y7 = meangfHFcatchmin2;
-y8 = meangfHFadaptmax2;
+y7 = meangfHFcatchmin2(1:500);
+y8 = meangfHFadaptmax2(1:500);
 plot(x,y8,'r',x,y7,'b--','LineWidth', 1.5)
 hold on 
-fill([x fliplr(x)], [ul_gfHFcatchmin2 fliplr(ll_gfHFcatchmin2)], 'b', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_gfHFadaptmax2 fliplr(ll_gfHFadaptmax2)], 'r', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfHFcatchmin2(1:500) fliplr(ll_gfHFcatchmin2(1:500))], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfHFadaptmax2(1:500) fliplr(ll_gfHFadaptmax2(1:500))], 'r', 'FaceAlpha', 0.2)
 title('High friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
@@ -565,5 +569,5 @@ legend('Maximal weight normal','Minimal weight catch');
 
 suptitle( 'Adaptation to weight during the first movement of weight catch trials - Elderly participants');
 %suptitle( 'Adaptation to weight during the first movement of weight catch trials - Young participants');
-
+%}
 end
