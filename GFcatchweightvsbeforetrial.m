@@ -4,7 +4,8 @@ function [Rdcatch, Rdstab] = GFcatchweightvsbeforetrial(maxGFmatrix, meanstabGFm
 %all the participants
 %Rdcatch, Rdstab : two 4 x nparticipants matrices containing the values of
 %the relative differences for the 4 different catches (lines) of each
-%participant (columns)
+%participant (columns) - catch corresponds to GF peaks and stab sto
+%stabilization GF
 
 %% 1. GF peaks
 
