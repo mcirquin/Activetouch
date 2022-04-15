@@ -454,6 +454,9 @@ text(-1.2, 31,{'Comparison of GF during stabilization for weight catch and norma
 %}
 
 %% Mean bars + slopes
+%color cell 
+C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colros.
+%{
 baraxis=9; % axis limits of the plots
 
 % Premier subplot
@@ -471,9 +474,7 @@ legend('Maximal weight normal','Minimal weight catch', 'Location','north')
 ylabel('Grip force peak(N)')
 ylim([0 baraxis])
 
-%color cell (suppress colors if less participants!)
 
-C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colros.
 xdata= get (b(2),'XData');
 xoffset1 = -0.14;
 xoffset2 = 0.14;
@@ -642,7 +643,7 @@ for i=1:nparticipants
 end
 
 text(-2.3, 31,{'Comparison of GF during stabilization for weight catch and normal trials';''}, 'FontSize', 14)
-
+%}
 
 %% Quantification GF of Min weight catch with respect to normal trials (GF peaks and stabilization)
 
@@ -670,6 +671,7 @@ for i= 1:nparticipants
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
     Rd1 = (abs(meanmaxtominLFparticipants(i)-meanmaxLFparticipants(i))/min(meanmaxtominLFparticipants(i),meanmaxLFparticipants(i)))*100;
+    Rdvector(1,i) = Rd1;
     figure(2); hold on;
     plot(0.5,Rd1,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -677,6 +679,10 @@ for i= 1:nparticipants
     set(gca, 'YDir','reverse')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]')
+    if i == nparticipants
+        figure(2);hold on;
+        errorbar(0.5,mean(Rdvector(1,:),2),std(Rdvector(1,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
 
     %GF peaks: Comparison min weight catches under high friction
     pos3 = [0.1 0.1 0.25 0.35];
@@ -696,6 +702,7 @@ for i= 1:nparticipants
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
     Rd2 = (abs(meanmaxtominHFparticipants(i)-meanmaxHFparticipants(i))/min(meanmaxtominHFparticipants(i),meanmaxHFparticipants(i)))*100;
+    Rdvector(2,i) = Rd2;
     figure(2); hold on;
     plot(0.5,Rd2,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -703,6 +710,10 @@ for i= 1:nparticipants
     set(gca, 'YDir','reverse')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]')
+    if i == nparticipants
+        figure(2);hold on;
+        errorbar(0.5,mean(Rdvector(2,:),2),std(Rdvector(2,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
 
 end
 %suptitle('Grip Force magnitude of GF peaks for min weight catch trials');
@@ -727,6 +738,7 @@ for i= 1:nparticipants
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
     Rd1stab = (abs(meanmaxtominstabLFparticipants(i)-meanmaxstabLFparticipants(i))/min(meanmaxtominstabLFparticipants(i),meanmaxstabLFparticipants(i)))*100;
+    Rdvector(3,i) = Rd1stab;
     figure(3); hold on;
     plot(0.5,Rd1stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -734,6 +746,10 @@ for i= 1:nparticipants
     set(gca, 'YDir','reverse')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]')
+    if i == nparticipants
+        figure(3);hold on;
+        errorbar(0.5,mean(Rdvector(3,:),2),std(Rdvector(3,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
 
     %stab: Comparison min weight catches under high friction
     pos3 = [0.1 0.1 0.25 0.35];
@@ -753,6 +769,7 @@ for i= 1:nparticipants
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
     Rd2stab = (abs(meanmaxtominstabHFparticipants(i)-meanmaxstabHFparticipants(i))/min(meanmaxtominstabHFparticipants(i),meanmaxstabHFparticipants(i)))*100;
+    Rdvector(4,i) = Rd2stab;
     figure(3); hold on;
     plot(0.5,Rd2stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -760,6 +777,10 @@ for i= 1:nparticipants
     set(gca, 'YDir','reverse')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]')
+    if i == nparticipants
+        figure(3);hold on;
+        errorbar(0.5,mean(Rdvector(4,:),2),std(Rdvector(4,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
 end
 %suptitle('Grip Force magnitude during stabilization for min weight catch trials');
 
@@ -787,6 +808,7 @@ for i= 1:nparticipants
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
     Rd3 = (abs(meanminLFparticipants(i)-meanmintomaxLFparticipants(i))/min(meanminLFparticipants(i),meanmintomaxLFparticipants(i)))*100;
+    Rdvector(5,i) = Rd3;
     figure(4); hold on;
     plot(0.5,Rd3,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -794,6 +816,10 @@ for i= 1:nparticipants
     set(gca, 'YDir','reverse')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]')
+    if i == nparticipants
+        figure(4);hold on;
+        errorbar(0.5,mean(Rdvector(5,:),2),std(Rdvector(5,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
 
     %GF peaks: Comparison max weight catches under high friction
     pos3 = [0.1 0.1 0.25 0.35];
@@ -813,6 +839,7 @@ for i= 1:nparticipants
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
     Rd4 = (abs(meanminHFparticipants(i)-meanmintomaxHFparticipants(i))/min(meanminHFparticipants(i),meanmintomaxHFparticipants(i)))*100;
+    Rdvector(6,i) = Rd4;
     figure(4); hold on;
     plot(0.5,Rd4,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -820,6 +847,10 @@ for i= 1:nparticipants
     set(gca, 'YDir','reverse')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]')
+    if i == nparticipants
+        figure(4);hold on;
+        errorbar(0.5,mean(Rdvector(6,:),2),std(Rdvector(6,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
 
 end
 %suptitle('Grip Force magnitude of GF peaks for max weight catch trials');
@@ -844,6 +875,7 @@ for i= 1:nparticipants
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
     Rd3stab = (abs(meanminstabLFparticipants(i)-meanmintomaxstabLFparticipants(i))/min(meanminstabLFparticipants(i),meanmintomaxstabLFparticipants(i)))*100;
+    Rdvector(7,i) = Rd3stab;
     figure(5); hold on;
     plot(0.5,Rd3stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -851,6 +883,10 @@ for i= 1:nparticipants
     set(gca, 'YDir','reverse')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]')
+    if i == nparticipants
+        figure(5);hold on;
+        errorbar(0.5,mean(Rdvector(7,:),2),std(Rdvector(7,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
 
     %stab: Comparison max weight catches under high friction
     pos3 = [0.1 0.1 0.25 0.35];
@@ -870,6 +906,7 @@ for i= 1:nparticipants
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
     Rd4stab = (abs(meanminstabHFparticipants(i)-meanmintomaxstabHFparticipants(i))/min(meanminstabHFparticipants(i),meanmintomaxstabHFparticipants(i)))*100;
+    Rdvector(8,i) = Rd4stab;
     figure(5); hold on;
     plot(0.5,Rd4stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -877,6 +914,10 @@ for i= 1:nparticipants
     set(gca, 'YDir','reverse')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]')
+    if i == nparticipants
+        figure(5);hold on;
+        errorbar(0.5,mean(Rdvector(8,:),2),std(Rdvector(8,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
 end
 %suptitle('Grip Force magnitude during stabilization for max weight catch trials');
 end
