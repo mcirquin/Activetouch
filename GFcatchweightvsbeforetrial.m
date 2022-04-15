@@ -1,7 +1,10 @@
-function output = GFcatchweightvsbeforetrial(maxGFmatrix, meanstabGFmatrix, nparticipants)
+function [Rdcatch, Rdstab] = GFcatchweightvsbeforetrial(maxGFmatrix, meanstabGFmatrix, nparticipants)
 %Barplots of the GF peaks of catch weight trials vs the adaptation trials 
 %maxGFmatrix : matrix with all the peak GF values for all the trials of
 %all the participants
+%Rdcatch, Rdstab : two 4 x nparticipants matrices containing the values of
+%the relative differences for the 4 different catches (lines) of each
+%participant (columns)
 
 %% 1. GF peaks
 
@@ -647,6 +650,12 @@ text(-2.3, 31,{'Comparison of GF during stabilization for weight catch and norma
 
 %% Quantification GF of Min weight catch with respect to normal trials (GF peaks and stabilization)
 
+%Computation of mean relative differences for weight cactches (one vector
+%for catches and one for stabilization)
+Rdcatch = [];
+Rdstab = [];
+
+
 axis=10;% axis limits of the plots
 xfriction1=linspace(0,axis);
 yfriction1=linspace(0,axis);
@@ -672,6 +681,7 @@ for i= 1:nparticipants
     subplot('Position',pos2);
     Rd1 = (abs(meanmaxtominLFparticipants(i)-meanmaxLFparticipants(i))/min(meanmaxtominLFparticipants(i),meanmaxLFparticipants(i)))*100;
     Rdvector(1,i) = Rd1;
+    Rdcatch(1,i) = Rd1;
     figure(2); hold on;
     plot(0.5,Rd1,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -703,6 +713,7 @@ for i= 1:nparticipants
     subplot('Position',pos4);
     Rd2 = (abs(meanmaxtominHFparticipants(i)-meanmaxHFparticipants(i))/min(meanmaxtominHFparticipants(i),meanmaxHFparticipants(i)))*100;
     Rdvector(2,i) = Rd2;
+    Rdcatch(2,i) = Rd2;
     figure(2); hold on;
     plot(0.5,Rd2,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -739,6 +750,7 @@ for i= 1:nparticipants
     subplot('Position',pos2);
     Rd1stab = (abs(meanmaxtominstabLFparticipants(i)-meanmaxstabLFparticipants(i))/min(meanmaxtominstabLFparticipants(i),meanmaxstabLFparticipants(i)))*100;
     Rdvector(3,i) = Rd1stab;
+    Rdstab(1,i) = Rd1stab;
     figure(3); hold on;
     plot(0.5,Rd1stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -770,6 +782,7 @@ for i= 1:nparticipants
     subplot('Position',pos4);
     Rd2stab = (abs(meanmaxtominstabHFparticipants(i)-meanmaxstabHFparticipants(i))/min(meanmaxtominstabHFparticipants(i),meanmaxstabHFparticipants(i)))*100;
     Rdvector(4,i) = Rd2stab;
+    Rdstab(2,i) = Rd2stab;
     figure(3); hold on;
     plot(0.5,Rd2stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -809,6 +822,7 @@ for i= 1:nparticipants
     subplot('Position',pos2);
     Rd3 = (abs(meanminLFparticipants(i)-meanmintomaxLFparticipants(i))/min(meanminLFparticipants(i),meanmintomaxLFparticipants(i)))*100;
     Rdvector(5,i) = Rd3;
+    Rdcatch(3,i) = Rd3;
     figure(4); hold on;
     plot(0.5,Rd3,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -840,6 +854,7 @@ for i= 1:nparticipants
     subplot('Position',pos4);
     Rd4 = (abs(meanminHFparticipants(i)-meanmintomaxHFparticipants(i))/min(meanminHFparticipants(i),meanmintomaxHFparticipants(i)))*100;
     Rdvector(6,i) = Rd4;
+    Rdcatch(4,i) = Rd4;
     figure(4); hold on;
     plot(0.5,Rd4,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -876,6 +891,7 @@ for i= 1:nparticipants
     subplot('Position',pos2);
     Rd3stab = (abs(meanminstabLFparticipants(i)-meanmintomaxstabLFparticipants(i))/min(meanminstabLFparticipants(i),meanmintomaxstabLFparticipants(i)))*100;
     Rdvector(7,i) = Rd3stab;
+    Rdstab(3,i) = Rd3stab;
     figure(5); hold on;
     plot(0.5,Rd3stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -907,6 +923,7 @@ for i= 1:nparticipants
     subplot('Position',pos4);
     Rd4stab = (abs(meanminstabHFparticipants(i)-meanmintomaxstabHFparticipants(i))/min(meanminstabHFparticipants(i),meanmintomaxstabHFparticipants(i)))*100;
     Rdvector(8,i) = Rd4stab;
+    Rdstab(4,i) = Rd4stab;
     figure(5); hold on;
     plot(0.5,Rd4stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
