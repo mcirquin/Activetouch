@@ -355,6 +355,8 @@ C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.
 axis=10;% axis limits of the plots
 xfriction1=linspace(0,axis);
 yfriction1=linspace(0,axis);
+Rdvector = []; %vector saving the relative differnce values for each participant
+
 figure(3);
 
 for i= 1:nparticipants
@@ -376,6 +378,7 @@ for i= 1:nparticipants
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
     Rd1 = (abs(meanminLFparticipants(i)-meanminHFparticipants(i))/min(meanminLFparticipants(i),meanminHFparticipants(i)))*100;
+    Rdvector(1,i) = Rd1;
     figure(3); hold on;
     plot(0.5,Rd1,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -383,7 +386,10 @@ for i= 1:nparticipants
     set(gca, 'YDir','reverse')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]')
-    
+    if i == nparticipants
+        figure(3);hold on;
+        errorbar(0.5,mean(Rdvector(1,:),2),std(Rdvector(1,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
     
     %GF peaks: Comparison friction under max weight
     pos3 = [0.1 0.1 0.25 0.35];
@@ -402,6 +408,7 @@ for i= 1:nparticipants
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
     Rd2 = (abs(meanmaxLFparticipants(i)-meanmaxHFparticipants(i))/min(meanmaxLFparticipants(i),meanmaxHFparticipants(i)))*100;
+    Rdvector(2,i) = Rd2;
     figure(3); hold on;
     plot(0.5,Rd2,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
@@ -409,7 +416,10 @@ for i= 1:nparticipants
     set(gca, 'YDir','reverse')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]')
-    
+    if i == nparticipants
+        figure(3);hold on;
+        errorbar(0.5,mean(Rdvector(2,:),2),std(Rdvector(2,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
 end
 
 %suptitle('Grip Force magnitude of GF peaks for normal trials');
@@ -434,12 +444,17 @@ for i= 1:nparticipants
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
     Rd1stab = (abs(meanminstabLFparticipants(i)-meanminstabHFparticipants(i))/min(meanminstabLFparticipants(i),meanminstabHFparticipants(i)))*100;
+    Rdvector(3,i) = Rd1stab;
     figure(4); hold on;
     plot(0.5,Rd1stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
     xlim([0 1])
     set(gca, 'YDir','reverse')
     ylabel('Relative change in GF [%]')
+    if i == nparticipants
+        figure(4);hold on;
+        errorbar(0.5,mean(Rdvector(3,:),2),std(Rdvector(3,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
     
     %stab: Comparison friction under max weight
     pos3 = [0.1 0.1 0.25 0.35];
@@ -459,12 +474,17 @@ for i= 1:nparticipants
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
     Rd2stab = (abs(meanmaxstabLFparticipants(i)-meanmaxstabHFparticipants(i))/min(meanmaxstabLFparticipants(i),meanmaxstabHFparticipants(i)))*100;
+    Rdvector(4,i) = Rd2stab;
     figure(4); hold on;
     plot(0.5,Rd2stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
     xlim([0 1])
     set(gca, 'YDir','reverse')
     ylabel('Relative change in GF [%]')
+    if i == nparticipants
+        figure(4);hold on;
+        errorbar(0.5,mean(Rdvector(4,:),2),std(Rdvector(4,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
 end
 %suptitle('Grip Force magnitude during stabilization for normal trials');
 %% Quantification GF normal for Min & Max weights(GF peaks and stabilization)
@@ -488,12 +508,17 @@ for i= 1:nparticipants
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
     Rd3 = (abs(meanminLFparticipants(i)-meanmaxLFparticipants(i))/min(meanminLFparticipants(i),meanmaxLFparticipants(i)))*100;
+    Rdvector(5,i) = Rd3;
     figure(5); hold on;
     plot(0.5,Rd3,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
     xlim([0 1])
     set(gca, 'YDir','reverse')
     ylabel('Relative change in GF [%]')
+    if i == nparticipants
+        figure(5);hold on;
+        errorbar(0.5,mean(Rdvector(5,:),2),std(Rdvector(5,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
     
     %GF peaks: Comparison weight under high friction
     pos3 = [0.1 0.1 0.25 0.35];
@@ -513,12 +538,17 @@ for i= 1:nparticipants
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
     Rd4 = (abs(meanminHFparticipants(i)-meanmaxHFparticipants(i))/min(meanminHFparticipants(i),meanmaxHFparticipants(i)))*100;
+    Rdvector(6,i) = Rd4;
     figure(5); hold on;
     plot(0.5,Rd4,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
     xlim([0 1])
     set(gca, 'YDir','reverse')
     ylabel('Relative change in GF [%]')
+    if i == nparticipants
+        figure(5);hold on;
+        errorbar(0.5,mean(Rdvector(6,:),2),std(Rdvector(6,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
 end
 %suptitle('Grip Force magnitude of GF peaks for normal trials');
 
@@ -542,12 +572,17 @@ for i= 1:nparticipants
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
     Rd3stab = (abs(meanminstabLFparticipants(i)-meanmaxstabLFparticipants(i))/min(meanminstabLFparticipants(i),meanmaxstabLFparticipants(i)))*100;
+    Rdvector(7,i) = Rd3stab;
     figure(6); hold on;
     plot(0.5,Rd3stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
     xlim([0 1])
     set(gca, 'YDir','reverse')
     ylabel('Relative change in GF [%]')
+    if i == nparticipants
+        figure(6);hold on;
+        errorbar(0.5,mean(Rdvector(7,:),2),std(Rdvector(7,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
     
     %stab: Comparison weight under high friction
     pos3 = [0.1 0.1 0.25 0.35];
@@ -567,12 +602,17 @@ for i= 1:nparticipants
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
     Rd4stab = (abs(meanminstabHFparticipants(i)-meanmaxstabHFparticipants(i))/min(meanminstabHFparticipants(i),meanmaxstabHFparticipants(i)))*100;
+    Rdvector(8,i) = Rd4stab;
     figure(6); hold on;
     plot(0.5,Rd4stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
     xlim([0 1])
     set(gca, 'YDir','reverse')
     ylabel('Relative change in GF [%]')
+    if i == nparticipants
+        figure(6);hold on;
+        errorbar(0.5,mean(Rdvector(8,:),2),std(Rdvector(8,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
 end
 %suptitle('Grip Force magnitude during stabilization for normal trials');
 %}
