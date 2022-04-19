@@ -1,12 +1,12 @@
 %Boxplots des pics de GF pour essais catch friction
-function maxLFerror = maxGFerrorcatchverre(maxGFmatrix, nparticipants)
+function maxGFerror = maxGFerrorcatchverre(maxGFmatrix, nparticipants)
 % Max LF catch verres
-nessais=4;
+nessais=2;
 maxLF=zeros(nessais, nparticipants);
 maxLF(1,:)=maxGFmatrix(13,:);
 maxLF(2,:)=maxGFmatrix(25,:);
-maxLF(3,:)=maxGFmatrix(73,:);
-maxLF(4,:)=maxGFmatrix(91,:);
+%maxLF(3,:)=maxGFmatrix(73,:);
+%maxLF(4,:)=maxGFmatrix(91,:);
 meanmaxLFsub=mean(maxLF, 2);
 meanmaxLF=mean(meanmaxLFsub);
 meanmaxLFparticipants=mean(maxLF);
@@ -17,36 +17,38 @@ S = std(A); %calcule la standard deviation
 error=S;%/(nessais*nparticipants)
 
 
-nessaisbis=3;
+nessaisbis=2;
 maxHF=zeros(nessaisbis, nparticipants);
-maxHF(1,:)=maxGFmatrix(67,:);
-maxHF(2,:)=maxGFmatrix(85,:);
-maxHF(3,:)=maxGFmatrix(109,:);
+%maxHF(1,:)=maxGFmatrix(67,:);
+maxHF(1,:)=maxGFmatrix(85,:);
+maxHF(2,:)=maxGFmatrix(109,:);
 meanmaxHFsub=mean(maxHF, 2);
 meanmaxHF=mean(meanmaxHFsub);
 
 meanmaxHFparticipants=mean(maxHF);
 
 B=reshape(maxHF,1,[]).';
-size(B)
+size(B);
 % Min LF catch verres
-minLF=zeros(nessaisbis, nparticipants);
+nessais3=1;
+minLF=zeros(nessais3, nparticipants);
 minLF(1,:)=maxGFmatrix(43,:);
-minLF(2,:)=maxGFmatrix(55,:);
-minLF(3,:)=maxGFmatrix(103,:);
+%minLF(2,:)=maxGFmatrix(55,:);
+%minLF(3,:)=maxGFmatrix(103,:);
 meanminLFsub=mean(minLF, 2);
 meanminLF=mean(meanminLFsub);
-
-meanminLFparticipants=mean(minLF);
+meanminLFparticipants=minLF;
+meanminLFparticipants=mean(minLF); % use this line if more than 1 trial
 
 C=reshape(minLF,1,[]).';
 
 % Min HF catch verres
-minHF=zeros(nessais, nparticipants);
+nessais4=3;
+minHF=zeros(nessais4, nparticipants);
 minHF(1,:)=maxGFmatrix(19,:);
 minHF(2,:)=maxGFmatrix(31,:);
-minHF(3,:)=maxGFmatrix(49,:);
-minHF(4,:)=maxGFmatrix(97,:);
+%minHF(3,:)=maxGFmatrix(49,:);
+minHF(3,:)=maxGFmatrix(97,:);
 meanminHFsub=mean(minHF, 2); %moyenne pour tous les sujets
 meanminHF=mean(meanminHFsub);%moyenne des moyennes de tous les sujets
 
@@ -58,17 +60,11 @@ D=reshape(minHF,1,[]).';
 %Grand vecteur reprenant toutes les données des sous-vecteurs A,B,C,D
 x = [A;B;C;D];
 
-%% Elderly participants
-group1=ones(1,52); %taille matrice A
-group2=ones(1,39)*2; %taille matrice B
-group3=ones(1,39)*3; %taille matrice C
-group4=ones(1,52)*4; %taille matrice D
-
-%% Young participants
-group1=ones(1,60); %taille matrice A
-group2=ones(1,45)*2; %taille matrice B
-group3=ones(1,45)*3; %taille matrice C
-group4=ones(1,60)*4; %taille matrice D
+%% All participants
+group1=ones(1,size(A, 1)); %taille matrice A
+group2=ones(1,size(B,1))*2; %taille matrice B
+group3=ones(1,size(C,1))*3; %taille matrice C
+group4=ones(1,size(D,1))*4; %taille matrice D
 
 %% Boxplots
 
