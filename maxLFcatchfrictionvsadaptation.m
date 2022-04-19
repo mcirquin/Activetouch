@@ -5,14 +5,16 @@ function output = maxLFcatchfrictionvsadaptation(maxLFmatrix, nparticipants)
 
 %% Comparison of min weight trials (for HF and LF)
 %HF to LF catch friction min weight
-nessaisbis=3;
+nessaisbis=1;
 mincatchLF=zeros(nessaisbis, nparticipants);
 mincatchLF(1,:)=maxLFmatrix(43,:);
-mincatchLF(2,:)=maxLFmatrix(55,:);
-mincatchLF(3,:)=maxLFmatrix(103,:);
+%mincatchLF(2,:)=maxLFmatrix(55,:);
+%mincatchLF(3,:)=maxLFmatrix(103,:);
 meanmincatchLFsub=mean(mincatchLF, 2);
 meanmincatchLF=mean(meanmincatchLFsub);
-meanmincatchLFparticipants=mean(mincatchLF);
+meanmincatchLFparticipants=mincatchLF;
+%meanmincatchLFparticipants=mean(mincatchLF); use this line if more than 1
+%trial
 
 %min weight LF adaptation 
 nessais3 = 16;
@@ -38,12 +40,12 @@ meanminLF=mean(meanminLFsub);
 meanminLFparticipants=mean(minLF);
 
 %LF to HF catch friction min weight
-nessais=4;
+nessais=3;
 mincatchHF=zeros(nessais, nparticipants);
 mincatchHF(1,:)=maxLFmatrix(19,:);
 mincatchHF(2,:)=maxLFmatrix(31,:);
-mincatchHF(3,:)=maxLFmatrix(49,:);
-mincatchHF(4,:)=maxLFmatrix(97,:);
+%mincatchHF(3,:)=maxLFmatrix(49,:);
+mincatchHF(3,:)=maxLFmatrix(97,:);
 meanmincatchHFsub=mean(mincatchHF, 2); %moyenne pour tous les sujets
 meanmincatchHF=mean(meanmincatchHFsub);%moyenne des moyennes de tous les sujets
 meanmincatchHFparticipants=mean(mincatchHF);
@@ -73,12 +75,12 @@ meanminHF=mean(meanminHFsub);
 
 %% Comparison of max weight trials (for LF and HF)
 %%HF to LF catch friction max weight
-nessais=4;
+nessais=2;
 maxcatchLF=zeros(nessais, nparticipants);
 maxcatchLF(1,:)=maxLFmatrix(13,:);
 maxcatchLF(2,:)=maxLFmatrix(25,:);
-maxcatchLF(3,:)=maxLFmatrix(73,:);
-maxcatchLF(4,:)=maxLFmatrix(91,:);
+%maxcatchLF(3,:)=maxLFmatrix(73,:);
+%maxcatchLF(4,:)=maxLFmatrix(91,:);
 meanmaxcatchLFsub=mean(maxcatchLF, 2);
 meanmaxcatchLF=mean(meanmaxcatchLFsub);
 
@@ -109,11 +111,11 @@ meanmaxLFsub=mean(maxLF, 2);
 meanmaxLF=mean(meanmaxLFsub);
 
 %LF to HF catch friction max weight
-nessaisbis=3;
+nessaisbis=2;
 maxcatchHF=zeros(nessaisbis, nparticipants);
-maxcatchHF(1,:)=maxLFmatrix(67,:);
-maxcatchHF(2,:)=maxLFmatrix(85,:);
-maxcatchHF(3,:)=maxLFmatrix(109,:);
+%maxcatchHF(1,:)=maxLFmatrix(67,:);
+maxcatchHF(1,:)=maxLFmatrix(85,:);
+maxcatchHF(2,:)=maxLFmatrix(109,:);
 meanmaxcatchHFsub=mean(maxcatchHF, 2);
 meanmaxcatchHF=mean(meanmaxcatchHFsub);
 meanmaxcatchHFparticipants=mean(maxcatchHF);
