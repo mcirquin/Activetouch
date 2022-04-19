@@ -2,19 +2,19 @@ function meancurves = oneplotmeancurvesfrictioncatch(alignedLFtable, alignedGFta
 %% Friction catch low friction (high to low friction)
 
 %low friction catch under max weight 
-nessais1=4;
+nessais1=2;
 lfmaxcatchLF1=zeros(tsteps-1999,nessais1*nparticipants);
 gfmaxcatchLF1=zeros(tsteps-1999,nessais1*nparticipants);
 
 lfmaxcatchLF1 = alignedLFtable(:,1);  
 lfmaxcatchLF1 = [lfmaxcatchLF1 alignedLFtable(:,13)];
-lfmaxcatchLF1 = [lfmaxcatchLF1 alignedLFtable(:,61)];
-lfmaxcatchLF1 = [lfmaxcatchLF1 alignedLFtable(:,79)];
+%lfmaxcatchLF1 = [lfmaxcatchLF1 alignedLFtable(:,61)];
+%lfmaxcatchLF1 = [lfmaxcatchLF1 alignedLFtable(:,79)];
 
 gfmaxcatchLF1=alignedGFtable(:,1);
 gfmaxcatchLF1=[gfmaxcatchLF1 alignedGFtable(:,13)];
-gfmaxcatchLF1=[gfmaxcatchLF1 alignedGFtable(:,61:108:end)];
-gfmaxcatchLF1=[gfmaxcatchLF1 alignedGFtable(:,79:108:end)];
+%gfmaxcatchLF1=[gfmaxcatchLF1 alignedGFtable(:,61)]
+%gfmaxcatchLF1=[gfmaxcatchLF1 alignedGFtable(:,79)];
 
 %high friction adaptation under max weight 
 nessais2=18;
@@ -62,17 +62,17 @@ gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,108)];
 
 
 %low friction catch under min weight 
-nessais3=3;
+nessais3=1;
 lfmincatchLF1=zeros(tsteps-1999,nessais3*nparticipants);
 gfmincatchLF1=zeros(tsteps-1999,nessais3*nparticipants);
 
 lfmincatchLF1=alignedLFtable(:,31);
-lfmincatchLF1=[lfmincatchLF1 alignedLFtable(:,43)];
-lfmincatchLF1=[lfmincatchLF1 alignedLFtable(:,91)];
+%lfmincatchLF1=[lfmincatchLF1 alignedLFtable(:,43)];
+%lfmincatchLF1=[lfmincatchLF1 alignedLFtable(:,91)];
 
 gfmincatchLF1=alignedGFtable(:,31);
-gfmincatchLF1=[gfmincatchLF1 alignedGFtable(:,43)];
-gfmincatchLF1=[gfmincatchLF1 alignedGFtable(:,91)];
+%gfmincatchLF1=[gfmincatchLF1 alignedGFtable(:,43)];
+%gfmincatchLF1=[gfmincatchLF1 alignedGFtable(:,91)];
 
 %high friction adaptation under min weight 
 nessais4=18;
@@ -121,16 +121,16 @@ gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,106)];
 %% Friction catch high friction (low to high friction)
 
 %high friction catch under max weight 
-nessais5=3;
+nessais5=2;
 lfmaxcatchHF2=zeros(tsteps-1999,nessais5*nparticipants);
 gfmaxcatchHF2=zeros(tsteps-1999,nessais5*nparticipants);
 
-lfmaxcatchHF2=alignedLFtable(:,55);
-lfmaxcatchHF2=[lfmaxcatchHF2 alignedLFtable(:,73)];
+%lfmaxcatchHF2=alignedLFtable(:,55);
+lfmaxcatchHF2=alignedLFtable(:,73);
 lfmaxcatchHF2=[lfmaxcatchHF2 alignedLFtable(:,97)];
 
-gfmaxcatchHF2=alignedGFtable(:,55);
-gfmaxcatchHF2=[gfmaxcatchHF2 alignedGFtable(:,73)];
+%gfmaxcatchHF2=alignedGFtable(:,55);
+gfmaxcatchHF2=alignedGFtable(:,73);
 gfmaxcatchHF2=[gfmaxcatchHF2 alignedGFtable(:,97)];
 
 
@@ -184,18 +184,18 @@ gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,96)];
 
 
 %high friction catch under min weight 
-nessais7=4;
+nessais7=3;
 lfmincatchHF2=zeros(tsteps-1999,nessais7*nparticipants);
 gfmincatchHF2=zeros(tsteps-1999,nessais7*nparticipants);
 
 lfmincatchHF2=alignedLFtable(:,7);
 lfmincatchHF2=[lfmincatchHF2 alignedLFtable(:,19)];
-lfmincatchHF2=[lfmincatchHF2 alignedLFtable(:,37)];
+%lfmincatchHF2=[lfmincatchHF2 alignedLFtable(:,37)];
 lfmincatchHF2=[lfmincatchHF2 alignedLFtable(:,85)];
 
 gfmincatchHF2=alignedGFtable(:,7);
 gfmincatchHF2=[gfmincatchHF2 alignedGFtable(:,19)];
-gfmincatchHF2=[gfmincatchHF2 alignedGFtable(:,37)];
+%gfmincatchHF2=[gfmincatchHF2 alignedGFtable(:,37)];
 gfmincatchHF2=[gfmincatchHF2 alignedGFtable(:,85)];
 
 
@@ -541,8 +541,8 @@ y7 = meangfmincatchHF2;
 y8 = meangfminadaptLF2;
 plot(x,y8,'r',x,y7,'b--','LineWidth', 1.5)
 hold on 
-fill([x fliplr(x)], [ul_gfmincatchHF2 fliplr(ll_lfmincatchHF2)], 'b', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_gfminadaptLF2 fliplr(ll_lfminadaptLF2)], 'r', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfmincatchHF2 fliplr(ll_gfmincatchHF2)], 'b', 'FaceAlpha', 0.2)
+fill([x fliplr(x)], [ul_gfminadaptLF2 fliplr(ll_gfminadaptLF2)], 'r', 'FaceAlpha', 0.2)
 title('Minimal manipulandum weight')
 xlabel('Time (s)');
 ylabel('GF (N)');
