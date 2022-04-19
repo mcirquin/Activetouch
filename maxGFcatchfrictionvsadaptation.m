@@ -5,14 +5,16 @@ function output = maxGFcatchfrictionvsadaptation(maxGFmatrix, nparticipants)
 
 %% Comparison of min weight trials (for HF and LF)
 %HF to LF catch friction min weight
-nessaisbis=3;
+nessaisbis=1;
 mincatchLF=zeros(nessaisbis, nparticipants);
 mincatchLF(1,:)=maxGFmatrix(43,:);
-mincatchLF(2,:)=maxGFmatrix(55,:);
-mincatchLF(3,:)=maxGFmatrix(103,:);
+%mincatchLF(2,:)=maxGFmatrix(55,:);
+%mincatchLF(3,:)=maxGFmatrix(103,:);
 meanmincatchLFsub=mean(mincatchLF, 2);
 meanmincatchLF=mean(meanmincatchLFsub);
-meanmincatchLFparticipants=mean(mincatchLF);
+meanmincatchLFparticipants=mincatchLF; %1 x n participants matrix 
+%meanmincatchLFparticipants=mean(mincatchLF);use this line if more than 1
+%trial
 
 %min weight LF adaptation 
 nessais3 = 16;
@@ -38,12 +40,12 @@ meanminLF=mean(meanminLFsub);
 meanminLFparticipants=mean(minLF);
 
 %LF to HF catch friction min weight
-nessais=4;
+nessais=3;
 mincatchHF=zeros(nessais, nparticipants);
 mincatchHF(1,:)=maxGFmatrix(19,:);
 mincatchHF(2,:)=maxGFmatrix(31,:);
-mincatchHF(3,:)=maxGFmatrix(49,:);
-mincatchHF(4,:)=maxGFmatrix(97,:);
+%mincatchHF(3,:)=maxGFmatrix(49,:);
+mincatchHF(3,:)=maxGFmatrix(97,:);
 meanmincatchHFsub=mean(mincatchHF, 2); %moyenne pour tous les sujets
 meanmincatchHF=mean(meanmincatchHFsub);%moyenne des moyennes de tous les sujets
 meanmincatchHFparticipants=mean(mincatchHF);
@@ -74,12 +76,12 @@ meanminHFparticipants=mean(minHF);
 
 %% Comparison of max weight trials (for LF and HF)
 %%HF to LF catch friction max weight
-nessais=4;
+nessais=2;
 maxcatchLF=zeros(nessais, nparticipants);
 maxcatchLF(1,:)=maxGFmatrix(13,:);
 maxcatchLF(2,:)=maxGFmatrix(25,:);
-maxcatchLF(3,:)=maxGFmatrix(73,:);
-maxcatchLF(4,:)=maxGFmatrix(91,:);
+%maxcatchLF(3,:)=maxGFmatrix(73,:);
+%maxcatchLF(4,:)=maxGFmatrix(91,:);
 meanmaxcatchLFsub=mean(maxcatchLF, 2);
 meanmaxcatchLF=mean(meanmaxcatchLFsub);
 meanmaxcatchLFparticipants=mean(maxcatchLF);
@@ -113,11 +115,11 @@ meanmaxLF=mean(meanmaxLFsub);
 meanmaxLFparticipants=mean(maxLF);
 
 %LF to HF catch friction max weight
-nessaisbis=3;
+nessaisbis=2;
 maxcatchHF=zeros(nessaisbis, nparticipants);
-maxcatchHF(1,:)=maxGFmatrix(67,:);
-maxcatchHF(2,:)=maxGFmatrix(85,:);
-maxcatchHF(3,:)=maxGFmatrix(109,:);
+%maxcatchHF(1,:)=maxGFmatrix(67,:);
+maxcatchHF(1,:)=maxGFmatrix(85,:);
+maxcatchHF(2,:)=maxGFmatrix(109,:);
 meanmaxcatchHFsub=mean(maxcatchHF, 2);
 meanmaxcatchHF=mean(meanmaxcatchHFsub);
 meanmaxcatchHFparticipants=mean(maxcatchHF);
