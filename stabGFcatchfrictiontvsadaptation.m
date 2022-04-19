@@ -7,14 +7,15 @@ function output = stabGFcatchfrictiontvsadaptation(meanstabGFmatrix, nparticipan
 %% Comparison of min weight trials (for HF and LF)
 %HF to LF catch friction min weight
 
-nessaisbis=3;
+nessaisbis=1;
 mincatchLF=zeros(nessaisbis, nparticipants);
 mincatchLF(1,:)=meanstabGFmatrix(43,:);
-mincatchLF(2,:)=meanstabGFmatrix(55,:);
-mincatchLF(3,:)=meanstabGFmatrix(103,:);
+%mincatchLF(2,:)=meanstabGFmatrix(55,:);
+%mincatchLF(3,:)=meanstabGFmatrix(103,:);
 meanmincatchLFsub=mean(mincatchLF, 2);
 meanmincatchLF=mean(meanmincatchLFsub);
-meanmincatchstabLFparticipants=mean(mincatchLF);
+meanmincatchstabLFparticipants=mincatchLF;
+%meanmincatchstabLFparticipants=mean(mincatchLF);
 
 %min LF adaptation 
 nessaisbis = 16;
@@ -40,12 +41,12 @@ meanminstabLF=mean(meanminstabLFsub);
 meanminstabLFparticipants=mean(minstabLF);
 
 %LF to HF catch friction min weight
-nessais=4;
+nessais=3;
 mincatchHF=zeros(nessais, nparticipants);
 mincatchHF(1,:)=meanstabGFmatrix(19,:);
 mincatchHF(2,:)=meanstabGFmatrix(31,:);
-mincatchHF(3,:)=meanstabGFmatrix(49,:);
-mincatchHF(4,:)=meanstabGFmatrix(97,:);
+%mincatchHF(3,:)=meanstabGFmatrix(49,:);
+mincatchHF(3,:)=meanstabGFmatrix(97,:);
 meanmincatchHFsub=mean(mincatchHF, 2); %moyenne pour tous les sujets
 meanmincatchHF=mean(meanmincatchHFsub);%moyenne des moyennes de tous les sujets
 meanmincatchstabHFparticipants=mean(mincatchHF);
@@ -79,12 +80,12 @@ meanminstabHFparticipants=mean(minstabHF);
 %% Comparison of max weight trials (for LF and HF)
 
 %%HF to LF catch friction max weight
-nessais=4;
+nessais=2;
 maxcatchLF=zeros(nessais, nparticipants);
 maxcatchLF(1,:)=meanstabGFmatrix(13,:);
 maxcatchLF(2,:)=meanstabGFmatrix(25,:);
-maxcatchLF(3,:)=meanstabGFmatrix(73,:);
-maxcatchLF(4,:)=meanstabGFmatrix(91,:);
+%maxcatchLF(3,:)=meanstabGFmatrix(73,:);
+%maxcatchLF(4,:)=meanstabGFmatrix(91,:);
 meanmaxcatchLFsub=mean(maxcatchLF, 2);
 meanmaxcatchLF=mean(meanmaxcatchLFsub);
 meanmaxcatchstabLFparticipants=mean(maxcatchLF);
@@ -117,11 +118,11 @@ meanmaxstabLF=mean(meanmaxstabLFsub);
 meanmaxstabLFparticipants=mean(maxstabLF);
 
 %LF to HF catch friction max weight
-nessaisbis=3;
+nessaisbis=2;
 maxcatchHF=zeros(nessaisbis, nparticipants);
-maxcatchHF(1,:)=meanstabGFmatrix(67,:);
-maxcatchHF(2,:)=meanstabGFmatrix(85,:);
-maxcatchHF(3,:)=meanstabGFmatrix(109,:);
+%maxcatchHF(1,:)=meanstabGFmatrix(67,:);
+maxcatchHF(1,:)=meanstabGFmatrix(85,:);
+maxcatchHF(2,:)=meanstabGFmatrix(109,:);
 meanmaxcatchHFsub=mean(maxcatchHF, 2);
 meanmaxcatchHF=mean(meanmaxcatchHFsub);
 meanmaxcatchstabHFparticipants=mean(maxcatchHF);
