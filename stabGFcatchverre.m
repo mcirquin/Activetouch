@@ -1,45 +1,47 @@
 %Graphe mean stab GF vs Max weight LF, Max weight HF, Min weight LF, Min weight HF
-function stabLF = stabGFcatchverre(meanstabGFmatrix, nparticipants)
+function stabGF = stabGFcatchverre(meanstabGFmatrix, nparticipants)
 %% GF LF catch verres
-nessais=4;
+nessais=2;
 maxstabLF=zeros(nessais, nparticipants);
 maxstabLF(1,:)=meanstabGFmatrix(13,:);
 maxstabLF(2,:)=meanstabGFmatrix(25,:);
-maxstabLF(3,:)=meanstabGFmatrix(73,:);
-maxstabLF(4,:)=meanstabGFmatrix(91,:);
-meanmaxstabLFsub=mean(maxstabLF,2);%donne un tableau de 4 résultats donc moyennes des 4 essais
+%maxstabLF(3,:)=meanstabGFmatrix(73,:);
+%maxstabLF(4,:)=meanstabGFmatrix(91,:);
+meanmaxstabLFsub=mean(maxstabLF,2);%donne un tableau de 2 résultats donc moyennes des 2 essais
 meanmaxstabLF=mean(meanmaxstabLFsub);
 
 meanmaxstabLFparticipants = mean(maxstabLF);
 
 
 %% GF HF catch verres
-nessaisbis=3;
+nessaisbis=2;
 maxstabHF=zeros(nessaisbis, nparticipants);
-maxstabHF(1,:)=meanstabGFmatrix(67,:);
-maxstabHF(2,:)=meanstabGFmatrix(85,:);
-maxstabHF(3,:)=meanstabGFmatrix(109,:);
+%maxstabHF(1,:)=meanstabGFmatrix(67,:);
+maxstabHF(1,:)=meanstabGFmatrix(85,:);
+maxstabHF(2,:)=meanstabGFmatrix(109,:);
 meanmaxstabHFsub=mean(maxstabHF,2);
 meanmaxstabHF=mean(meanmaxstabHFsub);
 
 meanmaxstabHFparticipants = mean(maxstabHF);
 
 %% GF LF catch verres
-minstabLF=zeros(nessaisbis, nparticipants);
+nessais3=1;
+minstabLF=zeros(nessais3, nparticipants);
 minstabLF(1,:)=meanstabGFmatrix(43,:);
-minstabLF(2,:)=meanstabGFmatrix(55,:);
-minstabLF(3,:)=meanstabGFmatrix(103,:);
+%minstabLF(2,:)=meanstabGFmatrix(55,:);
+%minstabLF(3,:)=meanstabGFmatrix(103,:);
 meanminstabLFsub=mean(minstabLF, 2);
 meanminstabLF=mean(meanminstabLFsub);
-
-meanminstabLFparticipants = mean(minstabLF);
+meanminstabLFparticipants=minstabLF;
+%meanminstabLFparticipants = mean(minstabLF);
 
 %% GF HF catch verres
-minstabHF=zeros(nessais, nparticipants);
+nessais4=3;
+minstabHF=zeros(nessais4, nparticipants);
 minstabHF(1,:)=meanstabGFmatrix(19,:);
 minstabHF(2,:)=meanstabGFmatrix(31,:);
-minstabHF(3,:)=meanstabGFmatrix(49,:);
-minstabHF(4,:)=meanstabGFmatrix(97,:);
+%minstabHF(3,:)=meanstabGFmatrix(49,:);
+minstabHF(3,:)=meanstabGFmatrix(97,:);
 meanminstabHFsub=mean(minstabHF, 2); %moyenne pour tous les sujets
 meanminstabHF=mean(meanminstabHFsub);%moyenne des moyennes de tous les sujets
 
