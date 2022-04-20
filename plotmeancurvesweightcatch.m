@@ -1,4 +1,4 @@
-function meancurves = plotmeancurvesweightcatch(alignedLFtable, alignedGFtable, tsteps, nparticipants)
+function [LF_pvalues,LF_indexes] = plotmeancurvesweightcatch(alignedLFtable, alignedGFtable, tsteps, nparticipants, minimum)
 %% Weight catch max (min to max weight)
 
 %max weight catch under low friction 
@@ -445,16 +445,107 @@ for i=1:length(meanlfLFcatchmax1)
     ll_gfHFadaptmax2(i) = meangfHFadaptmax2(i) - stdgfHFadaptmax2(i);
 end
 
+%% Moment of significative difference between the curves (T-test)
+
+% T-tests for LF
+LF_pvalues = [];
+LF_indexes = [];
+
+%catch max weight LF vs adaptation min weight LF
+[h1,p1] = ttest2(lfLFcatchmax1.',lfLFadaptmin1.');%transposée des matrices pour faire le T-test dans le bon sens (pour chaque pas de temps)
+for i = minimum:(tsteps-1999)
+    if p1(i) < 0.05
+        LF_pvalues(1) = p1(i);
+        LF_indexes(1) = i;
+        break
+    end 
+end
+
+%catch max weight HF vs adaptation min weight HF
+[h2,p2] = ttest2(lfHFcatchmax1.',lfHFadaptmin1.');
+for i = minimum:(tsteps-1999)
+    if p2(i) < 0.05
+        LF_pvalues(2) = p2(i);
+        LF_indexes(2) = i;
+        break
+    end 
+end
+
+%catch min weight LF vs adaptation max weight LF
+[h3,p3] = ttest2(lfLFcatchmin2.',lfLFadaptmax2.');
+for i = minimum:(tsteps-1999)
+    if p3(i) < 0.05
+        LF_pvalues(3) = p3(i);
+        LF_indexes(3) = i;
+        break
+    end 
+end
+
+%catch min weight HF vs adaptation max weight HF
+[h4,p4] = ttest2(lfHFcatchmin2.',lfHFadaptmax2.');
+for i = minimum:(tsteps-1999)
+    if p4(i) < 0.05
+        LF_pvalues(4) = p4(i);
+        LF_indexes(4) = i;
+        break
+    end 
+end
+
+
+% T-tests for GF
+GF_pvalues = [];
+GF_indexes = [];
+
+%catch max weight LF vs adaptation min weight LF
+[h5,p5] = ttest2(gfLFcatchmax1.',gfLFadaptmin1.');%transposée des matrices pour faire le T-test dans le bon sens (pour chaque pas de temps)
+for i = minimum:(tsteps-1999)
+    if p5(i) < 0.05
+        GF_pvalues(1) = p5(i);
+        GF_indexes(1) = i;
+        break
+    end 
+end
+
+%catch max weight HF vs adaptation min weight HF
+[h6,p6] = ttest2(gfHFcatchmax1.',gfHFadaptmin1.');
+for i = minimum:(tsteps-1999)
+    if p6(i) < 0.05
+        GF_pvalues(2) = p6(i);
+        GF_indexes(2) = i;
+        break
+    end 
+end
+
+%catch min weight LF vs adaptation max weight LF
+[h7,p7] = ttest2(gfLFcatchmin2.',gfLFadaptmax2.');
+for i = minimum:(tsteps-1999)
+    if p7(i) < 0.05
+        GF_pvalues(3) = p7(i);
+        GF_indexes(3) = i;
+        break
+    end 
+end
+
+%catch min weight HF vs adaptation max weight HF
+[h8,p8] = ttest2(gfHFcatchmin2.',gfHFadaptmax2.');
+for i = minimum:(tsteps-1999)
+    if p8(i) < 0.05
+        GF_pvalues(4) = p8(i);
+        GF_indexes(4) = i;
+        break
+    end 
+end
+
+
 %% Plots 
 % Figures LF
+LFaxislim = 8; %limit of y axis of graphs for LF curves
+GFaxislim = 8; %limit of y axis of graphs for GF curves
 
 figure; 
 
-%x=10.005:0.005:13.8;
-x=10:0.005:12.495;
+x=10:0.005:12.495; %vecteur temps
 subplot(2,2,1)
-%y1 = meanlfLFcatchmax1;
-%y2 = meanlfLFadaptmin1;
 y1 = meanlfLFcatchmax1(1:500);
 y2 = meanlfLFadaptmin1(1:500);
 plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
@@ -462,12 +553,15 @@ hold on
 fill([x fliplr(x)], [ul_lfLFcatchmax1(1:500) fliplr(ll_lfLFcatchmax1(1:500))], 'r', 'FaceAlpha', 0.2)
 hold on
 fill([x fliplr(x)], [ul_lfLFadaptmin1(1:500) fliplr(ll_lfLFadaptmin1(1:500))], 'b', 'FaceAlpha', 0.2)
+hold on
+y=get(gca,'ylim');
+plot([LF_indexes(1)*0.005+10 LF_indexes(1)*0.005+10],y)
 legend('', '')
 title('Low friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
+ylim([0 LFaxislim]);
 legend('Maximal weight catch', 'Minimal weight normal');
-
 
 subplot(2,2,2)
 y3 = meanlfHFcatchmax1(1:500);
@@ -476,9 +570,13 @@ plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
 hold on
 fill([x fliplr(x)], [ul_lfHFcatchmax1(1:500) fliplr(ll_lfLFcatchmax1(1:500))], 'r', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_lfHFadaptmin1(1:500) fliplr(ll_lfHFadaptmin1(1:500))], 'b', 'FaceAlpha', 0.2)
+hold on
+y=get(gca,'ylim');
+plot([LF_indexes(2)*0.005+10 LF_indexes(2)*0.005+10],y)
 title('High friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
+ylim([0 LFaxislim]);
 legend('Maximal weight catch', 'Minimal weight normal');
 
 subplot(2,2,3)
@@ -488,9 +586,12 @@ plot(x,y6,'r', x,y5,'b--','LineWidth', 1.5)
 hold on
 fill([x fliplr(x)], [ul_lfLFcatchmin2(1:500) fliplr(ll_lfLFcatchmin2(1:500))], 'b', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_lfLFadaptmax2(1:500) fliplr(ll_lfLFadaptmax2(1:500))], 'r', 'FaceAlpha', 0.2)
+y=get(gca,'ylim');
+plot([LF_indexes(3)*0.005+10 LF_indexes(3)*0.005+10],y)
 title('Low friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
+ylim([0 LFaxislim]);
 legend('Maximal weight normal','Minimal weight catch');
 
 subplot(2,2,4)
@@ -500,19 +601,21 @@ plot(x,y8,'r', x,y7,'b--','LineWidth', 1.5)
 hold on 
 fill([x fliplr(x)], [ul_lfHFcatchmin2(1:500) fliplr(ll_lfHFcatchmin2(1:500))], 'b', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_lfHFadaptmax2(1:500) fliplr(ll_lfHFadaptmax2(1:500))], 'r', 'FaceAlpha', 0.2)
+y=get(gca,'ylim');
+plot([LF_indexes(4)*0.005+10 LF_indexes(4)*0.005+10],y)
 title('High friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
+ylim([0 LFaxislim]);
 legend('Maximal weight normal','Minimal weight catch');
 
-suptitle( 'Adaptation to weight during the first movement of weight catch trials - Elderly participants');
-%suptitle( 'Adaptation to weight during the first movement of weight catch trials - Young participants');
+%suptitle( 'Adaptation to weight during the first movement of weight catch trials - Elderly participants');
+suptitle( 'Adaptation to weight during the first movement of weight catch trials');
 
 % Figures GF
 
 figure; 
 
-%x=10.005:0.005:13.8;
 subplot(2,2,1)
 y1 = meangfLFcatchmax1(1:500);
 y2 = meangfLFadaptmin1(1:500);
@@ -521,11 +624,14 @@ hold on
 fill([x fliplr(x)], [ul_gfLFcatchmax1(1:500) fliplr(ll_gfLFcatchmax1(1:500))], 'r', 'FaceAlpha', 0.2)
 hold on
 fill([x fliplr(x)], [ul_gfLFadaptmin1(1:500) fliplr(ll_gfLFadaptmin1(1:500))], 'b', 'FaceAlpha', 0.2)
+hold on
+y=get(gca,'ylim');
+plot([GF_indexes(1)*0.005+10 GF_indexes(1)*0.005+10],y)
 legend('', '')
 title('Low friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
-ylim([0 15]);
+ylim([0 GFaxislim]);
 legend('Maximal weight catch', 'Minimal weight normal');
 
 subplot(2,2,2)
@@ -535,10 +641,13 @@ plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
 hold on
 fill([x fliplr(x)], [ul_gfHFcatchmax1(1:500) fliplr(ll_gfHFcatchmax1(1:500))], 'r', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_gfHFadaptmin1(1:500) fliplr(ll_gfHFadaptmin1(1:500))], 'b', 'FaceAlpha', 0.2)
+hold on
+y=get(gca,'ylim');
+plot([GF_indexes(2)*0.005+10 GF_indexes(2)*0.005+10],y)
 title('High friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
-ylim([0 15]);
+ylim([0 GFaxislim]);
 legend('Maximal weight catch', 'Minimal weight normal');
 
 subplot(2,2,3)
@@ -548,10 +657,13 @@ plot(x,y6,'r',x,y5,'b--', 'LineWidth', 1.5)
 hold on
 fill([x fliplr(x)], [ul_gfLFcatchmin2(1:500) fliplr(ll_gfLFcatchmin2(1:500))], 'b', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_gfLFadaptmax2(1:500) fliplr(ll_gfLFadaptmax2(1:500))], 'r', 'FaceAlpha', 0.2)
+hold on
+y=get(gca,'ylim');
+plot([GF_indexes(3)*0.005+10 GF_indexes(3)*0.005+10],y)
 title('Low friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
-ylim([0 15]);
+ylim([0 GFaxislim]);
 legend('Maximal weight normal','Minimal weight catch');
 
 subplot(2,2,4)
@@ -561,13 +673,16 @@ plot(x,y8,'r',x,y7,'b--','LineWidth', 1.5)
 hold on 
 fill([x fliplr(x)], [ul_gfHFcatchmin2(1:500) fliplr(ll_gfHFcatchmin2(1:500))], 'b', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_gfHFadaptmax2(1:500) fliplr(ll_gfHFadaptmax2(1:500))], 'r', 'FaceAlpha', 0.2)
+hold on
+y=get(gca,'ylim');
+plot([GF_indexes(4)*0.005+10 GF_indexes(4)*0.005+10],y)
 title('High friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
-ylim([0 15]);
+ylim([0 GFaxislim]);
 legend('Maximal weight normal','Minimal weight catch');
 
-suptitle( 'Adaptation to weight during the first movement of weight catch trials - Elderly participants');
-%suptitle( 'Adaptation to weight during the first movement of weight catch trials - Young participants');
-%}
+%suptitle( 'Adaptation to weight during the first movement of weight catch trials - Elderly participants');
+suptitle( 'Adaptation to weight during the first movement of weight catch trials');
+
 end
