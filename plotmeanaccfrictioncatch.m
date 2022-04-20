@@ -1,4 +1,4 @@
-function meancurves = plotmeanaccfrictioncatch(alignedacctable, tsteps, nparticipants)
+function acccurves = plotmeanaccfrictioncatch(alignedacctable, tsteps, nparticipants)
 %% Friction catch low friction (high to low friction)
 
 %low friction catch under max weight 
