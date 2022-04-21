@@ -1,4 +1,4 @@
-function [LF_pvalues,LF_indexes] = plotmeancurvesweightcatch(alignedLFtable, alignedGFtable, tsteps, nparticipants, minimum)
+function [LF_pvalues,LF_indexes,GF_pvalues,GF_indexes] = plotmeancurvesweightcatch(alignedLFtable, alignedGFtable, tsteps, nparticipants, minimum)
 %% Weight catch max (min to max weight)
 
 %max weight catch under low friction 
@@ -540,7 +540,7 @@ end
 %% Plots 
 % Figures LF
 LFaxislim = 8; %limit of y axis of graphs for LF curves
-GFaxislim = 20; %limit of y axis of graphs for GF curves
+GFaxislim = 8; %limit of y axis of graphs for GF curves
 
 figure; 
 
