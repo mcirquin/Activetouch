@@ -525,7 +525,7 @@ end
 %% Plots 
 % Figures LF
 LFaxislim = 7; %limit of y axis of graphs for LF curves
-GFaxislim = 7; %limit of y axis of graphs for GF curves
+GFaxislim = 20; %limit of y axis of graphs for GF curves
 figure; 
 
 %x=10.005:0.005:13.8;
@@ -541,8 +541,7 @@ fill([x fliplr(x)], [ul_lfmaxcatchLF1(1:500) fliplr(ll_lfmaxcatchLF1(1:500))], '
 hold on
 fill([x fliplr(x)], [ul_lfmaxadaptHF1(1:500) fliplr(ll_lfmaxadaptHF1(1:500))], 'b', 'FaceAlpha', 0.2)
 hold on
-y=get(gca,'ylim');
-plot([LF_indexes(1)*0.005+10 LF_indexes(1)*0.005+10],y)
+plot([LF_indexes(1)*0.005+10 LF_indexes(1)*0.005+10],[0 LFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 legend('', '')
 title('Maximal manipulandum weight')
 xlabel('Time (s)');
@@ -558,8 +557,7 @@ hold on
 fill([x fliplr(x)], [ul_lfmincatchLF1(1:500) fliplr(ll_lfmincatchLF1(1:500))], 'r', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_lfminadaptHF1(1:500) fliplr(ll_lfminadaptHF1(1:500))], 'b', 'FaceAlpha', 0.2)
 hold on
-y=get(gca,'ylim');
-plot([LF_indexes(1)*0.005+10 LF_indexes(1)*0.005+10],y)
+plot([LF_indexes(2)*0.005+10 LF_indexes(2)*0.005+10],[0 LFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('Minimal manipulandum weight')
 xlabel('Time (s)');
 ylabel('LF (N)');
@@ -574,8 +572,7 @@ hold on
 fill([x fliplr(x)], [ul_lfmaxcatchHF2(1:500) fliplr(ll_lfmaxcatchHF2(1:500))], 'b', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_lfmaxadaptLF2(1:500) fliplr(ll_lfmaxadaptLF2(1:500))], 'r', 'FaceAlpha', 0.2)
 hold on
-y=get(gca,'ylim');
-plot([LF_indexes(1)*0.005+10 LF_indexes(1)*0.005+10],y)
+plot([LF_indexes(3)*0.005+10 LF_indexes(3)*0.005+10],[0 LFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('Maximal manipulandum weight')
 xlabel('Time (s)');
 ylabel('LF (N)');
@@ -590,8 +587,7 @@ hold on
 fill([x fliplr(x)], [ul_lfmincatchHF2(1:500) fliplr(ll_lfmincatchHF2(1:500))], 'b', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_lfminadaptLF2(1:500) fliplr(ll_lfminadaptLF2(1:500))], 'r', 'FaceAlpha', 0.2)
 hold on
-y=get(gca,'ylim');
-plot([LF_indexes(1)*0.005+10 LF_indexes(1)*0.005+10],y)
+plot([LF_indexes(4)*0.005+10 LF_indexes(4)*0.005+10],[0 LFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('Minimal manipulandum weight')
 xlabel('Time (s)');
 ylabel('LF (N)');
@@ -615,7 +611,7 @@ hold on
 fill([x fliplr(x)], [ul_gfmaxadaptHF1(1:500) fliplr(ll_gfmaxadaptHF1(1:500))], 'b', 'FaceAlpha', 0.2)
 hold on
 y=get(gca,'ylim');
-plot([GF_indexes(1)*0.005+10 GF_indexes(1)*0.005+10],y)
+plot([GF_indexes(1)*0.005+10 GF_indexes(1)*0.005+10],[0 GFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 legend('', '')
 title('Maximal manipulandum weight')
 xlabel('Time (s)');
@@ -632,7 +628,7 @@ fill([x fliplr(x)], [ul_gfmincatchLF1(1:500) fliplr(ll_gfmincatchLF1(1:500))], '
 fill([x fliplr(x)], [ul_gfminadaptHF1(1:500) fliplr(ll_gfminadaptHF1(1:500))], 'b', 'FaceAlpha', 0.2)
 hold on
 y=get(gca,'ylim');
-plot([GF_indexes(1)*0.005+10 GF_indexes(1)*0.005+10],y)
+plot([GF_indexes(2)*0.005+10 GF_indexes(2)*0.005+10],[0 GFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('Minimal manipulandum weight')
 xlabel('Time (s)');
 ylabel('GF (N)');
@@ -648,7 +644,7 @@ fill([x fliplr(x)], [ul_gfmaxcatchHF2(1:500) fliplr(ll_gfmaxcatchHF2(1:500))], '
 fill([x fliplr(x)], [ul_gfmaxadaptLF2(1:500) fliplr(ll_gfmaxadaptLF2(1:500))], 'r', 'FaceAlpha', 0.2)
 hold on
 y=get(gca,'ylim');
-plot([GF_indexes(1)*0.005+10 GF_indexes(1)*0.005+10],y)
+plot([GF_indexes(3)*0.005+10 GF_indexes(3)*0.005+10],[0 GFaxislim],'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('Maximal manipulandum weight')
 xlabel('Time (s)');
 ylabel('GF (N)');
@@ -664,7 +660,7 @@ fill([x fliplr(x)], [ul_gfmincatchHF2(1:500) fliplr(ll_gfmincatchHF2(1:500))], '
 fill([x fliplr(x)], [ul_gfminadaptLF2(1:500) fliplr(ll_gfminadaptLF2(1:500))], 'r', 'FaceAlpha', 0.2)
 hold on
 y=get(gca,'ylim');
-plot([GF_indexes(1)*0.005+10 GF_indexes(1)*0.005+10],y)
+plot([GF_indexes(4)*0.005+10 GF_indexes(4)*0.005+10],[0 GFaxislim],'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('Minimal manipulandum weight')
 xlabel('Time (s)');
 ylabel('GF (N)');
