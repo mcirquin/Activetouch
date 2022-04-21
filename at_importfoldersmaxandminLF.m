@@ -177,6 +177,8 @@ b = bar(y);
 set(gca,'XTickLabel',{'Low friction';'High friction'})%;'Max weight LF';'Max weight HF'});
 b(1).FaceColor = 'b';
 b(2).FaceColor = 'r';
+b(2).LineStyle = '--';
+b(2).LineWidth = 1.5;
 legend('Minimal weight normal','Maximal weight catch', 'Location','north')
 ylabel('Difference LF (N)')
 ylim([0 5]);
@@ -187,8 +189,11 @@ b = bar(y);
 set(gca,'XTickLabel',{'Low friction';'High friction'})%;'Max weight LF';'Max weight HF'});
 b(1).FaceColor = 'r';
 b(2).FaceColor = 'b';
+b(2).LineStyle = '--';
+b(2).LineWidth = 1.5;
 legend('Maximal weight normal','Minimal weight catch', 'Location','north')
 ylabel('Difference LF (N)')
+ylim([0 5])
 
 end
 
