@@ -158,7 +158,7 @@ lfHFadaptmax2=[lfHFadaptmax2 alignedacctable(:,108:108:end)];
 %% Calculation of means and standard deviations 
 %Load Forces
 
-% Création et remplissage avec moyennes et standards deviation 
+% CrÃ©ation et remplissage avec moyennes et standards deviation 
 meanlfLFcatchmax1=mean(lfLFcatchmax1,2);
 meanlfLFadaptmin1=mean(lfLFadaptmin1,2);
 stdlfLFcatchmax1=std(lfLFcatchmax1, 0, 2);
@@ -214,11 +214,11 @@ end
 
 %% Plots 
 % Figures LF
-x=10:0.05:12.45;
+x=10:0.05:11.1;
 
 subplot(2,2,1)
-y1 = meanlfLFcatchmax1(1:50);
-y2 = meanlfLFadaptmin1(1:50);
+y1 = meanlfLFcatchmax1(1:23);
+y2 = meanlfLFadaptmin1(1:23);
 plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
 %fill([x fliplr(x)], [ul_lfLFcatchmax1 fliplr(ll_lfLFcatchmax1)], 'r', 'FaceAlpha', 0.2)
 %hold on
@@ -231,8 +231,8 @@ legend('Maximal weight catch', 'Minimal weight normal');
 ylim([-200 300]);
 
 subplot(2,2,2)
-y3 = meanlfHFcatchmax1(1:50);
-y4 = meanlfHFadaptmin1(1:50);
+y3 = meanlfHFcatchmax1(1:23);
+y4 = meanlfHFadaptmin1(1:23);
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
 %hold on
 %fill([x fliplr(x)], [ul_lfHFcatchmax1 fliplr(ll_lfLFcatchmax1)], 'r', 'FaceAlpha', 0.2)
@@ -244,8 +244,8 @@ legend('Maximal weight catch', 'Minimal weight normal');
 
 
 subplot(2,2,3)
-y5 = meanlfLFcatchmin2(1:50);
-y6 = meanlfLFadaptmax2(1:50);
+y5 = meanlfLFcatchmin2(1:23);
+y6 = meanlfLFadaptmax2(1:23);
 plot(x,y6,'r', x,y5,'b--','LineWidth', 1.5)
 %hold on
 %fill([x fliplr(x)], [ul_lfLFcatchmin2 fliplr(ll_lfLFcatchmin2)], 'b', 'FaceAlpha', 0.2)
@@ -256,8 +256,8 @@ ylabel('Acceleration (cm/s^2)');
 legend('Maximal weight normal','Minimal weight catch');
 
 subplot(2,2,4)
-y7 = meanlfHFcatchmin2(1:50);
-y8 = meanlfHFadaptmax2(1:50);
+y7 = meanlfHFcatchmin2(1:23);
+y8 = meanlfHFadaptmax2(1:23);
 plot(x,y8,'r', x,y7,'b--','LineWidth', 1.5)
 %hold on 
 %fill([x fliplr(x)], [ul_lfHFcatchmin2 fliplr(ll_lfHFcatchmin2)], 'b', 'FaceAlpha', 0.2)
@@ -268,7 +268,7 @@ ylabel('Acceleration (cm/s^2)');
 legend('Maximal weight normal','Minimal weight catch');
 
 
-suptitle('Adaptation to weight during the first movement of weight catch trials - Elderly participants');
-%suptitle( 'Adaptation to weight during the first movement of weight catch trials - Young participants');
+suptitle('Acceleration during the first movement of weight catch trials - Elderly participants');
+%suptitle( 'Acceleration during the first movement of weight catch trials - Young participants');
 
 end
