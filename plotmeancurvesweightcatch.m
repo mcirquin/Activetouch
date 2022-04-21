@@ -540,7 +540,7 @@ end
 %% Plots 
 % Figures LF
 LFaxislim = 8; %limit of y axis of graphs for LF curves
-GFaxislim = 8; %limit of y axis of graphs for GF curves
+GFaxislim = 20; %limit of y axis of graphs for GF curves
 
 figure; 
 
@@ -554,8 +554,7 @@ fill([x fliplr(x)], [ul_lfLFcatchmax1(1:500) fliplr(ll_lfLFcatchmax1(1:500))], '
 hold on
 fill([x fliplr(x)], [ul_lfLFadaptmin1(1:500) fliplr(ll_lfLFadaptmin1(1:500))], 'b', 'FaceAlpha', 0.2)
 hold on
-y=get(gca,'ylim');
-plot([LF_indexes(1)*0.005+10 LF_indexes(1)*0.005+10],y)
+plot([LF_indexes(1)*0.005+10 LF_indexes(1)*0.005+10],[0 LFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 legend('', '')
 title('Low friction')
 xlabel('Time (s)');
@@ -571,8 +570,7 @@ hold on
 fill([x fliplr(x)], [ul_lfHFcatchmax1(1:500) fliplr(ll_lfLFcatchmax1(1:500))], 'r', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_lfHFadaptmin1(1:500) fliplr(ll_lfHFadaptmin1(1:500))], 'b', 'FaceAlpha', 0.2)
 hold on
-y=get(gca,'ylim');
-plot([LF_indexes(2)*0.005+10 LF_indexes(2)*0.005+10],y)
+plot([LF_indexes(2)*0.005+10 LF_indexes(2)*0.005+10],[0 LFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('High friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
@@ -587,7 +585,7 @@ hold on
 fill([x fliplr(x)], [ul_lfLFcatchmin2(1:500) fliplr(ll_lfLFcatchmin2(1:500))], 'b', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_lfLFadaptmax2(1:500) fliplr(ll_lfLFadaptmax2(1:500))], 'r', 'FaceAlpha', 0.2)
 y=get(gca,'ylim');
-plot([LF_indexes(3)*0.005+10 LF_indexes(3)*0.005+10],y)
+plot([LF_indexes(3)*0.005+10 LF_indexes(3)*0.005+10],[0 LFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('Low friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
@@ -602,7 +600,7 @@ hold on
 fill([x fliplr(x)], [ul_lfHFcatchmin2(1:500) fliplr(ll_lfHFcatchmin2(1:500))], 'b', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_lfHFadaptmax2(1:500) fliplr(ll_lfHFadaptmax2(1:500))], 'r', 'FaceAlpha', 0.2)
 y=get(gca,'ylim');
-plot([LF_indexes(4)*0.005+10 LF_indexes(4)*0.005+10],y)
+plot([LF_indexes(4)*0.005+10 LF_indexes(4)*0.005+10],[0 LFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('High friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
@@ -626,7 +624,7 @@ hold on
 fill([x fliplr(x)], [ul_gfLFadaptmin1(1:500) fliplr(ll_gfLFadaptmin1(1:500))], 'b', 'FaceAlpha', 0.2)
 hold on
 y=get(gca,'ylim');
-plot([GF_indexes(1)*0.005+10 GF_indexes(1)*0.005+10],y)
+plot([GF_indexes(1)*0.005+10 GF_indexes(1)*0.005+10],[0 GFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 legend('', '')
 title('Low friction')
 xlabel('Time (s)');
@@ -643,7 +641,7 @@ fill([x fliplr(x)], [ul_gfHFcatchmax1(1:500) fliplr(ll_gfHFcatchmax1(1:500))], '
 fill([x fliplr(x)], [ul_gfHFadaptmin1(1:500) fliplr(ll_gfHFadaptmin1(1:500))], 'b', 'FaceAlpha', 0.2)
 hold on
 y=get(gca,'ylim');
-plot([GF_indexes(2)*0.005+10 GF_indexes(2)*0.005+10],y)
+plot([GF_indexes(2)*0.005+10 GF_indexes(2)*0.005+10],[0 GFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('High friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
@@ -659,7 +657,7 @@ fill([x fliplr(x)], [ul_gfLFcatchmin2(1:500) fliplr(ll_gfLFcatchmin2(1:500))], '
 fill([x fliplr(x)], [ul_gfLFadaptmax2(1:500) fliplr(ll_gfLFadaptmax2(1:500))], 'r', 'FaceAlpha', 0.2)
 hold on
 y=get(gca,'ylim');
-plot([GF_indexes(3)*0.005+10 GF_indexes(3)*0.005+10],y)
+plot([GF_indexes(3)*0.005+10 GF_indexes(3)*0.005+10],[0 GFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('Low friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
@@ -674,8 +672,7 @@ hold on
 fill([x fliplr(x)], [ul_gfHFcatchmin2(1:500) fliplr(ll_gfHFcatchmin2(1:500))], 'b', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_gfHFadaptmax2(1:500) fliplr(ll_gfHFadaptmax2(1:500))], 'r', 'FaceAlpha', 0.2)
 hold on
-y=get(gca,'ylim');
-plot([GF_indexes(4)*0.005+10 GF_indexes(4)*0.005+10],y)
+plot([GF_indexes(4)*0.005+10 GF_indexes(4)*0.005+10],[0 GFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('High friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
