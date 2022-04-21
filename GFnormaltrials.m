@@ -351,8 +351,12 @@ hleg1 = legend(c(1:2), 'Min weight normal', 'Max weight normal', 'Location', 'no
 suptitle('Grip Force magnitude for GF peaks and stabilization of normal trials');
 %}
 %% Quantification GF normal for HF and LF (GF peaks and stabilization)
+
 C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colors.
-axis=10;% axis limits of the plots
+
+axis=20;% axis limits of the plots
+ticks=5;
+
 xfriction1=linspace(0,axis);
 yfriction1=linspace(0,axis);
 Rdvector = []; %vector saving the relative differnce values for each participant
@@ -371,7 +375,7 @@ for i= 1:nparticipants
     ylabel('GF - High friction normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:1:axis)
+    xticks(0:ticks:axis)
     title('Min weight')
     
     %relative difference 
@@ -401,7 +405,7 @@ for i= 1:nparticipants
     ylabel('GF - High friction normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:1:axis)
+    xticks(0:ticks:axis)
     title('Max weight')   
     
     %relative difference 
@@ -437,7 +441,7 @@ for i= 1:nparticipants
     ylabel('GF - High friction normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:1:axis)
+    xticks(0:ticks:axis)
     title('Min weight')
     
     %relative difference
@@ -467,7 +471,7 @@ for i= 1:nparticipants
     ylabel('GF - High friction normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:1:axis)
+    xticks(0:ticks:axis)
     title('Max weight')
     
     %relative difference 
@@ -487,7 +491,9 @@ for i= 1:nparticipants
     end
 end
 %suptitle('Grip Force magnitude during stabilization for normal trials');
+
 %% Quantification GF normal for Min & Max weights(GF peaks and stabilization)
+%{
 figure(5);
 for i= 1:nparticipants
     %GF peaks: Comparison weight under low friction
@@ -501,7 +507,7 @@ for i= 1:nparticipants
     ylabel('GF - Max weight normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:1:axis)
+    xticks(0:ticks:axis)
     title('Low friction')
     
     %relative difference 
@@ -531,7 +537,7 @@ for i= 1:nparticipants
     ylabel('GF - Max weight normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:1:axis)
+    xticks(0:ticks:axis)
     title('High friction')
     
     %relative difference 
@@ -565,7 +571,7 @@ for i= 1:nparticipants
     ylabel('GF - Max weight normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:1:axis)
+    xticks(0:ticks:axis)
     title('Low friction')
     
     %relative difference 
@@ -595,7 +601,7 @@ for i= 1:nparticipants
     ylabel('GF - Max weight normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:1:axis)
+    xticks(0:ticks:axis)
     title('High friction')
     
     %relative difference 
