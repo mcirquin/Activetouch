@@ -1,10 +1,10 @@
 %Computes the mean values of relative differences for weight cacthes and
 %for friction catches for each participant and plots them
 
-nparticipants = 15; %number of participants
-axis = 40; %limits of the plot
-x = axis; %Axis limits for the plot of x=y line
-y = axis;
+nparticipants = 8; %number of participants
+axis = 70; %limits of the plot
+x = linspace(0,axis); %Axis limits for the plot of x=y line
+y = linspace(0,axis);
 C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colors.
 
 %Rdvectors = 4 x nparticipants vectors, each line correspond to a type of
@@ -23,8 +23,8 @@ meanRdwstab = mean(Rdweightstab);
 %plots
 figure(9)
 for i = 1:nparticipants 
-    figure(9); hold on;
     subplot(1,2,1)
+    figure(9); hold on;
     plot(x,y,'Color',[0.2 0.2 0.2]) %identity line
     figure(9);hold on;
     plot(meanRdfpeak(i),meanRdwpeak(i),'.', 'MarkerSize',10,'Color', C{i});
