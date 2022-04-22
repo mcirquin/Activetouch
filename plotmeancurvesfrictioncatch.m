@@ -483,7 +483,7 @@ GF_pvalues = [];
 GF_indexes = [];
 
 %catch LF max weight vs HF adaptation max weight
-[h5,p5] = ttest2(lfmaxcatchLF1.',lfmaxadaptHF1.');%transposée des matrices pour faire le T-test dans le bon sens (pour chaque pas de temps)
+[h5,p5] = ttest2(gfmaxcatchLF1.',gfmaxadaptHF1.');%transposée des matrices pour faire le T-test dans le bon sens (pour chaque pas de temps)
 for i = minimum:(tsteps-1999)
     if p5(i) < 0.05
         GF_pvalues(1) = p5(i);
@@ -493,7 +493,7 @@ for i = minimum:(tsteps-1999)
 end
 
 %catch LF min weight vs HF adaptation min weight
-[h6,p6] = ttest2(lfmincatchLF1.',lfminadaptHF1.');
+[h6,p6] = ttest2(gfmincatchLF1.',gfminadaptHF1.');
 for i = minimum:(tsteps-1999)
     if p6(i) < 0.05
         GF_pvalues(2) = p6(i);
@@ -503,7 +503,7 @@ for i = minimum:(tsteps-1999)
 end
 
 %catch HF max weight vs LF adaptation max weight
-[h7,p7] = ttest2(lfmaxcatchHF2.',lfmaxadaptLF2.');
+[h7,p7] = ttest2(gfmaxcatchHF2.',gfmaxadaptLF2.');
 for i = minimum:(tsteps-1999)
     if p7(i) < 0.05
         GF_pvalues(3) = p7(i);
@@ -513,7 +513,7 @@ for i = minimum:(tsteps-1999)
 end
 
 %catch HF min weight vs LF adaptation min weight
-[h8,p8] = ttest2(lfmincatchHF2.',lfminadaptLF2.');
+[h8,p8] = ttest2(gfmincatchHF2.',gfminadaptLF2.');
 for i = minimum:(tsteps-1999)
     if p8(i) < 0.05
         GF_pvalues(4) = p8(i);
@@ -660,7 +660,7 @@ fill([x fliplr(x)], [ul_gfmincatchHF2(1:500) fliplr(ll_gfmincatchHF2(1:500))], '
 fill([x fliplr(x)], [ul_gfminadaptLF2(1:500) fliplr(ll_gfminadaptLF2(1:500))], 'r', 'FaceAlpha', 0.2)
 hold on
 y=get(gca,'ylim');
-plot([GF_indexes(4)*0.005+10 GF_indexes(4)*0.005+10],[0 GFaxislim],'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+%plot([GF_indexes(4)*0.005+10 GF_indexes(4)*0.005+10],[0 GFaxislim],'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('Minimal manipulandum weight')
 xlabel('Time (s)');
 ylabel('GF (N)');
