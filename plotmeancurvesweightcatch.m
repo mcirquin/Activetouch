@@ -539,12 +539,17 @@ end
 
 %% Plots 
 % Figures LF
-LFaxislim = 8; %limit of y axis of graphs for LF curves
-GFaxislim = 8; %limit of y axis of graphs for GF curves
+%LFaxislim = 8; %limit of y axis of graphs for LF curves young
+%GFaxislim = 8; %limit of y axis of graphs for GF curves young
+
+LFaxislim = 8; %limit of y axis of graphs for LF curves elderly
+GFaxislim = 15; %limit of y axis of graphs for GF curves elderly
 
 figure; 
 
-x=10:0.005:12.495; %vecteur temps
+%x=10:0.005:12.495; %vecteur temps
+timealigned=minimum*0.005; %temps où toutes les courbes sont alignées
+x=-timealigned:0.005:(-timealigned+2.495); %500 pas de temps, le 0 se trouve à l'alignement des courbes
 subplot(2,2,1)
 y1 = meanlfLFcatchmax1(1:500);
 y2 = meanlfLFadaptmin1(1:500);
@@ -560,6 +565,7 @@ title('Low friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
 ylim([0 LFaxislim]);
+xlim([-timealigned 2]);
 legend('Maximal weight catch', 'Minimal weight normal');
 
 subplot(2,2,2)
@@ -575,6 +581,7 @@ title('High friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
 ylim([0 LFaxislim]);
+xlim([-timealigned 2]);
 legend('Maximal weight catch', 'Minimal weight normal');
 
 subplot(2,2,3)
@@ -590,6 +597,7 @@ title('Low friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
 ylim([0 LFaxislim]);
+xlim([-timealigned 2]);
 legend('Maximal weight normal','Minimal weight catch');
 
 subplot(2,2,4)
@@ -605,6 +613,7 @@ title('High friction')
 xlabel('Time (s)');
 ylabel('LF (N)');
 ylim([0 LFaxislim]);
+xlim([-timealigned 2]);
 legend('Maximal weight normal','Minimal weight catch');
 
 %suptitle( 'Adaptation to weight during the first movement of weight catch trials - Elderly participants');
@@ -630,6 +639,7 @@ title('Low friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
+xlim([-timealigned 2]);
 legend('Maximal weight catch', 'Minimal weight normal');
 
 subplot(2,2,2)
@@ -646,6 +656,7 @@ title('High friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
+xlim([-timealigned 2]);
 legend('Maximal weight catch', 'Minimal weight normal');
 
 subplot(2,2,3)
@@ -657,10 +668,11 @@ fill([x fliplr(x)], [ul_gfLFcatchmin2(1:500) fliplr(ll_gfLFcatchmin2(1:500))], '
 fill([x fliplr(x)], [ul_gfLFadaptmax2(1:500) fliplr(ll_gfLFadaptmax2(1:500))], 'r', 'FaceAlpha', 0.2)
 hold on
 y=get(gca,'ylim');
-plot([GF_indexes(3)*0.005+10 GF_indexes(3)*0.005+10],[0 GFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+%plot([GF_indexes(3)*0.005+10 GF_indexes(3)*0.005+10],[0 GFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('Low friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
+xlim([-timealigned 2]);
 ylim([0 GFaxislim]);
 legend('Maximal weight normal','Minimal weight catch');
 
@@ -672,11 +684,12 @@ hold on
 fill([x fliplr(x)], [ul_gfHFcatchmin2(1:500) fliplr(ll_gfHFcatchmin2(1:500))], 'b', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_gfHFadaptmax2(1:500) fliplr(ll_gfHFadaptmax2(1:500))], 'r', 'FaceAlpha', 0.2)
 hold on
-plot([GF_indexes(4)*0.005+10 GF_indexes(4)*0.005+10],[0 GFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+%plot([GF_indexes(4)*0.005+10 GF_indexes(4)*0.005+10],[0 GFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('High friction')
 xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
+xlim([-timealigned 2]);
 legend('Maximal weight normal','Minimal weight catch');
 
 %suptitle( 'Adaptation to weight during the first movement of weight catch trials - Elderly participants');
