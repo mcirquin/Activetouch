@@ -685,6 +685,8 @@ for i= 1:nparticipants
     Rdcatch(1,i) = Rd1;
     figure(2); hold on;
     plot(0.5,Rd1,'.', 'MarkerSize',10,'Color', C{i});
+    figure(2); hold on;
+    plot([0,1], [55 55],'r');
     set(gca,'XTick',[])
     xlim([0 1])
     set(gca, 'YDir','reverse')
@@ -717,6 +719,8 @@ for i= 1:nparticipants
     Rdcatch(2,i) = Rd2;
     figure(2); hold on;
     plot(0.5,Rd2,'.', 'MarkerSize',10,'Color', C{i});
+    figure(2);hold on;
+    plot([0,1], [55 55],'r');
     set(gca,'XTick',[])
     xlim([0 1])
     set(gca, 'YDir','reverse')
@@ -754,6 +758,8 @@ for i= 1:nparticipants
     Rdstab(1,i) = Rd1stab;
     figure(3); hold on;
     plot(0.5,Rd1stab,'.', 'MarkerSize',10,'Color', C{i});
+    figure(3);hold on;
+    plot([0,1], [55 55],'r');
     set(gca,'XTick',[])
     xlim([0 1])
     set(gca, 'YDir','reverse')
@@ -786,6 +792,8 @@ for i= 1:nparticipants
     Rdstab(2,i) = Rd2stab;
     figure(3); hold on;
     plot(0.5,Rd2stab,'.', 'MarkerSize',10,'Color', C{i});
+    figure(3);hold on;
+    plot([0,1], [55 55],'r');
     set(gca,'XTick',[])
     xlim([0 1])
     set(gca, 'YDir','reverse')
@@ -826,6 +834,8 @@ for i= 1:nparticipants
     Rdcatch(3,i) = Rd3;
     figure(4); hold on;
     plot(0.5,Rd3,'.', 'MarkerSize',10,'Color', C{i});
+    figure(4);hold on;
+    plot([0,1], [55 55],'r');
     set(gca,'XTick',[])
     xlim([0 1])
     set(gca, 'YDir','reverse')
@@ -858,6 +868,8 @@ for i= 1:nparticipants
     Rdcatch(4,i) = Rd4;
     figure(4); hold on;
     plot(0.5,Rd4,'.', 'MarkerSize',10,'Color', C{i});
+    figure(4);hold on;
+    plot([0,1], [55 55],'r');
     set(gca,'XTick',[])
     xlim([0 1])
     set(gca, 'YDir','reverse')
@@ -895,6 +907,8 @@ for i= 1:nparticipants
     Rdstab(3,i) = Rd3stab;
     figure(5); hold on;
     plot(0.5,Rd3stab,'.', 'MarkerSize',10,'Color', C{i});
+    figure(5);hold on;
+    plot([0,1], [55 55],'r');
     set(gca,'XTick',[])
     xlim([0 1])
     set(gca, 'YDir','reverse')
@@ -927,6 +941,8 @@ for i= 1:nparticipants
     Rdstab(4,i) = Rd4stab;
     figure(5); hold on;
     plot(0.5,Rd4stab,'.', 'MarkerSize',10,'Color', C{i});
+    figure(5);hold on;
+    plot([0,1], [55 55],'r');
     set(gca,'XTick',[])
     xlim([0 1])
     set(gca, 'YDir','reverse')
