@@ -1,16 +1,14 @@
-function meanacc = plotmeanaccweightcatch(alignedacctable, tsteps, nparticipants)
+function meanacc = plotmeanaccweightcatch(alignedacctable, tsteps, nparticipants, minimum)
 %% Weight catch max (min to max weight)
 
 %max weight catch under low friction 
 nessais1=4;
 lfLFcatchmax1=zeros(tsteps-1999,nessais1*nparticipants);
 
-
 lfLFcatchmax1 = alignedacctable(:,33:108:end);  
 lfLFcatchmax1 = [lfLFcatchmax1 alignedacctable(:,46:108:end)];
 lfLFcatchmax1 = [lfLFcatchmax1 alignedacctable(:,71:108:end)];
 lfLFcatchmax1 = [lfLFcatchmax1 alignedacctable(:,93:108:end)];
-
 
 %min weight adaptation under low friction
 nessais8=16;
@@ -214,8 +212,9 @@ end
 
 %% Plots 
 % Figures LF
-x=10:0.05:11.1;
-
+%x=10:0.05:11.1;
+timealigned=minimum*0.005; %temps où toutes les courbes sont alignées
+x=-timealigned:0.05:(-timealigned+1.1); %500 pas de temps, le 0 se trouve à l'alignement des courbes
 subplot(2,2,1)
 y1 = meanlfLFcatchmax1(1:23);
 y2 = meanlfLFadaptmin1(1:23);
@@ -225,6 +224,7 @@ plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
 %fill([x fliplr(x)], [ul_lfLFadaptmin1 fliplr(ll_lfLFadaptmin1)], 'b', 'FaceAlpha', 0.2)
 legend('', '')
 title('Low friction')
+xlim([-timealigned 0.8]);
 xlabel('Time (s)');
 ylabel('Acceleration (cm/s^2)');
 legend('Maximal weight catch', 'Minimal weight normal');
@@ -240,6 +240,7 @@ plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
 title('High friction')
 xlabel('Time (s)');
 ylabel('Acceleration (cm/s^2)');
+xlim([-timealigned 0.8]);
 legend('Maximal weight catch', 'Minimal weight normal');
 
 
@@ -252,6 +253,7 @@ plot(x,y6,'r', x,y5,'b--','LineWidth', 1.5)
 %fill([x fliplr(x)], [ul_lfLFadaptmax2 fliplr(ll_lfLFadaptmax2)], 'r', 'FaceAlpha', 0.2)
 title('Low friction')
 xlabel('Time (s)');
+xlim([-timealigned 0.8]);
 ylabel('Acceleration (cm/s^2)');
 legend('Maximal weight normal','Minimal weight catch');
 
@@ -265,6 +267,7 @@ plot(x,y8,'r', x,y7,'b--','LineWidth', 1.5)
 title('High friction')
 xlabel('Time (s)');
 ylabel('Acceleration (cm/s^2)');
+xlim([-timealigned 0.8]);
 legend('Maximal weight normal','Minimal weight catch');
 
 
