@@ -528,8 +528,10 @@ LFaxislim = 7; %limit of y axis of graphs for LF curves
 GFaxislim = 20; %limit of y axis of graphs for GF curves
 figure; 
 
-%x=10.005:0.005:13.8;
-x=10:0.005:12.495;
+
+%x=10:0.005:12.495;
+timealigned=minimum*0.005; %temps où toutes les courbes sont alignées
+x=-timealigned:0.005:(-timealigned+2.495); %500 pas de temps, le 0 se trouve à l'alignement des courbes
 subplot(2,2,1)
 %y1 = meanlfmaxcatchLF1;
 %y2 = meanlfmaxadaptHF1;
@@ -547,6 +549,7 @@ title('Maximal manipulandum weight')
 xlabel('Time (s)');
 ylabel('LF (N)');
 ylim([0 LFaxislim]);
+xlim([-timealigned 2]);
 legend('Low friction catch', 'High friction normal');
 
 subplot(2,2,2)
@@ -562,6 +565,7 @@ title('Minimal manipulandum weight')
 xlabel('Time (s)');
 ylabel('LF (N)');
 ylim([0 LFaxislim]);
+xlim([-timealigned 2]);
 legend('Low friction catch', 'High friction normal');
 
 subplot(2,2,3)
@@ -577,6 +581,7 @@ title('Maximal manipulandum weight')
 xlabel('Time (s)');
 ylabel('LF (N)');
 ylim([0 LFaxislim]);
+xlim([-timealigned 2]);
 legend('Low friction normal', 'High friction catch');
 
 subplot(2,2,4)
@@ -592,6 +597,7 @@ title('Minimal manipulandum weight')
 xlabel('Time (s)');
 ylabel('LF (N)');
 ylim([0 LFaxislim]);
+xlim([-timealigned 2]);
 legend('Low friction normal', 'High friction catch');
 
 suptitle( 'Adaptation to friction during the first movement of friction catch trials - Elderly participants');
@@ -617,6 +623,7 @@ title('Maximal manipulandum weight')
 xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
+xlim([-timealigned 2]);
 legend('Low friction catch', 'High friction normal');
 
 subplot(2,2,2)
@@ -632,6 +639,7 @@ plot([GF_indexes(2)*0.005+10 GF_indexes(2)*0.005+10],[0 GFaxislim], 'Color',[0.5
 title('Minimal manipulandum weight')
 xlabel('Time (s)');
 ylabel('GF (N)');
+xlim([-timealigned 2]);
 ylim([0 GFaxislim]);
 legend('Low friction catch', 'High friction normal');
 
@@ -648,6 +656,7 @@ plot([GF_indexes(3)*0.005+10 GF_indexes(3)*0.005+10],[0 GFaxislim],'Color',[0.5 
 title('Maximal manipulandum weight')
 xlabel('Time (s)');
 ylabel('GF (N)');
+xlim([-timealigned 2]);
 ylim([0 GFaxislim]);
 legend('Low friction normal', 'High friction catch');
 
@@ -665,6 +674,7 @@ title('Minimal manipulandum weight')
 xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
+xlim([-timealigned 2]);
 legend('Low friction normal', 'High friction catch');
 
 suptitle( 'Adaptation to friction during the first movement of friction catch trials - Elderly participants');
