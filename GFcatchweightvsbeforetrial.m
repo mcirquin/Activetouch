@@ -460,9 +460,9 @@ text(-1.2, 31,{'Comparison of GF during stabilization for weight catch and norma
 %% Mean bars + slopes
 %color cell 
 C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colros.
-%{
-baraxis=9; % axis limits of the plots
 
+baraxis=9; % axis limits of the plots
+%{
 % Premier subplot
 subplot(1,4,1)
 y=[meanmaxLF meanmaxtominLF; meanmaxHF meanmaxtominHF]
@@ -680,7 +680,7 @@ for i= 1:nparticipants
     %relative difference 
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
-    Rd1 = (abs(meanmaxtominLFparticipants(i)-meanmaxLFparticipants(i))/min(meanmaxtominLFparticipants(i),meanmaxLFparticipants(i)))*100;
+    Rd1 = ((meanmaxLFparticipants(i)-meanmaxtominLFparticipants(i))/min(meanmaxtominLFparticipants(i),meanmaxLFparticipants(i)))*100;
     Rdvector(1,i) = Rd1;
     Rdcatch(1,i) = Rd1;
     figure(2); hold on;
@@ -712,7 +712,7 @@ for i= 1:nparticipants
     %relative difference 
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
-    Rd2 = (abs(meanmaxtominHFparticipants(i)-meanmaxHFparticipants(i))/min(meanmaxtominHFparticipants(i),meanmaxHFparticipants(i)))*100;
+    Rd2 = ((meanmaxHFparticipants(i)-meanmaxtominHFparticipants(i))/min(meanmaxtominHFparticipants(i),meanmaxHFparticipants(i)))*100;
     Rdvector(2,i) = Rd2;
     Rdcatch(2,i) = Rd2;
     figure(2); hold on;
@@ -749,7 +749,7 @@ for i= 1:nparticipants
     %relative difference 
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
-    Rd1stab = (abs(meanmaxtominstabLFparticipants(i)-meanmaxstabLFparticipants(i))/min(meanmaxtominstabLFparticipants(i),meanmaxstabLFparticipants(i)))*100;
+    Rd1stab = ((meanmaxstabLFparticipants(i)-meanmaxtominstabLFparticipants(i))/min(meanmaxtominstabLFparticipants(i),meanmaxstabLFparticipants(i)))*100;
     Rdvector(3,i) = Rd1stab;
     Rdstab(1,i) = Rd1stab;
     figure(3); hold on;
@@ -781,7 +781,7 @@ for i= 1:nparticipants
     %relative difference 
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
-    Rd2stab = (abs(meanmaxtominstabHFparticipants(i)-meanmaxstabHFparticipants(i))/min(meanmaxtominstabHFparticipants(i),meanmaxstabHFparticipants(i)))*100;
+    Rd2stab = ((meanmaxstabHFparticipants(i)-meanmaxtominstabHFparticipants(i))/min(meanmaxtominstabHFparticipants(i),meanmaxstabHFparticipants(i)))*100;
     Rdvector(4,i) = Rd2stab;
     Rdstab(2,i) = Rd2stab;
     figure(3); hold on;
@@ -821,7 +821,7 @@ for i= 1:nparticipants
     %relative difference 
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
-    Rd3 = (abs(meanminLFparticipants(i)-meanmintomaxLFparticipants(i))/min(meanminLFparticipants(i),meanmintomaxLFparticipants(i)))*100;
+    Rd3 = ((meanmintomaxLFparticipants(i)-meanminLFparticipants(i))/min(meanminLFparticipants(i),meanmintomaxLFparticipants(i)))*100;
     Rdvector(5,i) = Rd3;
     Rdcatch(3,i) = Rd3;
     figure(4); hold on;
@@ -853,7 +853,7 @@ for i= 1:nparticipants
     %relative difference 
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
-    Rd4 = (abs(meanminHFparticipants(i)-meanmintomaxHFparticipants(i))/min(meanminHFparticipants(i),meanmintomaxHFparticipants(i)))*100;
+    Rd4 = ((meanmintomaxHFparticipants(i)-meanminHFparticipants(i))/min(meanminHFparticipants(i),meanmintomaxHFparticipants(i)))*100;
     Rdvector(6,i) = Rd4;
     Rdcatch(4,i) = Rd4;
     figure(4); hold on;
@@ -890,7 +890,7 @@ for i= 1:nparticipants
     %relative difference 
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
-    Rd3stab = (abs(meanminstabLFparticipants(i)-meanmintomaxstabLFparticipants(i))/min(meanminstabLFparticipants(i),meanmintomaxstabLFparticipants(i)))*100;
+    Rd3stab = ((meanmintomaxstabLFparticipants(i)-meanminstabLFparticipants(i))/min(meanminstabLFparticipants(i),meanmintomaxstabLFparticipants(i)))*100;
     Rdvector(7,i) = Rd3stab;
     Rdstab(3,i) = Rd3stab;
     figure(5); hold on;
@@ -922,7 +922,7 @@ for i= 1:nparticipants
     %relative difference 
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
-    Rd4stab = (abs(meanminstabHFparticipants(i)-meanmintomaxstabHFparticipants(i))/min(meanminstabHFparticipants(i),meanmintomaxstabHFparticipants(i)))*100;
+    Rd4stab = ((meanmintomaxstabHFparticipants(i)-meanminstabHFparticipants(i))/min(meanminstabHFparticipants(i),meanmintomaxstabHFparticipants(i)))*100;
     Rdvector(8,i) = Rd4stab;
     Rdstab(4,i) = Rd4stab;
     figure(5); hold on;
