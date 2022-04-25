@@ -12,16 +12,14 @@ function [Rdcatch, Rdstab] = GFcatchfrictionvsbeforetrial(maxGFmatrix, meanstabG
 %% HF to LF (catch) vs HF normal under minimal weight
 
 %HF to LF catch friction min weight
-nessaisbis=1;
+nessaisbis=3;
 mincatchLF=zeros(nessaisbis, nparticipants);
 mincatchLF(1,:)=maxGFmatrix(43,:);
-%mincatchLF(2,:)=maxGFmatrix(55,:);
-%mincatchLF(3,:)=maxGFmatrix(103,:);
+mincatchLF(2,:)=maxGFmatrix(55,:);
+mincatchLF(3,:)=maxGFmatrix(103,:);
 meanmincatchLFsub=mean(mincatchLF, 2);
 meanmincatchLF=mean(meanmincatchLFsub);
-meanmincatchLFparticipants=mincatchLF; %1x13 matrix with data of each participant
-%meanmincatchLFparticipants=mean(mincatchLF); %if more than 1 trial use
-%this line
+meanmincatchLFparticipants=mean(mincatchLF);
 
 %Min HF adaptation
 nessais2bis = 17;
@@ -49,12 +47,12 @@ meanminHFparticipants=mean(minHF);
 
 %% HF to LF (catch) vs HF normal under maximal weight
 %HF to LF catch friction max weight
-nessais=2;
+nessais=4;
 maxcatchLF=zeros(nessais, nparticipants);
 maxcatchLF(1,:)=maxGFmatrix(13,:);
 maxcatchLF(2,:)=maxGFmatrix(25,:);
-%maxcatchLF(3,:)=maxGFmatrix(73,:);
-%maxcatchLF(4,:)=maxGFmatrix(91,:);
+maxcatchLF(3,:)=maxGFmatrix(73,:);
+maxcatchLF(4,:)=maxGFmatrix(91,:);
 meanmaxcatchLFsub=mean(maxcatchLF, 2);
 meanmaxcatchLF=mean(meanmaxcatchLFsub);
 meanmaxcatchLFparticipants=mean(maxcatchLF);
@@ -85,12 +83,12 @@ meanmaxHFparticipants=mean(maxHF);
 
 %% LF to HF (catch) vs HF normal under minimal weight
 %LF to HF catch friction min weight
-nessais=3;
+nessais=4;
 mincatchHF=zeros(nessais, nparticipants);
 mincatchHF(1,:)=maxGFmatrix(19,:);
 mincatchHF(2,:)=maxGFmatrix(31,:);
-%mincatchHF(3,:)=maxGFmatrix(49,:);
-mincatchHF(3,:)=maxGFmatrix(97,:);
+mincatchHF(3,:)=maxGFmatrix(49,:);
+mincatchHF(4,:)=maxGFmatrix(97,:);
 meanmincatchHFsub=mean(mincatchHF, 2); %moyenne pour tous les sujets
 meanmincatchHF=mean(meanmincatchHFsub);%moyenne des moyennes de tous les sujets
 meanmincatchHFparticipants=mean(mincatchHF);
@@ -120,11 +118,11 @@ meanminLFparticipants=mean(minLF);
 
 %% LF to HF (catch) vs HF normal under maximal weight
 %LF to HF catch friction max weight
-nessaisbis=2;
+nessaisbis=3;
 maxcatchHF=zeros(nessaisbis, nparticipants);
-%maxcatchHF(1,:)=maxGFmatrix(67,:);
-maxcatchHF(1,:)=maxGFmatrix(85,:);
-maxcatchHF(2,:)=maxGFmatrix(109,:);
+maxcatchHF(1,:)=maxGFmatrix(67,:);
+maxcatchHF(2,:)=maxGFmatrix(85,:);
+maxcatchHF(3,:)=maxGFmatrix(109,:);
 meanmaxcatchHFsub=mean(maxcatchHF, 2);
 meanmaxcatchHF=mean(meanmaxcatchHFsub);
 meanmaxcatchHFparticipants=mean(maxcatchHF);
@@ -186,15 +184,14 @@ meanminstabHFparticipants=mean(minstabHF);
 
 %HF to LF catch friction min weight
 
-nessaisbis=1;
+nessaisbis=3;
 minstabcatchLF=zeros(nessaisbis, nparticipants);
 minstabcatchLF(1,:)=meanstabGFmatrix(43,:);
-%minstabcatchLF(2,:)=meanstabGFmatrix(55,:);
-%minstabcatchLF(3,:)=meanstabGFmatrix(103,:);
+minstabcatchLF(2,:)=meanstabGFmatrix(55,:);
+minstabcatchLF(3,:)=meanstabGFmatrix(103,:);
 meanminstabcatchLFsub=mean(minstabcatchLF, 2);
 meanminstabcatchLF=mean(meanminstabcatchLFsub);
-meanminstabcatchLFparticipants=minstabcatchLF;
-%meanminstabcatchLFparticipants=mean(minstabcatchLF); insert this line if more than 1 trial
+meanminstabcatchLFparticipants=mean(minstabcatchLF);
 
 %% HF to LF (catch) vs HF normal under maximal weight
 
@@ -224,12 +221,12 @@ meanmaxstabHF=mean(meanmaxstabHFsub);
 meanmaxstabHFparticipants=mean(maxstabHF);
 
 %HF to LF catch friction max weight
-nessais=2;
+nessais=4;
 maxstabcatchLF=zeros(nessais, nparticipants);
 maxstabcatchLF(1,:)=meanstabGFmatrix(13,:);
 maxstabcatchLF(2,:)=meanstabGFmatrix(25,:);
-%maxstabcatchLF(3,:)=meanstabGFmatrix(73,:);
-%maxstabcatchLF(4,:)=meanstabGFmatrix(91,:);
+maxstabcatchLF(3,:)=meanstabGFmatrix(73,:);
+maxstabcatchLF(4,:)=meanstabGFmatrix(91,:);
 meanmaxstabcatchLFsub=mean(maxstabcatchLF, 2);
 meanmaxstabcatchLF=mean(meanmaxstabcatchLFsub);
 meanmaxstabcatchLFparticipants=mean(maxstabcatchLF);
@@ -260,12 +257,12 @@ meanminstabLF=mean(meanminstabLFsub);
 meanminstabLFparticipants=mean(minstabLF);
 
 %LF to HF catch friction min weight
-nessais=3;
+nessais=4;
 minstabcatchHF=zeros(nessais, nparticipants);
 minstabcatchHF(1,:)=meanstabGFmatrix(19,:);
 minstabcatchHF(2,:)=meanstabGFmatrix(31,:);
-%minstabcatchHF(3,:)=meanstabGFmatrix(49,:);
-minstabcatchHF(3,:)=meanstabGFmatrix(97,:);
+minstabcatchHF(3,:)=meanstabGFmatrix(49,:);
+minstabcatchHF(4,:)=meanstabGFmatrix(97,:);
 meanminstabcatchHFsub=mean(minstabcatchHF, 2); %moyenne pour tous les sujets
 meanminstabcatchHF=mean(meanminstabcatchHFsub);%moyenne des moyennes de tous les sujets
 meanminstabcatchHFparticipants=mean(minstabcatchHF);
@@ -273,8 +270,7 @@ meanminstabcatchHFparticipants=mean(minstabcatchHF);
 %% LF to HF (catch) vs LF normal under maximal weight
 
 %max LF adaptation
-
-3bis=20;
+nessais3bis=20;
 maxstabLF=zeros(nessais3bis, nparticipants);
 maxstabLF(1,:)=meanstabGFmatrix(14,:);
 maxstabLF(2,:)=meanstabGFmatrix(15,:);
@@ -301,11 +297,11 @@ meanmaxstabLF=mean(meanmaxstabLFsub);
 meanmaxstabLFparticipants=mean(maxstabLF);
 
 %LF to HF catch friction max weight
-nessaisbis=2;
+nessaisbis=3;
 maxstabcatchHF=zeros(nessaisbis, nparticipants);
-%maxstabcatchHF(1,:)=meanstabGFmatrix(67,:);
-maxstabcatchHF(1,:)=meanstabGFmatrix(85,:);
-maxstabcatchHF(2,:)=meanstabGFmatrix(109,:);
+maxstabcatchHF(1,:)=meanstabGFmatrix(67,:);
+maxstabcatchHF(2,:)=meanstabGFmatrix(85,:);
+maxstabcatchHF(3,:)=meanstabGFmatrix(109,:);
 meanmaxstabcatchHFsub=mean(maxstabcatchHF, 2);
 meanmaxstabcatchHF=mean(meanmaxstabcatchHFsub);
 meanmaxstabcatchHFparticipants=mean(maxstabcatchHF);
@@ -454,7 +450,7 @@ text(-1.2, 31,{'Comparison of GF during stabilization for friction catch and nor
 %% Mean bars + slopes
 %color cell 
 C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colros.
-%{
+
 baraxis=9;% axis limits of the plots
 
 % Premier subplot
@@ -646,8 +642,8 @@ for i=1:nparticipants
     line([xdata(2)+xoffset1,xdata(2)+xoffset2], [y15(i), y16(i)], 'Color', C{i},'HandleVisibility','off')
 end
 
-text(-2.3, 31,{'Comparison of GF during stabilization for friction catch and normal trials';''}, 'FontSize', 14)
-%}
+%text(-2.3, 31,{'Comparison of GF during stabilization for friction catch and normal trials';''}, 'FontSize', 14)
+
 %% Quantification GF of LF friction catch with respect to normal trials (GF peaks and stabilization)
 %Computation of mean relative differences for weight cactches (one vector
 %for catches and one for stabilization)
@@ -679,7 +675,7 @@ for i= 1:nparticipants
     %relative difference 
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
-    Rd1 = (abs(meanmincatchLFparticipants(i)-meanminHFparticipants(i))/min(meanmincatchLFparticipants(i),meanminHFparticipants(i)))*100;
+    Rd1 = ((meanmincatchLFparticipants(i)-meanminHFparticipants(i))/min(meanmincatchLFparticipants(i),meanminHFparticipants(i)))*100;
     Rdvector(1,i) = Rd1;
     Rdcatch(1,i) = Rd1;
     figure(2); hold on;
@@ -711,7 +707,7 @@ for i= 1:nparticipants
     %relative difference
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
-    Rd2 = (abs(meanmaxcatchLFparticipants(i) - meanmaxHFparticipants(i))/min(meanmaxcatchLFparticipants(i),meanmaxHFparticipants(i)))*100;
+    Rd2 = ((meanmaxcatchLFparticipants(i) - meanmaxHFparticipants(i))/min(meanmaxcatchLFparticipants(i),meanmaxHFparticipants(i)))*100;
     Rdvector(2,i) = Rd2;
     Rdcatch(2,i) = Rd2;
     figure(2); hold on;
@@ -748,7 +744,7 @@ for i= 1:nparticipants
     %relative difference 
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
-    Rd1stab = (abs(meanminstabcatchLFparticipants(i)-meanminstabHFparticipants(i))/min(meanminstabcatchLFparticipants(i),meanminstabHFparticipants(i)))*100;
+    Rd1stab = ((meanminstabcatchLFparticipants(i)-meanminstabHFparticipants(i))/min(meanminstabcatchLFparticipants(i),meanminstabHFparticipants(i)))*100;
     Rdvector(3,i) = Rd1stab;
     Rdstab(1,i) = Rd1stab;
     figure(3); hold on;
@@ -780,7 +776,7 @@ for i= 1:nparticipants
     %relative difference 
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
-    Rd2stab = (abs(meanmaxstabcatchLFparticipants(i) - meanmaxstabHFparticipants(i))/min(meanmaxstabcatchLFparticipants(i),meanmaxstabHFparticipants(i)))*100;
+    Rd2stab = ((meanmaxstabcatchLFparticipants(i) - meanmaxstabHFparticipants(i))/min(meanmaxstabcatchLFparticipants(i),meanmaxstabHFparticipants(i)))*100;
     Rdvector(4,i) = Rd2stab;
     Rdstab(2,i) = Rd2stab;
     figure(3); hold on;
@@ -820,7 +816,7 @@ for i= 1:nparticipants
     %relative difference 
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
-    Rd3 = (abs(meanminLFparticipants(i)-meanmincatchHFparticipants(i))/min(meanminLFparticipants(i),meanmincatchHFparticipants(i)))*100;
+    Rd3 = ((meanminLFparticipants(i)-meanmincatchHFparticipants(i))/min(meanminLFparticipants(i),meanmincatchHFparticipants(i)))*100;
     Rdvector(5,i) = Rd3;
     Rdcatch(3,i) = Rd3;
     figure(4); hold on;
@@ -852,7 +848,7 @@ for i= 1:nparticipants
     %relative difference 
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
-    Rd4 = (abs(meanmaxLFparticipants(i)-meanmaxcatchHFparticipants(i))/min(meanmaxLFparticipants(i),meanmaxcatchHFparticipants(i)))*100;
+    Rd4 = ((meanmaxLFparticipants(i)-meanmaxcatchHFparticipants(i))/min(meanmaxLFparticipants(i),meanmaxcatchHFparticipants(i)))*100;
     Rdvector(6,i) = Rd4;
     Rdcatch(4,i) = Rd4;
     figure(4); hold on;
@@ -889,7 +885,7 @@ for i= 1:nparticipants
     %relative difference 
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
-    Rd3stab = (abs(meanminstabLFparticipants(i)-meanminstabcatchHFparticipants(i))/min(meanminstabLFparticipants(i),meanminstabcatchHFparticipants(i)))*100;
+    Rd3stab = ((meanminstabLFparticipants(i)-meanminstabcatchHFparticipants(i))/min(meanminstabLFparticipants(i),meanminstabcatchHFparticipants(i)))*100;
     Rdvector(7,i) = Rd3stab;
     Rdstab(3,i) = Rd3stab;
     figure(5); hold on;
@@ -921,7 +917,7 @@ for i= 1:nparticipants
     %relative difference 
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
-    Rd4stab = (abs(meanmaxstabLFparticipants(i)-meanmaxstabcatchHFparticipants(i))/min(meanmaxstabLFparticipants(i),meanmaxstabcatchHFparticipants(i)))*100;
+    Rd4stab = ((meanmaxstabLFparticipants(i)-meanmaxstabcatchHFparticipants(i))/min(meanmaxstabLFparticipants(i),meanmaxstabcatchHFparticipants(i)))*100;
     Rdvector(8,i) = Rd4stab;
     Rdstab(4,i) = Rd4stab;
     figure(5); hold on;
