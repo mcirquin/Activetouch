@@ -351,12 +351,8 @@ hleg1 = legend(c(1:2), 'Min weight normal', 'Max weight normal', 'Location', 'no
 suptitle('Grip Force magnitude for GF peaks and stabilization of normal trials');
 %}
 %% Quantification GF normal for HF and LF (GF peaks and stabilization)
-
 C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colors.
-
-axis=20;% axis limits of the plots
-ticks=5;
-
+axis=10;% axis limits of the plots
 xfriction1=linspace(0,axis);
 yfriction1=linspace(0,axis);
 Rdvector = []; %vector saving the relative differnce values for each participant
@@ -375,13 +371,13 @@ for i= 1:nparticipants
     ylabel('GF - High friction normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:ticks:axis)
+    xticks(0:1:axis)
     title('Min weight')
     
     %relative difference 
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
-    Rd1 = (abs(meanminLFparticipants(i)-meanminHFparticipants(i))/min(meanminLFparticipants(i),meanminHFparticipants(i)))*100;
+    Rd1 = ((meanminLFparticipants(i)-meanminHFparticipants(i))/min(meanminLFparticipants(i),meanminHFparticipants(i)))*100;
     Rdvector(1,i) = Rd1;
     figure(3); hold on;
     plot(0.5,Rd1,'.', 'MarkerSize',10,'Color', C{i});
@@ -405,13 +401,13 @@ for i= 1:nparticipants
     ylabel('GF - High friction normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:ticks:axis)
+    xticks(0:1:axis)
     title('Max weight')   
     
     %relative difference 
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
-    Rd2 = (abs(meanmaxLFparticipants(i)-meanmaxHFparticipants(i))/min(meanmaxLFparticipants(i),meanmaxHFparticipants(i)))*100;
+    Rd2 = ((meanmaxLFparticipants(i)-meanmaxHFparticipants(i))/min(meanmaxHFparticipants(i),meanmaxLFparticipants(i)))*100;
     Rdvector(2,i) = Rd2;
     figure(3); hold on;
     plot(0.5,Rd2,'.', 'MarkerSize',10,'Color', C{i});
@@ -441,13 +437,13 @@ for i= 1:nparticipants
     ylabel('GF - High friction normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:ticks:axis)
+    xticks(0:1:axis)
     title('Min weight')
     
     %relative difference
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
-    Rd1stab = (abs(meanminstabLFparticipants(i)-meanminstabHFparticipants(i))/min(meanminstabLFparticipants(i),meanminstabHFparticipants(i)))*100;
+    Rd1stab = ((meanminstabLFparticipants(i)-meanminstabHFparticipants(i))/min(meanminstabLFparticipants(i),meanminstabHFparticipants(i)))*100;
     Rdvector(3,i) = Rd1stab;
     figure(4); hold on;
     plot(0.5,Rd1stab,'.', 'MarkerSize',10,'Color', C{i});
@@ -471,13 +467,13 @@ for i= 1:nparticipants
     ylabel('GF - High friction normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:ticks:axis)
+    xticks(0:1:axis)
     title('Max weight')
     
     %relative difference 
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
-    Rd2stab = (abs(meanmaxstabLFparticipants(i)-meanmaxstabHFparticipants(i))/min(meanmaxstabLFparticipants(i),meanmaxstabHFparticipants(i)))*100;
+    Rd2stab = ((meanmaxstabLFparticipants(i)-meanmaxstabHFparticipants(i))/min(meanmaxstabLFparticipants(i),meanmaxstabHFparticipants(i)))*100;
     Rdvector(4,i) = Rd2stab;
     figure(4); hold on;
     plot(0.5,Rd2stab,'.', 'MarkerSize',10,'Color', C{i});
@@ -491,9 +487,7 @@ for i= 1:nparticipants
     end
 end
 %suptitle('Grip Force magnitude during stabilization for normal trials');
-
 %% Quantification GF normal for Min & Max weights(GF peaks and stabilization)
-%{
 figure(5);
 for i= 1:nparticipants
     %GF peaks: Comparison weight under low friction
@@ -507,13 +501,13 @@ for i= 1:nparticipants
     ylabel('GF - Max weight normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:ticks:axis)
+    xticks(0:1:axis)
     title('Low friction')
     
     %relative difference 
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
-    Rd3 = (abs(meanminLFparticipants(i)-meanmaxLFparticipants(i))/min(meanminLFparticipants(i),meanmaxLFparticipants(i)))*100;
+    Rd3 = ((meanmaxLFparticipants(i)-meanminLFparticipants(i))/min(meanminLFparticipants(i),meanmaxLFparticipants(i)))*100;
     Rdvector(5,i) = Rd3;
     figure(5); hold on;
     plot(0.5,Rd3,'.', 'MarkerSize',10,'Color', C{i});
@@ -537,13 +531,13 @@ for i= 1:nparticipants
     ylabel('GF - Max weight normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:ticks:axis)
+    xticks(0:1:axis)
     title('High friction')
     
     %relative difference 
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
-    Rd4 = (abs(meanminHFparticipants(i)-meanmaxHFparticipants(i))/min(meanminHFparticipants(i),meanmaxHFparticipants(i)))*100;
+    Rd4 = ((meanmaxHFparticipants(i)-meanminHFparticipants(i))/min(meanminHFparticipants(i),meanmaxHFparticipants(i)))*100;
     Rdvector(6,i) = Rd4;
     figure(5); hold on;
     plot(0.5,Rd4,'.', 'MarkerSize',10,'Color', C{i});
@@ -571,13 +565,13 @@ for i= 1:nparticipants
     ylabel('GF - Max weight normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:ticks:axis)
+    xticks(0:1:axis)
     title('Low friction')
     
     %relative difference 
     pos2 = [0.4 0.6 0.05 0.35];
     subplot('Position',pos2);
-    Rd3stab = (abs(meanminstabLFparticipants(i)-meanmaxstabLFparticipants(i))/min(meanminstabLFparticipants(i),meanmaxstabLFparticipants(i)))*100;
+    Rd3stab = ((meanmaxstabLFparticipants(i)-meanminstabLFparticipants(i))/min(meanminstabLFparticipants(i),meanmaxstabLFparticipants(i)))*100;
     Rdvector(7,i) = Rd3stab;
     figure(6); hold on;
     plot(0.5,Rd3stab,'.', 'MarkerSize',10,'Color', C{i});
@@ -601,13 +595,13 @@ for i= 1:nparticipants
     ylabel('GF - Max weight normal [N]')
     xlim([0 axis])
     ylim([0 axis])
-    xticks(0:ticks:axis)
+    xticks(0:1:axis)
     title('High friction')
     
     %relative difference 
     pos4 = [0.4 0.1 0.05 0.35];
     subplot('Position',pos4);
-    Rd4stab = (abs(meanminstabHFparticipants(i)-meanmaxstabHFparticipants(i))/min(meanminstabHFparticipants(i),meanmaxstabHFparticipants(i)))*100;
+    Rd4stab = ((meanmaxstabHFparticipants(i)-meanminstabHFparticipants(i))/min(meanminstabHFparticipants(i),meanmaxstabHFparticipants(i)))*100;
     Rdvector(8,i) = Rd4stab;
     figure(6); hold on;
     plot(0.5,Rd4stab,'.', 'MarkerSize',10,'Color', C{i});
