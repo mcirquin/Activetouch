@@ -3,18 +3,18 @@ function output = maxGFcatchfrictionvsadaptation(maxGFmatrix, nparticipants)
 %maxGFmatrix : matrix with all the peak GF values for all the trials of
 %all the participants
 
+%last section plots a phase diagram of GF peaks during HF catch and peaks
+%during HF normal to see if there is a 'first trial' effect
 %% Comparison of min weight trials (for HF and LF)
 %HF to LF catch friction min weight
-nessaisbis=1;
+nessaisbis=3;
 mincatchLF=zeros(nessaisbis, nparticipants);
 mincatchLF(1,:)=maxGFmatrix(43,:);
-%mincatchLF(2,:)=maxGFmatrix(55,:);
-%mincatchLF(3,:)=maxGFmatrix(103,:);
+mincatchLF(2,:)=maxGFmatrix(55,:);
+mincatchLF(3,:)=maxGFmatrix(103,:);
 meanmincatchLFsub=mean(mincatchLF, 2);
 meanmincatchLF=mean(meanmincatchLFsub);
-meanmincatchLFparticipants=mincatchLF; %1 x n participants matrix 
-%meanmincatchLFparticipants=mean(mincatchLF);use this line if more than 1
-%trial
+meanmincatchLFparticipants=mean(mincatchLF);
 
 %min weight LF adaptation 
 nessais3 = 16;
@@ -40,12 +40,12 @@ meanminLF=mean(meanminLFsub);
 meanminLFparticipants=mean(minLF);
 
 %LF to HF catch friction min weight
-nessais=3;
+nessais=4;
 mincatchHF=zeros(nessais, nparticipants);
 mincatchHF(1,:)=maxGFmatrix(19,:);
 mincatchHF(2,:)=maxGFmatrix(31,:);
-%mincatchHF(3,:)=maxGFmatrix(49,:);
-mincatchHF(3,:)=maxGFmatrix(97,:);
+mincatchHF(3,:)=maxGFmatrix(49,:);
+mincatchHF(4,:)=maxGFmatrix(97,:);
 meanmincatchHFsub=mean(mincatchHF, 2); %moyenne pour tous les sujets
 meanmincatchHF=mean(meanmincatchHFsub);%moyenne des moyennes de tous les sujets
 meanmincatchHFparticipants=mean(mincatchHF);
@@ -76,12 +76,12 @@ meanminHFparticipants=mean(minHF);
 
 %% Comparison of max weight trials (for LF and HF)
 %%HF to LF catch friction max weight
-nessais=2;
+nessais=4;
 maxcatchLF=zeros(nessais, nparticipants);
 maxcatchLF(1,:)=maxGFmatrix(13,:);
 maxcatchLF(2,:)=maxGFmatrix(25,:);
-%maxcatchLF(3,:)=maxGFmatrix(73,:);
-%maxcatchLF(4,:)=maxGFmatrix(91,:);
+maxcatchLF(3,:)=maxGFmatrix(73,:);
+maxcatchLF(4,:)=maxGFmatrix(91,:);
 meanmaxcatchLFsub=mean(maxcatchLF, 2);
 meanmaxcatchLF=mean(meanmaxcatchLFsub);
 meanmaxcatchLFparticipants=mean(maxcatchLF);
@@ -115,11 +115,11 @@ meanmaxLF=mean(meanmaxLFsub);
 meanmaxLFparticipants=mean(maxLF);
 
 %LF to HF catch friction max weight
-nessaisbis=2;
+nessaisbis=3;
 maxcatchHF=zeros(nessaisbis, nparticipants);
-%maxcatchHF(1,:)=maxGFmatrix(67,:);
-maxcatchHF(1,:)=maxGFmatrix(85,:);
-maxcatchHF(2,:)=maxGFmatrix(109,:);
+maxcatchHF(1,:)=maxGFmatrix(67,:);
+maxcatchHF(2,:)=maxGFmatrix(85,:);
+maxcatchHF(3,:)=maxGFmatrix(109,:);
 meanmaxcatchHFsub=mean(maxcatchHF, 2);
 meanmaxcatchHF=mean(meanmaxcatchHFsub);
 meanmaxcatchHFparticipants=mean(maxcatchHF);
@@ -165,11 +165,11 @@ ylabel('Grip force peak (N)')
 
 %% Barplots with subject slopes
 %color cell (suppress colors if less participants!)
-C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colors.
+C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.9 0.4 1],[0.2 0.8 0.7],[0.7 0.4 0.1],[0.4 0.55 0.8],[0.3 0.6 0.3]}; % Cell array of colros.
 xdata= get (b(2),'XData');
 xoffset1 = -0.14;
 xoffset2 = 0.14;
-
+%{
 hold on
 y1 = meanmincatchLFparticipants;
 y2 = meanminLFparticipants;
@@ -225,7 +225,7 @@ for i=1:nparticipants
     
     line([xdata(4)+xoffset1,xdata(4)+xoffset2], [y7(i), y8(i)], 'Color', C{i},'HandleVisibility','off')
 end
-
+%}
 %% Boxplots
 %{
 A=reshape(mincatchLF,1,[]).';
@@ -281,5 +281,78 @@ c = get(gca, 'Children');
 
 hleg1 = legend(c(1:2), 'Friction catch trials', 'Adaptation trials' );
 
+
 end
 %}
+%% High friction catch phase diagram (catch vs normal trial)
+axis=10;% axis limits of the plots
+xfriction1=linspace(0,axis);
+yfriction1=linspace(0,axis);
+Rdvector = []; %vector saving the relative differnce values for each participant
+
+figure(3);
+for i= 1:nparticipants
+    %GF peak : high friction catch (min weight)
+    pos1 = [0.1 0.6 0.25 0.35];
+    subplot('Position',pos1);
+    figure(3); hold on;
+    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
+    figure(3); hold on;
+    plot(meanmincatchHFparticipants(i),meanminHFparticipants(i),'.', 'MarkerSize',10,'Color', C{i});
+    xlabel('GF - HF catch [N]')
+    ylabel('GF - HF normal [N]')
+    xlim([0 axis])
+    ylim([0 axis])
+    xticks(0:1:axis)
+    title('Minimal weigth')
+    
+    %relative difference 
+    pos2 = [0.4 0.6 0.05 0.35];
+    subplot('Position',pos2);
+    Rd1 = ((meanmincatchHFparticipants(i)-meanminHFparticipants(i))/min(meanmincatchHFparticipants(i),meanminHFparticipants(i)))*100;
+    Rdvector(1,i) = Rd1;
+    figure(3); hold on;
+    plot(0.5,Rd1,'.', 'MarkerSize',10,'Color', C{i});
+    set(gca,'XTick',[])
+    xlim([0 1])
+    set(gca, 'YDir','reverse')
+    set(gcf,'position',[0,0,200,500])
+    ylabel('Relative difference in GF [%]')
+    if i == nparticipants
+        figure(3);hold on;
+        errorbar(0.5,mean(Rdvector(1,:),2),std(Rdvector(1,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
+    
+    %GF peak : high friction catch (max weight)
+    pos3 = [0.1 0.1 0.25 0.35];
+    subplot('Position',pos3);
+    figure(3); hold on;
+    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
+    figure(3); hold on;
+    plot(meanmaxcatchHFparticipants(i),meanmaxHFparticipants(i),'.', 'MarkerSize',10,'Color', C{i});
+    xlabel('GF - HF catch [N]')
+    ylabel('GF - HF normal [N]')
+    xlim([0 axis])
+    ylim([0 axis])
+    xticks(0:1:axis)
+    title('Maximal weigth')
+    
+    %relative difference 
+    pos4 = [0.4 0.1 0.05 0.35];
+    subplot('Position',pos4);
+    Rd2 = ((meanmaxcatchHFparticipants(i)-meanmaxHFparticipants(i))/min(meanmaxcatchHFparticipants(i),meanmaxHFparticipants(i)))*100;
+    Rdvector(2,i) = Rd2;
+    figure(3); hold on;
+    plot(0.5,Rd2,'.', 'MarkerSize',10,'Color', C{i});
+    set(gca,'XTick',[])
+    xlim([0 1])
+    set(gca, 'YDir','reverse')
+    set(gcf,'position',[0,0,200,500])
+    ylabel('Relative difference in GF [%]')
+    if i == nparticipants
+        figure(3);hold on;
+        errorbar(0.5,mean(Rdvector(2,:),2),std(Rdvector(2,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
+end
+
+
