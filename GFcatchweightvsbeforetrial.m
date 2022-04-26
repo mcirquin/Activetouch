@@ -660,6 +660,9 @@ Rdstab = [];
 axis=10;% axis limits of the plots
 xfriction1=linspace(0,axis);
 yfriction1=linspace(0,axis);
+Rdvector = []; %vector saving the relative differnce values for each participant
+
+
 figure(2);
 
 for i= 1:nparticipants
