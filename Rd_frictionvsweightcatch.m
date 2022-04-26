@@ -15,10 +15,10 @@ C = {'k','b','r','g',[1 0.9 0.1],[.5 .6 .7],[.8 .2 .6],[0.7 0.5 0.9],'c','m',[0.
 %relative differences
 
 %computations of mean values of relative difference for each subject
-meanRdfpeak = mean(Rdfrictionpeak);
-meanRdfstab = mean(Rdfrictionstab);
-meanRdwpeak = mean(Rdweightpeak);
-meanRdwstab = mean(Rdweightstab);
+meanRdfpeak = mean(abs(Rdfrictionpeak)); %absolute value of the relative differences to observe tendency
+meanRdfstab = mean(abs(Rdfrictionstab));
+meanRdwpeak = mean(abs(Rdweightpeak));
+meanRdwstab = mean(abs(Rdweightstab)); 
 
 %plots
 figure(9)
