@@ -224,7 +224,7 @@ meangfmaxadaptLF2=mean(gfmaxadaptLF2,2);
 meangfmincatchHF2=mean(gfmincatchHF2,2);
 meangfminadaptLF2=mean(gfminadaptLF2,2);
 
-%% Compute relative differences between curves per subject (sort des matrices où les lignes sont des pas de temps et les colonnes sont la diff relative entre les 2 conditions par sujet)
+%% Compute relative differences between curves per subject (sort des matrices oÃ¹ les lignes sont des pas de temps et les colonnes sont la diff relative entre les 2 conditions par sujet)
 % Catch low friction vs adapt high friction under max weight
 for i=1:nparticipants
     for j=1:tsteps-1999
@@ -289,7 +289,7 @@ GF_pvalues = [];
 GF_indexes = [];
 
 %catch LF max weight vs HF adaptation max weight
-[h1,p1] = ttest(subj_meangfmaxcatchLF1.',subj_meangfmaxadaptHF1.');%transposée des matrices pour faire le T-test dans le bon sens (pour chaque pas de temps)
+[h1,p1] = ttest(subj_meangfmaxcatchLF1.',subj_meangfmaxadaptHF1.');%transposÃ©e des matrices pour faire le T-test dans le bon sens (pour chaque pas de temps)
 for i = minimum:(tsteps-1999)
     if p1(i) < 0.05
         GF_pvalues(1) = p1(i);
@@ -331,15 +331,15 @@ for i = minimum:(tsteps-1999)
     end 
 end
 
-%% Plots 
+%% Plots low friction catch
 % Figures GF mean curves and relative difference in mean force 
 GFaxislim = 10; %limit of y axis of graphs for GF curves
 Rdaxislim = 90; %limit of y axis of graphs for relative difference curves
 
 figure(1); 
 %x=10:0.005:12.495;
-timealigned=minimum*0.005; %temps où toutes les courbes sont alignées
-x=-timealigned:0.005:(-timealigned+2.495); %500 pas de temps, le 0 se trouve à l'alignement des courbes
+timealigned=minimum*0.005; %temps oÃ¹ toutes les courbes sont alignÃ©es
+x=-timealigned:0.005:(-timealigned+2.495); %500 pas de temps, le 0 se trouve Ã  l'alignement des courbes
 
 subplot(3,2,1)
 y1 = meangfmaxcatchLF1(1:500);
@@ -387,7 +387,7 @@ fill([x fliplr(x)], [ul_gfLFmincatch(1:500) fliplr(ll_gfLFmincatch(1:500))], 'g'
 figure(1);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(1);hold on;
-plot([x(GF_indexes(1)) x(GF_indexes(1))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+plot([x(GF_indexes(2)) x(GF_indexes(2))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlabel('Time (s)');
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
@@ -405,26 +405,78 @@ figure(1);hold on;
 plot([x(GF_indexes(2)) x(GF_indexes(2))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlim([-timealigned 2]);
 
-%{
-subplot(2,2,4)
-y7 = meanlfmincatchHF2(1:500);
-y8 = meanlfminadaptLF2(1:500);
-plot(x,y8,'r', x,y7,'b--','LineWidth', 1.5)
-hold on 
-fill([x fliplr(x)], [ul_lfmincatchHF2(1:500) fliplr(ll_lfmincatchHF2(1:500))], 'b', 'FaceAlpha', 0.2)
-fill([x fliplr(x)], [ul_lfminadaptLF2(1:500) fliplr(ll_lfminadaptLF2(1:500))], 'r', 'FaceAlpha', 0.2)
-hold on
-plot([LF_indexes(4)*0.005+10 LF_indexes(4)*0.005+10],[0 LFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-title('Minimal manipulandum weight')
+%% Plots high friction catch
+% Figures GF mean curves and relative difference in mean force 
+GFaxislim = 10; %limit of y axis of graphs for GF curves
+Rdaxislim = 90; %limit of y axis of graphs for relative difference curves
+
+figure(2); 
+
+subplot(3,2,1)
+y1 = meangfmaxadaptLF2(1:500);
+y2 = meangfmaxcatchHF2(1:500);
+plot(x,y1,'r', x, y2, 'b--', 'LineWidth', 1.5)
+legend('', '')
+title('Maximal manipulandum weight')
 xlabel('Time (s)');
-ylabel('LF (N)');
-ylim([0 LFaxislim]);
+ylabel('GF (N)');
+ylim([0 GFaxislim]);
 xlim([-timealigned 2]);
 legend('Low friction normal', 'High friction catch');
 
-suptitle( 'Adaptation to friction during the first movement of friction catch trials - Elderly participants');
-%suptitle( 'Adaptation to friction during the first movement of friction catch trials - Young participants');
-%}
+subplot(3,2,2)
+y3 = meangfminadaptLF2(1:500);
+y4 = meangfmincatchHF2(1:500);
+plot(x,y3,'r',x,y4,'b--','LineWidth', 1.5)
+title('Minimal manipulandum weight')
+xlabel('Time (s)');
+ylabel('GF (N)');
+ylim([0 GFaxislim]);
+xlim([-timealigned 2]);
+legend('Low friction normal', 'High friction catch');
+
+
+subplot(3,2,3)
+y5 = Rd_meangfHFmaxcatch(1:500);
+plot(x,y5,'g','LineWidth', 1.5)
+figure(2);hold on;
+fill([x fliplr(x)], [ul_gfHFmaxcatch(1:500) fliplr(ll_gfHFmaxcatch(1:500))], 'g', 'FaceAlpha', 0.2,'LineStyle', "none")
+figure(2);hold on;
+plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
+figure(2);hold on;
+plot([x(GF_indexes(3)) x(GF_indexes(3))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+xlabel('Time (s)');
+ylabel('\Delta GF (%)');
+ylim([-40 Rdaxislim]);
+xlim([-timealigned 2]);
+
+subplot(3,2,4)
+y6 = Rd_meangfHFmincatch(1:500);
+plot(x,y6,'g','LineWidth', 1.5)
+figure(2);hold on;
+fill([x fliplr(x)], [ul_gfHFmincatch(1:500) fliplr(ll_gfHFmincatch(1:500))], 'g', 'FaceAlpha', 0.2, 'LineStyle', "none")
+figure(2);hold on;
+plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
+figure(2);hold on;
+plot([x(GF_indexes(4)) x(GF_indexes(4))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+xlabel('Time (s)');
+ylabel('\Delta GF (%)');
+ylim([-40 Rdaxislim]);
+xlim([-timealigned 2]);
+
+subplot(3,2,5)
+plot(x,p3(1:500))
+figure(2);hold on;
+plot([x(GF_indexes(3)) x(GF_indexes(3))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+xlim([-timealigned 2]);
+
+subplot(3,2,6)
+plot(x,p4(1:500))
+figure(2);hold on;
+plot([x(GF_indexes(4)) x(GF_indexes(4))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+xlim([-timealigned 2]);
+
+
 end
         
 
