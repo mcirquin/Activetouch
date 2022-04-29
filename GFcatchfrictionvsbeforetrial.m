@@ -962,7 +962,7 @@ Rdvector = []; %vector saving the relative difference values for each participan
 xticks=5;
 
 
-for i = 1:13 %sort the vector in the same order than the relative difference in friction
+for i = 1:nparticipants%sort the vector in the same order than the relative difference in friction
     meanmincatchLFparticipantssort(1,i) = meanmincatchLFparticipants(shiftRd(i)); %sort xvec in the same way
     meanminHFparticipantssort(i) = meanminHFparticipants(shiftRd(i));
     meanmaxcatchLFparticipantssort(i) = meanmaxcatchLFparticipants(shiftRd(i));
