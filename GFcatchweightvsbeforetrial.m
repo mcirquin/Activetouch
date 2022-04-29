@@ -1,4 +1,4 @@
-function [Rdcatch, Rdstab] = GFcatchweightvsbeforetrial(maxGFmatrix, meanstabGFmatrix, nparticipants)
+function [Rdcatch, Rdstab] = GFcatchweightvsbeforetrial(maxGFmatrix, meanstabGFmatrix, nparticipants, shiftRd)
 %Barplots of the GF peaks of catch weight trials vs the adaptation trials 
 %maxGFmatrix : matrix with all the peak GF values for all the trials of
 %all the participants
@@ -6,6 +6,15 @@ function [Rdcatch, Rdstab] = GFcatchweightvsbeforetrial(maxGFmatrix, meanstabGFm
 %the relative differences for the 4 different catches (lines) of each
 %participant (columns) - catch corresponds to GF peaks and stab sto
 %stabilization GF
+
+
+%To modify in function of number of participants
+colors={[0 0 1], [0.0833 0 0.9167], [0.1667 0 0.8333], [0.25 0 0.75], [0.3333 0 0.6667], [0.4167 0 0.5833], [0.5 0 0.5], [0.5833 0 0.4167], [0.6667 0 0.3333], [0.75 0 0.25], [0.8333 0 0.1667], [0.9167 0 0.0833], [1 0 0]}; %for elderly participants
+%colors={[0 0 1], [0.0714 0 0.9286], [0.1429 0 0.8571], [0.2143 0 0.7857],
+%[0.2857 0 0.7143], [0.3571 0 0.6429], [0.4286 0 0.5714], [0.5 0 0.5],
+%[0.5714 0 0.4286], [0.6429 0 0.3571], [0.7143 0 0.2857], [0.7857 0
+%0.2143], [0.85 0 0.1429], [0.9286 0 0.0714], [1 0 0]}; %for young
+%participants
 
 %% 1. GF peaks
 
@@ -650,7 +659,7 @@ text(-2.3, 31,{'Comparison of GF during stabilization for weight catch and norma
 %}
 
 %% Quantification GF of Min weight catch with respect to normal trials (GF peaks and stabilization)
-
+%{
 %Computation of mean relative differences for weight cactches (one vector
 %for catches and one for stabilization)
 Rdcatch = [];
@@ -957,4 +966,361 @@ for i= 1:nparticipants
     end
 end
 %suptitle('Grip Force magnitude during stabilization for max weight catch trials');
+
+%}
+
+
+%% Quantification GF of Min weight catch with respect to normal trials (GF peaks and stabilization)
+
+%Computation of mean relative differences for weight cactches (one vector
+%for catches and one for stabilization)
+Rdcatch = [];
+Rdstab = [];
+
+
+axis=20;% axis limits of the plots
+xfriction1=linspace(0,axis);
+yfriction1=linspace(0,axis);
+Rdvector = []; %vector saving the relative differnce values for each participant
+
+
+for i = 1:13 %sort the vector in the same order than the relative difference in friction
+    meanmaxtominLFparticipantssort(i) = meanmaxtominLFparticipants(shiftRd(i)); %sort xvec in the same way
+    meanmaxLFparticipantssort(i) = meanmaxLFparticipants(shiftRd(i));
+    meanmaxtominHFparticipantssort(i) = meanmaxtominHFparticipants(shiftRd(i));
+    meanmaxHFparticipantssort(i) =  meanmaxHFparticipants(shiftRd(i));
+    meanmaxtominstabLFparticipantssort(i) = meanmaxtominstabLFparticipants(shiftRd(i));
+    meanmaxstabLFparticipantssort(i) = meanmaxstabLFparticipants(shiftRd(i));
+    meanmaxtominstabHFparticipantssort(i) = meanmaxtominstabHFparticipants(shiftRd(i));
+    meanmaxstabHFparticipantssort(i) = meanmaxstabLFparticipants(shiftRd(i));
+    
+    meanminLFparticipantssort(i) = meanminLFparticipants(shiftRd(i)); %sort xvec in the same way
+    meanmintomaxLFparticipantssort(i) = meanmintomaxLFparticipants(shiftRd(i));
+    meanminHFparticipantssort(i) = meanminHFparticipants(shiftRd(i)); %sort xvec in the same way
+    meanmintomaxHFparticipantssort(i) = meanmintomaxHFparticipants(shiftRd(i));
+    meanminstabLFparticipantssort(i) = meanminstabLFparticipants(shiftRd(i));
+    meanmintomaxstabLFparticipantssort(i) =  meanmintomaxLFparticipants(shiftRd(i));
+    meanminstabHFparticipantssort(i) = meanminstabHFparticipants(shiftRd(i));
+    meanmintomaxstabHFparticipantssort(i) =  meanmintomaxHFparticipants(shiftRd(i));
+end
+
+Rd1 = zeros(1,nparticipants);
+Rd2 = zeros(1,nparticipants);
+Rd3 = zeros(1,nparticipants);
+Rd4 = zeros(1,nparticipants);
+Rd1stab = zeros(1,nparticipants);
+Rd2stab = zeros(1,nparticipants);
+Rd3stab = zeros(1,nparticipants);
+Rd4stab = zeros(1,nparticipants);
+
+for i = 1:nparticipants
+    Rd1(i) = ((meanmaxLFparticipantssort(i)-meanmaxtominLFparticipantssort(i))/min(meanmaxtominLFparticipantssort(i),meanmaxLFparticipantssort(i)))*100;
+    Rd2(i) = ((meanmaxHFparticipantssort(i)-meanmaxtominHFparticipantssort(i))/min(meanmaxtominHFparticipantssort(i),meanmaxHFparticipantssort(i)))*100;
+    Rd3(i) = ((meanmintomaxLFparticipantssort(i)-meanminLFparticipantssort(i))/min(meanminLFparticipantssort(i),meanmintomaxLFparticipantssort(i)))*100;
+    Rd4(i) = ((meanmintomaxHFparticipantssort(i)-meanminHFparticipantssort(i))/min(meanminHFparticipantssort(i),meanmintomaxHFparticipantssort(i)))*100;
+    Rd1stab(i) = ((meanmaxstabLFparticipantssort(i)-meanmaxtominstabLFparticipantssort(i))/min(meanmaxtominstabLFparticipantssort(i),meanmaxstabLFparticipantssort(i)))*100;
+    Rd2stab(i) = ((meanmaxstabHFparticipantssort(i)-meanmaxtominstabHFparticipantssort(i))/min(meanmaxtominstabHFparticipantssort(i),meanmaxstabHFparticipantssort(i)))*100;
+    Rd3stab(i) = ((meanmintomaxstabLFparticipantssort(i)-meanminstabLFparticipantssort(i))/min(meanminstabLFparticipantssort(i),meanmintomaxstabLFparticipantssort(i)))*100;
+    Rd4stab(i) = ((meanmintomaxstabHFparticipantssort(i)-meanminstabHFparticipantssort(i))/min(meanminstabHFparticipantssort(i),meanmintomaxstabHFparticipantssort(i)))*100;
+end
+
+%% FIGURES 
+figure(2); hold on;
+pos1 = [0.1 0.6 0.25 0.35];
+subplot('Position',pos1);
+hold on;
+for i=1:nparticipants
+    h2=plot(meanmaxtominLFparticipantssort(i),meanmaxLFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
+end
+xlabel('GF - Min weight catch [N]')
+ylabel('GF - Max weight normal [N]')
+xlim([0 axis])
+ylim([0 axis])
+title('Low friction')
+
+
+%relative difference
+figure(2); hold on;
+pos2 = [0.4 0.6 0.05 0.35];
+subplot('Position',pos2);
+hold on;
+for i=1:nparticipants
+    h2=plot(0.5,Rd1(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot([0,1], [55 55],'r');
+    %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    if i == nparticipants
+        figure(2);hold on;
+        errorbar(0.5,mean(Rd1,2),std(Rd1,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
+end
+set(gca,'XTick',[])
+xlim([0 1])
+set(gca, 'YDir','reverse')
+set(gcf,'position',[0,0,200,500])
+ylabel('Relative change in GF [%]')
+
+
+pos3 = [0.1 0.1 0.25 0.35];
+subplot('Position',pos3); hold on;
+figure(2); hold on;
+for i=1:nparticipants
+    h2=plot(meanmaxtominHFparticipantssort(i),meanmaxHFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
+end
+xlabel('GF - Min weight catch [N]')
+ylabel('GF - Max weight normal [N]')
+xlim([0 axis])
+ylim([0 axis])
+title('High friction')
+    
+%relative difference 
+pos4 = [0.4 0.1 0.05 0.35];
+subplot('Position',pos4);
+hold on;
+for i=1:nparticipants
+    h2=plot(0.5,Rd2(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot([0,1], [55 55],'r');
+    %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    if i == nparticipants
+        figure(2);hold on;
+        errorbar(0.5,mean(Rd2,2),std(Rd2,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
+end
+set(gca,'XTick',[])
+xlim([0 1])
+set(gca, 'YDir','reverse')
+set(gcf,'position',[0,0,200,500])
+ylabel('Relative change in GF [%]')
+
+%figures stab catch max to min
+
+figure(3); hold on;
+pos1 = [0.1 0.6 0.25 0.35];
+subplot('Position',pos1);
+hold on;
+for i=1:nparticipants
+    h2=plot(meanmaxtominstabLFparticipantssort(i),meanmaxstabLFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
+end
+xlabel('GF - Min weight catch [N]')
+ylabel('GF - Max weight normal [N]')
+xlim([0 axis])
+ylim([0 axis])
+title('Low friction')
+
+
+%relative difference
+figure(3); hold on;
+pos2 = [0.4 0.6 0.05 0.35];
+subplot('Position',pos2);
+hold on;
+for i=1:nparticipants
+    h2=plot(0.5,Rd1stab(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot([0,1], [55 55],'r');
+    %h2=scatter(0.5, Rd1stab(i), 13, 'r', 'filled'); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    if i == nparticipants
+        figure(3);hold on;
+        errorbar(0.5,mean(Rd1stab,2),std(Rd1stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
+end
+set(gca,'XTick',[])
+xlim([0 1])
+set(gca, 'YDir','reverse')
+set(gcf,'position',[0,0,200,500])
+ylabel('Relative change in GF [%]')
+
+
+pos3 = [0.1 0.1 0.25 0.35];
+subplot('Position',pos3); hold on;
+figure(3); hold on;
+for i=1:nparticipants
+    h2=plot(meanmaxtominstabHFparticipantssort(i),meanmaxstabHFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
+end
+xlabel('GF - Min weight catch [N]')
+ylabel('GF - Max weight normal [N]')
+xlim([0 axis])
+ylim([0 axis])
+title('High friction')
+    
+%relative difference 
+pos4 = [0.4 0.1 0.05 0.35];
+subplot('Position',pos4);
+hold on;
+for i=1:nparticipants
+    h2=plot(0.5,Rd2stab(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot([0,1], [55 55],'r');
+    %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    if i == nparticipants
+        figure(3);hold on;
+        errorbar(0.5,mean(Rd2stab,2),std(Rd2stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
+end
+set(gca,'XTick',[])
+xlim([0 1])
+set(gca, 'YDir','reverse')
+set(gcf,'position',[0,0,200,500])
+ylabel('Relative change in GF [%]')
+
+%% Quantification min to max catch with respect to normal trials (GF peaks and stabilization)
+figure(4);
+pos1 = [0.1 0.6 0.25 0.35];
+subplot('Position',pos1);
+hold on;
+for i=1:nparticipants
+    h2=plot(meanminLFparticipants(i),meanmintomaxLFparticipants(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
+end
+xlabel('GF - Min weight normal [N]')
+ylabel('GF - Max weight catch [N]')
+xlim([0 axis])
+ylim([0 axis])
+title('Low friction')
+
+%relative difference
+
+figure(4); hold on;
+pos2 = [0.4 0.6 0.05 0.35];
+subplot('Position',pos2);
+hold on;
+for i=1:nparticipants
+    h2=plot(0.5, Rd3(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot([0,1], [55 55],'r');
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    if i == nparticipants
+        figure(4);hold on;
+        errorbar(0.5,mean(Rd3,2),std(Rd3,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
+end
+
+set(gca,'XTick',[])
+xlim([0 1])
+set(gca, 'YDir','reverse')
+set(gcf,'position',[0,0,200,500])
+ylabel('Relative change in GF [%]')
+
+%high friction
+
+figure(4);
+pos3 = [0.1 0.1 0.25 0.35];
+subplot('Position',pos3); hold on;
+figure(4); hold on;
+for i=1:nparticipants
+    h2=plot(meanminHFparticipants(i),meanmintomaxHFparticipants(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
+end
+xlabel('GF - Min weight normal [N]')
+ylabel('GF - Max weight catch [N]')
+xlim([0 axis])
+ylim([0 axis])
+title('High friction')
+
+%relative difference
+
+pos4 = [0.4 0.1 0.05 0.35];
+subplot('Position',pos4);
+figure(4); hold on;
+for i=1:nparticipants
+    h2=plot(0.5, Rd4(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot([0,1], [55 55],'r');
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    if i == nparticipants
+        figure(4);hold on;
+        errorbar(0.5,mean(Rd4,2),std(Rd4,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
+end
+
+set(gca,'XTick',[])
+xlim([0 1])
+set(gca, 'YDir','reverse')
+set(gcf,'position',[0,0,200,500])
+ylabel('Relative change in GF [%]')
+
+    
+figure(5);
+pos1 = [0.1 0.6 0.25 0.35];
+subplot('Position',pos1);
+hold on;
+for i=1:nparticipants
+    h2=plot(meanminstabLFparticipants(i),meanmintomaxstabLFparticipants(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
+end
+xlabel('GF - Min weight normal [N]')
+ylabel('GF - Max weight catch [N]')
+xlim([0 axis])
+ylim([0 axis])
+title('Low friction')
+
+%relative difference
+
+figure(5); hold on;
+pos2 = [0.4 0.6 0.05 0.35];
+subplot('Position',pos2);
+hold on;
+for i=1:nparticipants
+    h2=plot(0.5, Rd3stab(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot([0,1], [55 55],'r');
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    if i == nparticipants
+        figure(5);hold on;
+        errorbar(0.5,mean(Rd3stab,2),std(Rd3stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
+end
+
+set(gca,'XTick',[])
+xlim([0 1])
+set(gca, 'YDir','reverse')
+set(gcf,'position',[0,0,200,500])
+ylabel('Relative change in GF [%]')
+
+%high friction
+
+figure(5);
+pos3 = [0.1 0.1 0.25 0.35];
+subplot('Position',pos3); hold on;
+figure(5); hold on;
+for i=1:nparticipants
+    h2=plot(meanminstabHFparticipants(i),meanmintomaxstabHFparticipants(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
+end
+xlabel('GF - Min weight normal [N]')
+ylabel('GF - Max weight catch [N]')
+xlim([0 axis])
+ylim([0 axis])
+title('High friction')
+
+%relative difference
+
+pos4 = [0.4 0.1 0.05 0.35];
+subplot('Position',pos4);
+figure(5); hold on;
+for i=1:nparticipants
+    h2=plot(0.5, Rd4stab(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot([0,1], [55 55],'r');
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    if i == nparticipants
+        figure(5);hold on;
+        errorbar(0.5,mean(Rd4stab,2),std(Rd4stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
+end
+
+set(gca,'XTick',[])
+xlim([0 1])
+set(gca, 'YDir','reverse')
+set(gcf,'position',[0,0,200,500])
+ylabel('Relative change in GF [%]')
+
 end
