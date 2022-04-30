@@ -9,7 +9,7 @@ Fmin = 1;
 Fmax = 5;
 Fint = [Fmin:Fmax];
 l=1;
-nparticipants=15; %ou 15
+nparticipants=15; %ou 13
 Rdvec=zeros(nparticipants,1);%vector containing the relative difference for each participants
 xvec=zeros(nparticipants,1); %vector containing the x coordinates (LF) for each participant
 yvec=zeros(nparticipants,1); %vector containing the y coordinates (HF) for each participant
@@ -69,7 +69,7 @@ for i=1:nparticipants
     h1=plot(x,y,'Color',[0.2 0.2 0.2]) %identity line (x=y)
 end
 %title('Mean coefficient of friction - Young participants')
-title('Mean coefficient of friction - Elderly participants')
+%title('Mean coefficient of friction - Elderly participants')
 xlabel('Coefficient of friction - Low [-]')
 ylabel('Coefficient of friction - High [-]')
 yticks([0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6]);
