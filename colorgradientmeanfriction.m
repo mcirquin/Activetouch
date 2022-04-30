@@ -9,14 +9,20 @@ Fmin = 1;
 Fmax = 5;
 Fint = [Fmin:Fmax];
 l=1;
-nparticipants=13; %ou 15
+nparticipants=15; %ou 15
 Rdvec=zeros(nparticipants,1);%vector containing the relative difference for each participants
 xvec=zeros(nparticipants,1); %vector containing the x coordinates (LF) for each participant
 yvec=zeros(nparticipants,1); %vector containing the y coordinates (HF) for each participant
 
+%colors={[0 0 1], [0.0833 0 0.9167], [0.1667 0 0.8333], [0.25 0 0.75], [0.3333 0 0.6667], [0.4167 0 0.5833], [0.5 0 0.5], [0.5833 0 0.4167], [0.6667 0 0.3333], [0.75 0 0.25], [0.8333 0 0.1667], [0.9167 0 0.0833], [1 0 0]}; %for elderly participants
+colors={[0 0 1], [0.0714 0 0.9286], [0.1429 0 0.8571], [0.2143 0 0.7857], [0.2857 0 0.7143], [0.3571 0 0.6429], [0.4286 0 0.5714], [0.5 0 0.5], [0.5714 0 0.4286], [0.6429 0 0.3571], [0.7143 0 0.2857], [0.7857 0 0.2143], [0.85 0 0.1429], [0.9286 0 0.0714], [1 0 0]}; %for young
+%participants
+
+
+
 %% For each participant, compute the mean LF and the mean HF friction coeff
 
-D = 'Aged_friction';
+D = 'Young_friction';
 S = dir(fullfile(D, '*'));
 N = setdiff({S([S.isdir]).name},{'.','..'}); % list of subfolders of D.
 
@@ -40,10 +46,10 @@ for ii = 1:numel(N)  %loop going through the folders
     l=l+1;
 end
 x=[1:1:nparticipants].';
-[Rdvecsort,I] = sort(Rdvec); %sort Rd min to max
-for i = 1:13
-    xvecsort(i) = xvec(I(i)).'; %sort yvec in the same way
-    yvecsort(i) = yvec(I(i)).';
+[Rdvecsort,shiftRd] = sort(Rdvec); %sort Rd min to max
+for i = 1:nparticipants
+    xvecsort(i) = xvec(shiftRd(i)).'; %sort xvec in the same way
+    yvecsort(i) = yvec(shiftRd(i)).';
 end
 
 %% Plot des graphes
@@ -52,13 +58,14 @@ y=linspace(0,1.6);
 h1=plot(x,y,'Color',[0.2 0.2 0.2]) %identity line (x=y)
 hold on
 pos1 = [0.1 0.15 0.5 0.7];
-alphaelderly=[0.1 0.15 0.20 0.28 0.36 0.44 0.52 0.60 0.68 0.76 0.84 0.92 1]
-%alphaelderly=[0.16 0.22 0.28 0.34 0.4 0.46 0.52 0.58 0.64 0.70 0.76 0.82 0.88 0.94 1]
+%alphaelderly=[0.1 0.15 0.20 0.28 0.36 0.44 0.52 0.60 0.68 0.76 0.84 0.92 1]
+%alphayoung=[0.16 0.22 0.28 0.34 0.4 0.46 0.52 0.58 0.64 0.70 0.76 0.82 0.88 0.94 1]
+
 subplot('Position',pos1);
 hold on
 for i=1:nparticipants
-    h2=scatter(xvecsort(i),yvecsort(i), 13, 'r', 'filled');
-    h2.MarkerFaceAlpha = alphaelderly(i);
+    h2=plot(xvecsort(i),yvecsort(i), '.', 'MarkerSize', 10, 'color', colors{i});
+    %h2.MarkerFaceAlpha = alphaelderly(i);
     h1=plot(x,y,'Color',[0.2 0.2 0.2]) %identity line (x=y)
 end
 %title('Mean coefficient of friction - Young participants')
@@ -72,10 +79,14 @@ pos2 = [0.7 0.15 0.1 0.7];
 subplot('Position',pos2); hold on;
 
 for i=1:nparticipants
-    h2=scatter(1, Rdvecsort(i), 13, 'r', 'filled');
-    h2.MarkerFaceAlpha = alphaelderly(i);
+    h2=plot(1, Rdvecsort(i), '.', 'MarkerSize', 10, 'color', colors{i});
+    %h2.MarkerFaceAlpha = alphaelderly(i);
 end
 set(gca,'XTick',[])
 set(gca, 'YDir','reverse')
 ylabel('Relative difference in Friction [%]')
+
+figure(1); hold on;
+h2=errorbar(1,mean(Rdvecsort),std(Rdvecsort),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+
 
