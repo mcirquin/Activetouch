@@ -1,4 +1,4 @@
-function [LF_pvalues,LF_time,GF_pvalues,GF_time] = plotGFdiff_weightcatch(alignedLFtable, alignedGFtable, tsteps, nparticipants,minimum)
+function [LF_pvalues,LF_time,LF_signDiff,GF_pvalues,GF_time,GF_signDiff] = plotGFdiff_weightcatch(alignedLFtable, alignedGFtable, tsteps, nparticipants,minimum)
 %% Max weight catch (min to max weight)
 %max weight catch under low friction 
 nessais1=4;
@@ -457,6 +457,7 @@ x=-timealigned:0.005:(-timealigned+2.495); %500 pas de temps, le 0 se trouve à 
 % T-tests for LF on means per subject 
 LF_pvalues = [];
 LF_indexes = [];
+LF_signDiff = [];
 
 %catch max weight vs adaptation min weight LF
 [h1,p1] = ttest(subj_meanlfmaxcatchLF1.',subj_meanlfminadaptLF1.');%transposée des matrices pour faire le T-test dans le bon sens (pour chaque pas de temps)
@@ -464,6 +465,7 @@ for i = minimum:(tsteps-1999)
     if p1(i) < 0.05
         LF_pvalues(1) = p1(i);
         LF_indexes(1) = i;
+        LF_signDiff(1) = Rd_meanlfLFmaxcatch(i);
         break
     end 
 end
@@ -474,6 +476,7 @@ for i = minimum:(tsteps-1999)
     if p2(i) < 0.05
         LF_pvalues(2) = p2(i);
         LF_indexes(2) = i;
+        LF_signDiff(2) = Rd_meanlfHFmaxcatch(i);
         break
     end 
 end
@@ -485,6 +488,7 @@ for i = minimum:(tsteps-1999)
     if p3(i) < 0.05
         LF_pvalues(3) = p3(i);
         LF_indexes(3) = i;
+        LF_signDiff(3) = Rd_meanlfLFmincatch(i);
         break
     end 
 end
@@ -495,6 +499,7 @@ for i = minimum:(tsteps-1999)
     if p4(i) < 0.05
         LF_pvalues(4) = p4(i);
         LF_indexes(4) = i;
+        LF_signDiff(4) = Rd_meanlfHFmincatch(i);
         break
     end 
 end
@@ -503,6 +508,7 @@ end
 % T-tests for GF on means per subject 
 GF_pvalues = [];
 GF_indexes = [];
+GF_signDiff = [];
 
 %catch max weight vs adaptation min weight LF
 [h5,p5] = ttest(subj_meangfmaxcatchLF1.',subj_meangfminadaptLF1.');%transposée des matrices pour faire le T-test dans le bon sens (pour chaque pas de temps)
@@ -510,6 +516,7 @@ for i = minimum:(tsteps-1999)
     if p5(i) < 0.05
         GF_pvalues(1) = p5(i);
         GF_indexes(1) = i;
+        GF_signDiff(1) = Rd_meangfLFmaxcatch(i);
         break
     end 
 end
@@ -520,6 +527,7 @@ for i = minimum:(tsteps-1999)
     if p6(i) < 0.05
         GF_pvalues(2) = p6(i);
         GF_indexes(2) = i;
+        GF_signDiff(2) = Rd_meangfHFmaxcatch(i);
         break
     end 
 end
@@ -531,6 +539,7 @@ for i = minimum:(tsteps-1999)
     if p7(i) < 0.05
         GF_pvalues(3) = p7(i);
         GF_indexes(3) = i;
+        GF_signDiff(3) = Rd_meangfLFmincatch(i);
         break
     end 
 end
@@ -541,6 +550,7 @@ for i = minimum:(tsteps-1999)
     if p8(i) < 0.05
         GF_pvalues(4) = p8(i);
         GF_indexes(4) = i;
+        GF_signDiff(4) = Rd_meangfHFmincatch(i);
         break
     end 
 end
