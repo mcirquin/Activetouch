@@ -1,23 +1,24 @@
-function [indexglass1, indexblue] = at_frictionplots(dataDir, filelist, tsteps)
-%Fonction qui calcule les frictions d'un participant gr‚ce aux 6 fichiers
+function [indexglass1, indexblue] = at_frictionplots(dataDir, flist, tsteps)
+%Fonction qui calcule les frictions d'un participant gr√¢ce aux 6 fichiers
 %de mesure de friction
 %dataDir est le nom du dossier, par exemple 'GBrandsteert', filelist contient les
-%fichiers triÈs dans l'ordre et tsteps correspond au nombre d'Èchantillons
+%fichiers tri√©s dans l'ordre et tsteps correspond au nombre d'√©chantillons
 
-range=1:tsteps; % Nombre d'Èchantillons
-index.conditions = cell(1,3); % Structures de donnÈes pour enregistrer les paramËtres
-show_graphs=true; % ParamËtre ‡ changer en fonction de si l'on veut afficher les courbes temporelles des signaux
-correct_forces=false; % A mettre sur "True" si l'on veut corriger  la dÈrive des capteurs
+range=1:tsteps; % Nombre d'√©chantillons
+index.conditions = cell(1,3); % Structures de donn√©es pour enregistrer les param√®tres
+show_graphs=true; % Param√®tre √† changer en fonction de si l'on veut afficher les courbes temporelles des signaux
+correct_forces=false; % A mettre sur "True" si l'on veut corriger  la d√©rive des capteurs
 clear h;
 cond_tab={'Weak','Medium','Strong'};
-%% %% Boucle pour le calcul de la friction de l'Èchantillon "non-glissant"
+
+%% %% Boucle pour le calcul de la friction de l'√©chantillon "non-glissant"
 for i=1:3
     if i==1
-        forcesFile = strcat(filelist(i).name);
+        forcesFile = strcat(flist(i).name);
     elseif i==2
-        forcesFile = strcat(filelist(i).name);
+        forcesFile = strcat(flist(i).name);
     elseif i==3
-        forcesFile = strcat(filelist(i).name);
+        forcesFile = strcat(flist(i).name);
     end
     data = at_import(fullfile(dataDir,forcesFile));
     
@@ -47,27 +48,25 @@ end
 
 indexblue=get_mu_fit(indexblue);
 
-
-
-%% Boucle pour le calcul de la friction de l'Èchantillon "glissant"
+%% Boucle pour le calcul de la friction de l'√©chantillon "glissant"
 for i=1:3
     if i==1
-        forcesFile = strcat(filelist(i+3).name);
+        forcesFile = strcat(flist(i+3).name);
     elseif i==2
-        forcesFile = strcat(filelist(i+3).name);
+        forcesFile = strcat(flist(i+3).name);
     else
-        forcesFile = strcat(filelist(i+3).name);
+        forcesFile = strcat(flist(i+3).name);
     end
     data = at_import(fullfile(dataDir,forcesFile),true,40,40,40,10);
     
     cond=cond_tab{i};
     
     data=data(range,:);
-    y_COP=(data.copy_cam+33)/1000; % Ajustement du COP pour que zÈro soit le centre de la vitre
+    y_COP=(data.copy_cam+33)/1000; % Ajustement du COP pour que z√©ro soit le centre de la vitre
     ft=[data.fx_cam data.fy_cam];
     NF=-data.fz_cam;
     
-    if correct_forces %Correction de la dÈrive des capteurs
+    if correct_forces %Correction de la d√©rive des capteurs
         x=1:length(NF);
         NF=NF-interp1([1 length(NF)],[NF(1) NF(end)],x)';
         ft(:,1)=ft(:,1)-interp1([1 length(NF)],[ft(1,1) ft(end,1)],x)';
@@ -86,5 +85,7 @@ for i=1:3
 end
 
 indexglass1=get_mu_fit(index);
+
+
 
 
