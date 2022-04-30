@@ -1,4 +1,4 @@
-function [LF_pvalues,LF_indexes,GF_pvalues,GF_indexes] = plotGFdiff_weightcatch(alignedLFtable, alignedGFtable, tsteps, nparticipants,minimum)
+function [LF_pvalues,LF_time,GF_pvalues,GF_time] = plotGFdiff_weightcatch(alignedLFtable, alignedGFtable, tsteps, nparticipants,minimum)
 %% Max weight catch (min to max weight)
 %max weight catch under low friction 
 nessais1=4;
@@ -362,7 +362,7 @@ meangfmincatchHF2=mean(gfHFcatchmin2,2);
 meangfmaxadaptHF2=mean(gfHFadaptmax2,2);
 
 
-%% Compute relative differences between curves per subject (sort des matrices o˘ les lignes sont des pas de temps et les colonnes sont la diff relative entre les 2 conditions par sujet)
+%% Compute relative differences between curves per subject (sort des matrices o√π les lignes sont des pas de temps et les colonnes sont la diff relative entre les 2 conditions par sujet)
 % Catch max weight vs adapt min weight under LF
 for i=1:nparticipants
     for j=1:tsteps-1999
@@ -450,12 +450,16 @@ end
 
 
 %% Moment of significative difference between the curves (T-test)
+%x=10:0.005:12.495
+timealigned=minimum*0.005-0.005; %temps o√π toutes les courbes sont align√©es
+x=-timealigned:0.005:(-timealigned+2.495); %500 pas de temps, le 0 se trouve √† l'alignement des courbes
+
 % T-tests for LF on means per subject 
 LF_pvalues = [];
 LF_indexes = [];
 
 %catch max weight vs adaptation min weight LF
-[h1,p1] = ttest(subj_meanlfmaxcatchLF1.',subj_meanlfminadaptLF1.');%transposÈe des matrices pour faire le T-test dans le bon sens (pour chaque pas de temps)
+[h1,p1] = ttest(subj_meanlfmaxcatchLF1.',subj_meanlfminadaptLF1.');%transpos√©e des matrices pour faire le T-test dans le bon sens (pour chaque pas de temps)
 for i = minimum:(tsteps-1999)
     if p1(i) < 0.05
         LF_pvalues(1) = p1(i);
@@ -501,7 +505,7 @@ GF_pvalues = [];
 GF_indexes = [];
 
 %catch max weight vs adaptation min weight LF
-[h5,p5] = ttest(subj_meangfmaxcatchLF1.',subj_meangfminadaptLF1.');%transposÈe des matrices pour faire le T-test dans le bon sens (pour chaque pas de temps)
+[h5,p5] = ttest(subj_meangfmaxcatchLF1.',subj_meangfminadaptLF1.');%transpos√©e des matrices pour faire le T-test dans le bon sens (pour chaque pas de temps)
 for i = minimum:(tsteps-1999)
     if p5(i) < 0.05
         GF_pvalues(1) = p5(i);
@@ -541,11 +545,10 @@ for i = minimum:(tsteps-1999)
     end 
 end
 
-%% Plots max weight catch
-%x=10:0.005:12.495;
-timealigned=minimum*0.005; %temps o˘ toutes les courbes sont alignÈes
-x=-timealigned:0.005:(-timealigned+2.495); %500 pas de temps, le 0 se trouve ‡ l'alignement des courbes
+LF_time = x(LF_indexes);
+GF_time = x(GF_indexes);
 
+%% Plots max weight catch
 % Figures LF mean curves and relative difference in mean force 
 LFaxislim = 7; %limit of y axis of graphs for GF curves
 Rdlfaxislim = 350; %limit of y axis of graphs for relative difference curves
@@ -557,7 +560,6 @@ y2 = meanlfminadaptLF1(1:500);
 plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
 legend('', '')
 title('Low Friction')
-xlabel('Time (s)');
 ylabel('LF (N)');
 ylim([0 LFaxislim]);
 xlim([-timealigned 2]);
@@ -568,7 +570,6 @@ y3 = meanlfmaxcatchHF1(1:500);
 y4 = meanlfminadaptHF1(1:500);
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
 title('High Friction')
-xlabel('Time (s)');
 ylabel('LF (N)');
 ylim([0 LFaxislim]);
 xlim([-timealigned 2]);
@@ -584,7 +585,6 @@ figure(1);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(1);hold on;
 plot([x(LF_indexes(1)) x(LF_indexes(1))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-xlabel('Time (s)');
 ylabel('\Delta LF (%)');
 ylim([-40 Rdlfaxislim]);
 xlim([-timealigned 2]);
@@ -598,22 +598,26 @@ figure(1);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(1);hold on;
 plot([x(LF_indexes(2)) x(LF_indexes(2))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-xlabel('Time (s)');
 ylabel('\Delta LF (%)');
 ylim([-40 Rdlfaxislim]);
 xlim([-timealigned 2]);
 
 subplot(3,2,5)
-plot(x,p1(1:500))
+plot(x,p1(1:500),'LineWidth',1.5)
 figure(1);hold on;
 plot([x(LF_indexes(1)) x(LF_indexes(1))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
 
 subplot(3,2,6)
-plot(x,p2(1:500))
+plot(x,p2(1:500),'LineWidth',1.5)
 figure(1);hold on;
 plot([x(LF_indexes(2)) x(LF_indexes(2))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
+
 
 % Figures GF mean curves and relative difference in mean force 
 GFaxislim = 7; %limit of y axis of graphs for GF curves
@@ -626,7 +630,6 @@ y2 = meangfminadaptLF1(1:500);
 plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
 legend('', '')
 title('Low Friction')
-xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
 xlim([-timealigned 2]);
@@ -637,7 +640,6 @@ y3 = meangfmaxcatchHF1(1:500);
 y4 = meangfminadaptHF1(1:500);
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
 title('High Friction')
-xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
 xlim([-timealigned 2]);
@@ -653,7 +655,6 @@ figure(2);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(2);hold on;
 plot([x(GF_indexes(1)) x(GF_indexes(1))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-xlabel('Time (s)');
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
@@ -667,22 +668,25 @@ figure(2);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(2);hold on;
 plot([x(GF_indexes(2)) x(GF_indexes(2))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-xlabel('Time (s)');
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
 
 subplot(3,2,5)
-plot(x,p5(1:500))
+plot(x,p5(1:500),'LineWidth',1.5)
 figure(2);hold on;
 plot([x(GF_indexes(1)) x(GF_indexes(1))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
 
 subplot(3,2,6)
-plot(x,p6(1:500))
+plot(x,p6(1:500),'LineWidth',1.5)
 figure(2);hold on;
 plot([x(GF_indexes(2)) x(GF_indexes(2))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
 
 %% Plots min weight catch
 
@@ -706,7 +710,6 @@ y9 = meanlfmaxadaptHF2(1:500);
 y10 = meanlfmincatchHF2(1:500);
 plot(x,y9,'r',x,y10,'b--','LineWidth', 1.5)
 title('High Friction')
-xlabel('Time (s)');
 ylabel('LF (N)');
 ylim([0 LFaxislim]);
 xlim([-timealigned 2]);
@@ -722,7 +725,6 @@ figure(3);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(3);hold on;
 plot([x(LF_indexes(3)) x(LF_indexes(3))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-xlabel('Time (s)');
 ylabel('\Delta LF (%)');
 ylim([-40 Rdlfaxislim]);
 xlim([-timealigned 2]);
@@ -736,21 +738,24 @@ figure(3);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(3);hold on;
 plot([x(LF_indexes(4)) x(LF_indexes(4))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-xlabel('Time (s)');
 ylabel('\Delta LF (%)');
 ylim([-40 Rdlfaxislim]);
 xlim([-timealigned 2]);
 
 subplot(3,2,5)
-plot(x,p3(1:500))
+plot(x,p3(1:500),'LineWidth',1.5)
 figure(3);hold on;
 plot([x(LF_indexes(3)) x(LF_indexes(3))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
 
 subplot(3,2,6)
-plot(x,p4(1:500))
+plot(x,p4(1:500),'LineWidth',1.5)
 figure(3);hold on;
 plot([x(LF_indexes(4)) x(LF_indexes(4))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+xlabel('Time (s)');
+ylabel('p-value (-)');
 xlim([-timealigned 2]);
 
 % Figures GF mean curves and relative difference in mean force 
@@ -762,7 +767,6 @@ y2 = meangfmincatchLF2(1:500);
 plot(x,y1,'r', x, y2, 'b--', 'LineWidth', 1.5)
 legend('', '')
 title('Low Friction')
-xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
 xlim([-timealigned 2]);
@@ -773,7 +777,6 @@ y3 = meangfmaxadaptHF2(1:500);
 y4 = meangfmincatchHF2(1:500);
 plot(x,y3,'r',x,y4,'b--','LineWidth', 1.5)
 title('High Friction')
-xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
 xlim([-timealigned 2]);
@@ -789,7 +792,6 @@ figure(4);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(4);hold on;
 plot([x(GF_indexes(3)) x(GF_indexes(3))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-xlabel('Time (s)');
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
@@ -803,21 +805,24 @@ figure(4);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(4);hold on;
 plot([x(GF_indexes(4)) x(GF_indexes(4))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-xlabel('Time (s)');
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
 
 subplot(3,2,5)
-plot(x,p7(1:500))
+plot(x,p7(1:500),'LineWidth',1.5)
 figure(4);hold on;
 plot([x(GF_indexes(3)) x(GF_indexes(3))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+xlabel('Time (s)');
+ylabel('p-value (-)');
 xlim([-timealigned 2]);
 
 subplot(3,2,6)
-plot(x,p8(1:500))
+plot(x,p8(1:500),'LineWidth',1.5)
 figure(4);hold on;
 plot([x(GF_indexes(4)) x(GF_indexes(4))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+xlabel('Time (s)');
+ylabel('p-value (-)');
 xlim([-timealigned 2]);
 
 end
