@@ -1,4 +1,4 @@
-function [GF_pvalues,GF_indexes] = plotGFdiff_frictioncatch(alignedLFtable, alignedGFtable, tsteps, nparticipants,minimum)
+function [GF_pvalues,GF_time,GF_signDiff] = plotGFdiff_frictioncatch(alignedLFtable, alignedGFtable, tsteps, nparticipants,minimum)
 %% Friction catch low friction (high to low friction)
 %low friction catch under max weight 
 nessais1=2;
@@ -284,9 +284,14 @@ for i=1:tsteps-1999
 end
 
 %% Moment of significative difference between the curves (T-test)
+%x=10:0.005:12.495
+timealigned=minimum*0.005-0.005; %temps où toutes les courbes sont alignées
+x=-timealigned:0.005:(-timealigned+2.495); %500 pas de temps, le 0 se trouve à l'alignement des courbes
+
 % T-tests for GF on means per subject 
 GF_pvalues = [];
 GF_indexes = [];
+GF_signDiff = [];
 
 %catch LF max weight vs HF adaptation max weight
 [h1,p1] = ttest(subj_meangfmaxcatchLF1.',subj_meangfmaxadaptHF1.');%transposée des matrices pour faire le T-test dans le bon sens (pour chaque pas de temps)
@@ -294,11 +299,10 @@ for i = minimum:(tsteps-1999)
     if p1(i) < 0.05
         GF_pvalues(1) = p1(i);
         GF_indexes(1) = i;
+        GF_signDiff(1) = Rd_meangfLFmaxcatch(i);
         break
     end 
 end
-
-disp(p1)
 
 %catch LF min weight vs HF adaptation min weight
 [h2,p2] = ttest(subj_meangfmincatchLF1.',subj_meangfminadaptHF1.');
@@ -306,6 +310,7 @@ for i = minimum:(tsteps-1999)
     if p2(i) < 0.05
         GF_pvalues(2) = p2(i);
         GF_indexes(2) = i;
+        GF_signDiff(2) = Rd_meangfLFmincatch(i);
         break
     end 
 end
@@ -317,6 +322,7 @@ for i = minimum:(tsteps-1999)
     if p3(i) < 0.05
         GF_pvalues(3) = p3(i);
         GF_indexes(3) = i;
+        GF_signDiff(3) = Rd_meangfHFmaxcatch(i);
         break
     end 
 end
@@ -327,9 +333,12 @@ for i = minimum:(tsteps-1999)
     if p4(i) < 0.05
         GF_pvalues(4) = p4(i);
         GF_indexes(4) = i;
+        GF_signDiff(4) = Rd_meangfHFmincatch(i);
         break
     end 
 end
+
+GF_time = x(GF_indexes);
 
 %% Plots low friction catch
 % Figures GF mean curves and relative difference in mean force 
@@ -337,9 +346,6 @@ GFaxislim = 10; %limit of y axis of graphs for GF curves
 Rdaxislim = 90; %limit of y axis of graphs for relative difference curves
 
 figure(1); 
-%x=10:0.005:12.495;
-timealigned=minimum*0.005; %temps où toutes les courbes sont alignées
-x=-timealigned:0.005:(-timealigned+2.495); %500 pas de temps, le 0 se trouve à l'alignement des courbes
 
 subplot(3,2,1)
 y1 = meangfmaxcatchLF1(1:500);
@@ -347,7 +353,6 @@ y2 = meangfmaxadaptHF1(1:500);
 plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
 legend('', '')
 title('Maximal manipulandum weight')
-xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
 xlim([-timealigned 2]);
@@ -358,7 +363,6 @@ y3 = meangfmincatchLF1(1:500);
 y4 = meangfminadaptHF1(1:500);
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
 title('Minimal manipulandum weight')
-xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
 xlim([-timealigned 2]);
@@ -374,7 +378,6 @@ figure(1);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(1);hold on;
 plot([x(GF_indexes(1)) x(GF_indexes(1))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-xlabel('Time (s)');
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
@@ -388,22 +391,25 @@ figure(1);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(1);hold on;
 plot([x(GF_indexes(2)) x(GF_indexes(2))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-xlabel('Time (s)');
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
 
 subplot(3,2,5)
-plot(x,p1(1:500))
+plot(x,p1(1:500),'LineWidth',1.5)
 figure(1);hold on;
 plot([x(GF_indexes(1)) x(GF_indexes(1))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
 
 subplot(3,2,6)
-plot(x,p2(1:500))
+plot(x,p2(1:500),'LineWidth',1.5)
 figure(1);hold on;
 plot([x(GF_indexes(2)) x(GF_indexes(2))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
 
 %% Plots high friction catch
 % Figures GF mean curves and relative difference in mean force 
@@ -418,7 +424,6 @@ y2 = meangfmaxcatchHF2(1:500);
 plot(x,y1,'r', x, y2, 'b--', 'LineWidth', 1.5)
 legend('', '')
 title('Maximal manipulandum weight')
-xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
 xlim([-timealigned 2]);
@@ -429,7 +434,6 @@ y3 = meangfminadaptLF2(1:500);
 y4 = meangfmincatchHF2(1:500);
 plot(x,y3,'r',x,y4,'b--','LineWidth', 1.5)
 title('Minimal manipulandum weight')
-xlabel('Time (s)');
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
 xlim([-timealigned 2]);
@@ -445,7 +449,6 @@ figure(2);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(2);hold on;
 plot([x(GF_indexes(3)) x(GF_indexes(3))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-xlabel('Time (s)');
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
@@ -459,23 +462,25 @@ figure(2);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(2);hold on;
 plot([x(GF_indexes(4)) x(GF_indexes(4))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-xlabel('Time (s)');
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
 
 subplot(3,2,5)
-plot(x,p3(1:500))
+plot(x,p3(1:500),'LineWidth',1.5)
 figure(2);hold on;
 plot([x(GF_indexes(3)) x(GF_indexes(3))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
 
 subplot(3,2,6)
-plot(x,p4(1:500))
+plot(x,p4(1:500),'LineWidth',1.5)
 figure(2);hold on;
 plot([x(GF_indexes(4)) x(GF_indexes(4))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlim([-timealigned 2]);
-
+xlabel('Time (s)');
+ylabel('p-value (-)');
 
 end
         
