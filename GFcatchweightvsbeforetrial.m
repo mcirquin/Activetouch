@@ -659,14 +659,14 @@ text(-2.3, 31,{'Comparison of GF during stabilization for weight catch and norma
 %}
 
 %% Quantification GF of Min weight catch with respect to normal trials (GF peaks and stabilization)
-%{
+
 %Computation of mean relative differences for weight cactches (one vector
 %for catches and one for stabilization)
 Rdcatch = [];
 Rdstab = [];
 
 
-axis=10;% axis limits of the plots
+axis=20;% axis limits of the plots
 xfriction1=linspace(0,axis);
 yfriction1=linspace(0,axis);
 Rdvector = []; %vector saving the relative differnce values for each participant
@@ -965,9 +965,9 @@ for i= 1:nparticipants
         errorbar(0.5,mean(Rdvector(8,:),2),std(Rdvector(8,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
 end
+
 %suptitle('Grip Force magnitude during stabilization for max weight catch trials');
 
-%}
 
 
 %% Quantification GF of Min weight catch with respect to normal trials (GF peaks and stabilization)
@@ -984,7 +984,7 @@ yfriction1=linspace(0,axis);
 Rdvector = []; %vector saving the relative differnce values for each participant
 
 
-for i = 1:13 %sort the vector in the same order than the relative difference in friction
+for i = 1:nparticipants %sort the vector in the same order than the relative difference in friction
     meanmaxtominLFparticipantssort(i) = meanmaxtominLFparticipants(shiftRd(i)); %sort xvec in the same way
     meanmaxLFparticipantssort(i) = meanmaxLFparticipants(shiftRd(i));
     meanmaxtominHFparticipantssort(i) = meanmaxtominHFparticipants(shiftRd(i));
@@ -992,16 +992,16 @@ for i = 1:13 %sort the vector in the same order than the relative difference in 
     meanmaxtominstabLFparticipantssort(i) = meanmaxtominstabLFparticipants(shiftRd(i));
     meanmaxstabLFparticipantssort(i) = meanmaxstabLFparticipants(shiftRd(i));
     meanmaxtominstabHFparticipantssort(i) = meanmaxtominstabHFparticipants(shiftRd(i));
-    meanmaxstabHFparticipantssort(i) = meanmaxstabLFparticipants(shiftRd(i));
+    meanmaxstabHFparticipantssort(i) = meanmaxstabHFparticipants(shiftRd(i));
     
     meanminLFparticipantssort(i) = meanminLFparticipants(shiftRd(i)); %sort xvec in the same way
     meanmintomaxLFparticipantssort(i) = meanmintomaxLFparticipants(shiftRd(i));
     meanminHFparticipantssort(i) = meanminHFparticipants(shiftRd(i)); %sort xvec in the same way
     meanmintomaxHFparticipantssort(i) = meanmintomaxHFparticipants(shiftRd(i));
     meanminstabLFparticipantssort(i) = meanminstabLFparticipants(shiftRd(i));
-    meanmintomaxstabLFparticipantssort(i) =  meanmintomaxLFparticipants(shiftRd(i));
+    meanmintomaxstabLFparticipantssort(i) =  meanmintomaxstabLFparticipants(shiftRd(i));
     meanminstabHFparticipantssort(i) = meanminstabHFparticipants(shiftRd(i));
-    meanmintomaxstabHFparticipantssort(i) =  meanmintomaxHFparticipants(shiftRd(i));
+    meanmintomaxstabHFparticipantssort(i) =  meanmintomaxstabHFparticipants(shiftRd(i));
 end
 
 Rd1 = zeros(1,nparticipants);
@@ -1322,5 +1322,9 @@ xlim([0 1])
 set(gca, 'YDir','reverse')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
+
+
+Rdcatch = [Rd1; Rd2; Rd3; Rd4];
+Rdstab = [Rd1stab; Rd2stab; Rd3stab; Rd4stab];
 
 end
