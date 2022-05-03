@@ -1,0 +1,345 @@
+%Mixed effect model
+%Une table par pas de temps
+
+
+function [glme] = mixedeffectfrictioncatch(alignedLFtable, alignedGFtable, tsteps, nparticipants,minimum)
+
+if nparticipants == 8
+    names=["AParache" ; "ARommel" ; "ASalden" ; "BDelhaye" ; "DDoumont" ; "FSchiltz" ; "GBrandsteert" ; "JDelforge"; "JDommisse"; "LColmant"; "MBronchart"; "MDausort"; "S_Vandergooten"; "SLedoux" ; "VFischer"];
+else 
+    names=["ADommisse" ; "AMarechal" ; "ATikke" ; "AWertelaers" ; "BJonnart" ; "CZwaenepoel" ; "ESchoonjans"; "ESpringel"; "LCirquin"; "LColmant"; "MJMaldague"; "MRennesson"; "PLefèvre"];
+end
+
+conditions=["catch" ; "normal"];
+%% Friction catch low friction (high to low friction)
+
+%low friction catch under max weight 
+nessais1=2;
+lfmaxcatchLF1=zeros(tsteps-1999,nessais1*nparticipants);
+gfmaxcatchLF1=zeros(tsteps-1999,nessais1*nparticipants);
+
+lfmaxcatchLF1 = alignedLFtable(:,1:108:end);  
+lfmaxcatchLF1 = [lfmaxcatchLF1 alignedLFtable(:,13:108:end)];
+
+gfmaxcatchLF1=alignedGFtable(:,1:108:end);
+gfmaxcatchLF1=[gfmaxcatchLF1 alignedGFtable(:,13:108:end)];
+
+
+%high friction adaptation under max weight 
+nessais2=18;
+lfmaxadaptHF1=zeros(tsteps-1999,nessais2*nparticipants);
+gfmaxadaptHF1=zeros(tsteps-1999,nessais2*nparticipants);
+
+lfmaxadaptHF1=alignedLFtable(:,26:108:end);
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,27:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,28:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,56:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,74:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,75:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,98:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,99:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,10:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,11:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,12:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,22:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,23:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,34:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,41:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,42:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,90:108:end)];
+lfmaxadaptHF1=[lfmaxadaptHF1 alignedLFtable(:,108:108:end)];
+
+gfmaxadaptHF1=alignedGFtable(:,26:108:end);
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,27:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,28:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,56:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,74:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,75:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,98:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,99:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,10:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,11:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,12:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,22:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,23:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,34:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,41:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,42:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,90:108:end)];
+gfmaxadaptHF1=[gfmaxadaptHF1 alignedGFtable(:,108:108:end)];
+
+
+%low friction catch under min weight 
+nessais3=1;
+lfmincatchLF1=zeros(tsteps-1999,nessais3*nparticipants);
+gfmincatchLF1=zeros(tsteps-1999,nessais3*nparticipants);
+
+lfmincatchLF1=alignedLFtable(:,31:108:end);
+%lfmincatchLF1=[lfmincatchLF1 alignedLFtable(:,43:108:end)];
+%lfmincatchLF1=[lfmincatchLF1 alignedLFtable(:,91:108:end)];
+
+gfmincatchLF1=alignedGFtable(:,31:108:end);
+%gfmincatchLF1=[gfmincatchLF1 alignedGFtable(:,43:108:end)];
+%gfmincatchLF1=[gfmincatchLF1 alignedGFtable(:,91:108:end)];
+
+%high friction adaptation under min weight 
+nessais4=18;
+lfminadaptHF1=zeros(tsteps-1999,nessais4*nparticipants);
+gfminadaptHF1=zeros(tsteps-1999,nessais4*nparticipants);
+
+lfminadaptHF1=alignedLFtable(:,30:108:end);
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,58:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,59:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,60:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,77:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,78:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,101:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,102:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,8:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,20:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,38:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,39:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,86:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,87:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,88:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,104:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,105:108:end)];
+lfminadaptHF1=[lfminadaptHF1 alignedLFtable(:,106:108:end)];
+
+gfminadaptHF1=alignedGFtable(:,30:108:end);
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,58:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,59:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,60:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,77:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,78:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,101:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,102:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,8:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,20:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,38:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,39:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,86:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,87:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,88:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,104:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,105:108:end)];
+gfminadaptHF1=[gfminadaptHF1 alignedGFtable(:,106:108:end)];
+
+
+%% Friction catch high friction (low to high friction)
+
+%high friction catch under max weight 
+nessais5=2;
+lfmaxcatchHF2=zeros(tsteps-1999,nessais5*nparticipants);
+gfmaxcatchHF2=zeros(tsteps-1999,nessais5*nparticipants);
+
+%lfmaxcatchHF2=alignedLFtable(:,55:108:end);
+lfmaxcatchHF2=alignedLFtable(:,73:108:end);
+lfmaxcatchHF2=[lfmaxcatchHF2 alignedLFtable(:,97:108:end)];
+
+%gfmaxcatchHF2=alignedGFtable(:,55:108:end);
+gfmaxcatchHF2=alignedGFtable(:,73:108:end);
+gfmaxcatchHF2=[gfmaxcatchHF2 alignedGFtable(:,97:108:end)];
+
+
+%low friction adaptation under max weight 
+nessais6=20;
+lfmaxadaptLF2=zeros(tsteps-1999,nessais6*nparticipants);
+gfmaxadaptLF2=zeros(tsteps-1999,nessais6*nparticipants);
+
+lfmaxadaptLF2=alignedLFtable(:,2:108:end);
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,3:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,14:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,15:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,16:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,50:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,62:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,63:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,80:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,81:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,82:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,34:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,35:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,36:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,47:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,48:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,72:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,94:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,95:108:end)];
+lfmaxadaptLF2=[lfmaxadaptLF2 alignedLFtable(:,96:108:end)];
+
+gfmaxadaptLF2=alignedGFtable(:,2:108:end);
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,3:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,14:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,15:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,16:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,50:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,62:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,63:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,80:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,81:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,82:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,34:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,35:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,36:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,47:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,48:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,72:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,94:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,95:108:end)];
+gfmaxadaptLF2=[gfmaxadaptLF2 alignedGFtable(:,96:108:end)];
+
+
+
+%high friction catch under min weight 
+nessais7=3;
+lfmincatchHF2=zeros(tsteps-1999,nessais7*nparticipants);
+gfmincatchHF2=zeros(tsteps-1999,nessais7*nparticipants);
+
+lfmincatchHF2=alignedLFtable(:,7:108:end);
+lfmincatchHF2=[lfmincatchHF2 alignedLFtable(:,19:108:end)];
+%lfmincatchHF2=[lfmincatchHF2 alignedLFtable(:,37:108:end)];
+lfmincatchHF2=[lfmincatchHF2 alignedLFtable(:,85:108:end)];
+
+gfmincatchHF2=alignedGFtable(:,7:108:end);
+gfmincatchHF2=[gfmincatchHF2 alignedGFtable(:,19:108:end)];
+%gfmincatchHF2=[gfmincatchHF2 alignedGFtable(:,37:108:end)];
+gfmincatchHF2=[gfmincatchHF2 alignedGFtable(:,85:108:end)];
+
+
+%low friction adaptation under min weight 
+nessais8=16;
+lfminadaptLF2=zeros(tsteps-1999,nessais8*nparticipants);
+gfminadaptLF2=zeros(tsteps-1999,nessais8*nparticipants);
+
+lfminadaptLF2=alignedLFtable(:,5:108:end);
+lfminadaptLF2=[lfminadaptLF2 alignedLFtable(:,6:108:end)];
+lfminadaptLF2=[lfminadaptLF2 alignedLFtable(:,18:108:end)];
+lfminadaptLF2=[lfminadaptLF2 alignedLFtable(:,52:108:end)];
+lfminadaptLF2=[lfminadaptLF2 alignedLFtable(:,53:108:end)];
+lfminadaptLF2=[lfminadaptLF2 alignedLFtable(:,54:108:end)];
+lfminadaptLF2=[lfminadaptLF2 alignedLFtable(:,65:108:end)];
+lfminadaptLF2=[lfminadaptLF2 alignedLFtable(:,66:108:end)];
+lfminadaptLF2=[lfminadaptLF2 alignedLFtable(:,84:108:end)];
+lfminadaptLF2=[lfminadaptLF2 alignedLFtable(:,32:108:end)];
+lfminadaptLF2=[lfminadaptLF2 alignedLFtable(:,44:108:end)];
+lfminadaptLF2=[lfminadaptLF2 alignedLFtable(:,45:108:end)];
+lfminadaptLF2=[lfminadaptLF2 alignedLFtable(:,68:108:end)];
+lfminadaptLF2=[lfminadaptLF2 alignedLFtable(:,69:108:end)];
+lfminadaptLF2=[lfminadaptLF2 alignedLFtable(:,70:108:end)];
+lfminadaptLF2=[lfminadaptLF2 alignedLFtable(:,92:108:end)];
+
+gfminadaptLF2=alignedGFtable(:,5:108:end);
+gfminadaptLF2=[gfminadaptLF2 alignedGFtable(:,6:108:end)];
+gfminadaptLF2=[gfminadaptLF2 alignedGFtable(:,18:108:end)];
+gfminadaptLF2=[gfminadaptLF2 alignedGFtable(:,52:108:end)];
+gfminadaptLF2=[gfminadaptLF2 alignedGFtable(:,53:108:end)];
+gfminadaptLF2=[gfminadaptLF2 alignedGFtable(:,54:108:end)];
+gfminadaptLF2=[gfminadaptLF2 alignedGFtable(:,65:108:end)];
+gfminadaptLF2=[gfminadaptLF2 alignedGFtable(:,66:108:end)];
+gfminadaptLF2=[gfminadaptLF2 alignedGFtable(:,84:108:end)];
+gfminadaptLF2=[gfminadaptLF2 alignedGFtable(:,32:108:end)];
+gfminadaptLF2=[gfminadaptLF2 alignedGFtable(:,44:108:end)];
+gfminadaptLF2=[gfminadaptLF2 alignedGFtable(:,45:108:end)];
+gfminadaptLF2=[gfminadaptLF2 alignedGFtable(:,68:108:end)];
+gfminadaptLF2=[gfminadaptLF2 alignedGFtable(:,69:108:end)];
+gfminadaptLF2=[gfminadaptLF2 alignedGFtable(:,70:108:end)];
+gfminadaptLF2=[gfminadaptLF2 alignedGFtable(:,92:108:end)];
+
+
+% Max catch LF vs min adapt HF
+nessais_maxcatchLF1 = nessais1+nessais2;
+subjects_maxcatchLF1 = repelem(names,nessais_maxcatchLF1,1);
+cond_maxcatchLF1 = repelem(conditions,[nessais1 nessais2]);
+cond_maxcatchLF1 = repmat(cond_maxcatchLF1,nparticipants,1);
+
+
+
+for i = 1:tsteps-1999
+    LF_maxcatchLF1=[];
+    GF_maxcatchLF1=[];
+    for j=1:nparticipants
+         LF_maxcatchLF1 = [LF_maxcatchLF1 lfmaxcatchLF1(i,j:nparticipants:end)];
+         LF_maxcatchLF1 = [LF_maxcatchLF1 lfmaxadaptHF1(i,j:nparticipants:end)];
+         GF_maxcatchLF1 = [GF_maxcatchLF1 gfmaxcatchLF1(i,j:nparticipants:end)];
+         GF_maxcatchLF1 = [GF_maxcatchLF1 gfmaxadaptHF1(i,j:nparticipants:end)];
+    end
+    lfmaxcatchLF1_table = table(subjects_maxcatchLF1, cond_maxcatchLF1, LF_maxcatchLF1.');
+    lfmaxcatchLF1_table.Properties.VariableNames = {'subjName','cond', 'GF'};
+    glme_lfmaxcatchLF1 = fitglme(lfmaxcatchLF1_table,'LF ~ cond + (1|subjName)');
+    pval_lfmaxcatchLF1(i)=glme_lfmaxcatchLF1.Coefficients.pValue(2);
+    
+    gfmaxcatchLF1_table = table(subjects_maxcatchLF1, cond_maxcatchLF1, GF_maxcatchLF1.');
+    gfmaxcatchLF1_table.Properties.VariableNames = {'subjName','cond', 'GF'};
+    glme_gfmaxcatchLF1 = fitglme(gfmaxcatchLF1_table,'GF ~ cond + (1|subjName)');
+    pval_gfmaxcatchLF1(i)=glme_gfmaxcatchLF1.Coefficients.pValue(2);
+end
+
+
+% Min catch LF vs min adapt HF
+nessais_mincatchLF1 = nessais3+nessais4;
+subjects_mincatchLF1 = repelem(names,nessais_mincatchLF1,1);
+cond_mincatchLF1 = repelem(conditions,[nessais3 nessais4]);
+cond_mincatchLF1 = repmat(cond_mincatchLF1,nparticipants,1);
+
+for i = 1:tsteps-1999
+    GF_mincatchLF1=[];
+    for j=1:nparticipants
+         GF_mincatchLF1 = [GF_mincatchLF1 gfmincatchLF1(i,j:nparticipants:end)];
+         GF_mincatchLF1 = [GF_mincatchLF1 gfminadaptHF1(i,j:nparticipants:end)];
+    end
+        gfmincatchLF1_table = table(subjects_mincatchLF1, cond_mincatchLF1, GF_mincatchLF1.');
+        gfmincatchLF1_table.Properties.VariableNames = {'subjName','cond', 'GF'};
+        glme_gfmincatchLF1 = fitglme(gfmincatchLF1_table,'GF ~ cond + (1|subjName)');
+        pval_gfmincatchLF1(i)=glme_gfmincatchLF1.Coefficients.pValue(2);
+    end
+
+
+
+% max catch HF vs max adapt LF
+
+nessais_maxcatchHF2 = nessais5+nessais6;
+subjects_maxcatchHF2 = repelem(names,nessais_maxcatchHF2,1);
+cond_maxcatchHF2 = repelem(conditions,[nessais5 nessais6]);
+cond_maxcatchHF2 = repmat(cond_maxcatchHF2,nparticipants,1);
+
+
+for i = 1:tsteps-1999
+    GF_maxcatchHF2=[];
+    for j=1:nparticipants
+         GF_maxcatchHF2 = [GF_maxcatchHF2 gfmaxcatchHF2(i,j:nparticipants:end)];
+         GF_maxcatchHF2 = [GF_maxcatchHF2 gfmaxadaptLF2(i,j:nparticipants:end)];
+    end
+    gfmaxcatchHF2_table = table(subjects_maxcatchHF2, cond_maxcatchHF2, GF_maxcatchHF2.');
+    gfmaxcatchHF2_table.Properties.VariableNames = {'subjName','cond', 'GF'};
+    glme_gfmaxcatchHF2 = fitglme(gfmaxcatchHF2_table,'GF ~ cond + (1|subjName)');
+    pval_gfmaxcatchHF2(i)=glme_gfmaxcatchHF2.Coefficients.pValue(2);
+end
+
+
+% min catch HF vs min adapt LF
+
+nessais_mincatchHF2 = nessais7+nessais8;
+subjects_mincatchHF2 = repelem(names,nessais_mincatchHF2,1);
+cond_mincatchHF2 = repelem(conditions,[nessais7 nessais8]);
+cond_mincatchHF2 = repmat(cond_mincatchHF2,nparticipants,1);
+
+
+for i = 1:tsteps-1999
+    GF_mincatchHF2=[];
+    for j=1:nparticipants
+         GF_mincatchHF2 = [GF_mincatchHF2 gfmincatchHF2(i,j:nparticipants:end)];
+         GF_mincatchHF2 = [GF_mincatchHF2 gfminadaptLF2(i,j:nparticipants:end)];
+    end
+    gfmincatchHF2_table = table(subjects_mincatchHF2, cond_mincatchHF2, GF_mincatchHF2.');
+    gfmincatchHF2_table.Properties.VariableNames = {'subjName','cond', 'GF'};
+    glme_gfmincatchHF2 = fitglme(gfmincatchHF2_table,'GF ~ cond + (1|subjName)');
+    pval_gfmincatchHF2(i)=glme_gfmincatchHF2.Coefficients.pValue(2);
+end
+
+end
+  
+     
+     
+
+
