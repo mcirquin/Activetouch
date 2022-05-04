@@ -15,7 +15,7 @@ colors={[0 0 1], [0.0833 0 0.9167], [0.1667 0 0.8333], [0.25 0 0.75], [0.3333 0 
 %[0.5714 0 0.4286], [0.6429 0 0.3571], [0.7143 0 0.2857], [0.7857 0
 %0.2143], [0.85 0 0.1429], [0.9286 0 0.0714], [1 0 0]}; %for young
 %participants
-
+colors=flip(colors);
 
 
 %% 1. GF peaks
@@ -944,10 +944,10 @@ for i= 1:nparticipants
         errorbar(0.5,mean(Rdvector(8,:),2),std(Rdvector(8,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
 end
-%}
+
 %suptitle('Grip Force magnitude during stabilization for high friction catch trials');
 
-
+%}
 
 %% Quantification GF of LF friction catch with respect to normal trials (GF peaks and stabilization)
 %Computation of mean relative differences for friction cactches (one vector
@@ -962,7 +962,7 @@ Rdvector = []; %vector saving the relative difference values for each participan
 xticks=5;
 
 
-for i = 1:nparticipants%sort the vector in the same order than the relative difference in friction
+for i = 1:nparticipants %sort the vector in the same order than the relative difference in friction
     meanmincatchLFparticipantssort(1,i) = meanmincatchLFparticipants(shiftRd(i)); %sort xvec in the same way
     meanminHFparticipantssort(i) = meanminHFparticipants(shiftRd(i));
     meanmaxcatchLFparticipantssort(i) = meanmaxcatchLFparticipants(shiftRd(i));
@@ -1298,7 +1298,8 @@ set(gca, 'YDir','reverse')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
-
+Rdcatch = [Rd1; Rd2; Rd3; Rd4];
+Rdstab = [Rd1stab; Rd2stab; Rd3stab; Rd4stab];
 
 
 
