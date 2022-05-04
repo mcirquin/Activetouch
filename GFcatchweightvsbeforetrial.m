@@ -15,7 +15,7 @@ colors={[0 0 1], [0.0833 0 0.9167], [0.1667 0 0.8333], [0.25 0 0.75], [0.3333 0 
 %[0.5714 0 0.4286], [0.6429 0 0.3571], [0.7143 0 0.2857], [0.7857 0
 %0.2143], [0.85 0 0.1429], [0.9286 0 0.0714], [1 0 0]}; %for young
 %participants
-
+colors=flip(colors);
 %% 1. GF peaks
 
 %% Max to Min (catch) vs max normal under low friction
@@ -659,7 +659,7 @@ text(-2.3, 31,{'Comparison of GF during stabilization for weight catch and norma
 %}
 
 %% Quantification GF of Min weight catch with respect to normal trials (GF peaks and stabilization)
-
+%{
 %Computation of mean relative differences for weight cactches (one vector
 %for catches and one for stabilization)
 Rdcatch = [];
@@ -968,7 +968,7 @@ end
 
 %suptitle('Grip Force magnitude during stabilization for max weight catch trials');
 
-
+%}
 
 %% Quantification GF of Min weight catch with respect to normal trials (GF peaks and stabilization)
 
