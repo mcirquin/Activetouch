@@ -838,7 +838,7 @@ hold on
 fill([x fliplr(x)], [ul_lfHFcatchmin2(1:500) fliplr(ll_lfHFcatchmin2(1:500))], 'b', 'FaceAlpha', 0.2)
 fill([x fliplr(x)], [ul_lfHFadaptmax2(1:500) fliplr(ll_lfHFadaptmax2(1:500))], 'r', 'FaceAlpha', 0.2)
 y=get(gca,'ylim');
-if LF_indexes(4) ~= 
+if LF_indexes(4) ~= 0
     plot([x(LF_indexes(4)) x(LF_indexes(4))],[0 LFaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 end
 title('High friction')
