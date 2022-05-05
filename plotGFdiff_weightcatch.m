@@ -1,4 +1,5 @@
-function [LF_pvalues,LF_time,LF_signDiff,GF_pvalues,GF_time,GF_signDiff] = plotGFdiff_weightcatch(alignedLFtable, alignedGFtable, tsteps, nparticipants,minimum)
+function x = plotGFdiff_weightcatch(alignedLFtable, alignedGFtable, tsteps, nparticipants,minimum)
+%[LF_pvalues,LF_time,LF_signDiff,GF_pvalues,GF_time,GF_signDiff]
 %% Determine participants (for mixed effect model)
 if nparticipants == 15
     names=["AParache" ; "ARommel" ; "ASalden" ; "BDelhaye" ; "DDoumont" ; "FSchiltz" ; "GBrandsteert" ; "JDelforge"; "JDommisse"; "LColmant"; "MBronchart"; "MDausort"; "S_Vandergooten"; "SLedoux" ; "VFischer"];
@@ -83,7 +84,7 @@ for i = 1:nparticipants
         subj_meanlfminadaptLF1(:,i) = mean(subjects_lfminadaptLF1,2);%mean of the trials (for each timestep)
         subj_meangfminadaptLF1(:,i) = mean(subjects_gfminadaptLF1,2); 
         k=k+1;
-    end
+    end 
 end
 
 %max weight catch under high friction 
@@ -110,9 +111,9 @@ for i = 1:nparticipants
         subjects_lfmaxcatchHF1(:,k) =  lfHFcatchmax1(:,j); %matrix with trials of a same participant
         subjects_gfmaxcatchHF1(:,k) =  gfHFcatchmax1(:,j);   
         subj_meanlfmaxcatchHF1(:,i) = mean(subjects_lfmaxcatchHF1,2);%mean of the trials (for each timestep)
-        subj_meangfmaxcatchHF1(:,i) = mean(subjects_gfmaxcatchHF1,2); 
+        subj_meangfmaxcatchHF1(:,i) = mean(subjects_gfmaxcatchHF1,2);
         k=k+1;
-    end
+    end   
 end
 
 %min weight adaptation under high friction
@@ -195,7 +196,7 @@ for i = 1:nparticipants
         subjects_lfmincatchLF2(:,k) =  lfLFcatchmin2(:,j); %matrix with trials of a same participant
         subjects_gfmincatchLF2(:,k) =  gfLFcatchmin2(:,j);   
         subj_meanlfmincatchLF2(:,i) = mean(subjects_lfmincatchLF2,2);%mean of the trials (for each timestep)
-        subj_meangfmincatchLF2(:,i) = mean(subjects_gfmincatchLF2,2); 
+        subj_meangfmincatchLF2(:,i) = mean(subjects_gfmincatchLF2,2);     
         k=k+1;
     end
 end
@@ -502,6 +503,10 @@ for i=minimum:500
         LF_indexes(1) = i;
         LF_signDiff(1) = ((meanlfmaxcatchLF1(i) - meanlfminadaptLF1(i))/min(meanlfmaxcatchLF1(i),meanlfminadaptLF1(i)))*100;
         break
+    else
+        LF_pvalues(1) = 0;
+        LF_indexes(1) = 0;
+        LF_signDiff(1) = 0;
     end 
 end
 for i=minimum:500
@@ -510,6 +515,10 @@ for i=minimum:500
         GF_indexes(1) = i;
         GF_signDiff(1) = ((meangfmaxcatchLF1(i) - meangfminadaptLF1(i))/min(meangfmaxcatchLF1(i),meangfminadaptLF1(i)))*100;
         break
+    else
+       GF_pvalues(1) = 0;
+        GF_indexes(1) = 0;
+        GF_signDiff(1) = 0;
     end 
 end
 
@@ -545,6 +554,10 @@ for i=minimum:500
         LF_indexes(2) = i;
         LF_signDiff(2) = ((meanlfmaxcatchHF1(i) - meanlfminadaptHF1(i))/min(meanlfmaxcatchHF1(i),meanlfminadaptHF1(i)))*100;
         break
+    else
+        LF_pvalues(2) = 0;
+        LF_indexes(2) = 0;
+        LF_signDiff(2) = 0;
     end 
 end
 for i=minimum:500
@@ -553,6 +566,10 @@ for i=minimum:500
         GF_indexes(2) = i;
         GF_signDiff(2) = ((meangfmaxcatchHF1(i) - meangfminadaptHF1(i))/min(meangfmaxcatchHF1(i),meangfminadaptHF1(i)))*100;
         break
+    else
+        GF_pvalues(2) = 0;
+        GF_indexes(2) = 0;
+        GF_signDiff(2) = 0;
     end
 end
 
@@ -588,6 +605,10 @@ for i=minimum:500
         LF_indexes(3) = i;
         LF_signDiff(3) = ((meanlfmaxadaptLF2(i) - meanlfmincatchLF2(i))/min(meanlfmaxadaptLF2(i),meanlfmincatchLF2(i)))*100;
         break
+    else
+        LF_pvalues(3) = 0;
+        LF_indexes(3) = 0;
+        LF_signDiff(3) = 0;
     end 
 end
 for i=minimum:500
@@ -596,6 +617,10 @@ for i=minimum:500
         GF_indexes(3) = i;
         GF_signDiff(3) = ((meangfmaxadaptLF2(i) - meangfmincatchLF2(i))/min(meangfmaxadaptLF2(i),meangfmincatchLF2(i)))*100;
         break
+    else
+        GF_pvalues(3) = 0;
+        GF_indexes(3) = 0;
+        GF_signDiff(3) = 0;
     end 
 end
 
@@ -630,6 +655,10 @@ for i=minimum:500
         LF_indexes(4) = i;
         LF_signDiff(4) = ((meanlfmaxadaptHF2(i) - meanlfmincatchHF2(i))/min(meanlfmaxadaptHF2(i),meanlfmincatchHF2(i)))*100;
         break
+    else
+        LF_pvalues(4) = 0;
+        LF_indexes(4) = 0;
+        LF_signDiff(4) = 0;
     end 
 end
 for i=minimum:500
@@ -638,13 +667,30 @@ for i=minimum:500
         GF_indexes(4) = i;
         GF_signDiff(4) = ((meangfmaxadaptHF2(i) - meangfmincatchHF2(i))/min(meangfmaxadaptHF2(i),meangfmincatchHF2(i)))*100;
         break
+    else
+        GF_pvalues(4) = 0;
+        GF_indexes(4) = 0;
+        GF_signDiff(4) = 0;
     end 
 end
-LF_time = x(LF_indexes);
-GF_time = x(GF_indexes);
 
-%{
+% Computation of time when pvalue becomes under 0.001
+for i=1:4
+    if LF_indexes(i) ~=0
+        LF_time(i) = x(LF_indexes(i));
+    else 
+        LF_time(i) = nan;
+    end
+     if GF_indexes(i) ~=0
+        GF_time(i) = x(LF_indexes(i));
+    else 
+        GF_time(i) = nan;
+    end
+end
+
+
 %% Moment of significative difference between the curves (T-test)
+%{
 %x=10:0.005:12.495
 timealigned=minimum*0.005-0.005; %temps où toutes les courbes sont alignées
 x=-timealigned:0.005:(-timealigned+2.495); %500 pas de temps, le 0 se trouve à l'alignement des courbes
@@ -754,6 +800,7 @@ LF_time = x(LF_indexes);
 GF_time = x(GF_indexes);
 %}
 %% Plots max weight catch
+
 % Figures LF mean curves and relative difference in mean force 
 LFaxislim = 7; %limit of y axis of graphs for GF curves
 Rdlfaxislim = 350; %limit of y axis of graphs for relative difference curves
@@ -765,7 +812,9 @@ y1 = meanlfmaxcatchLF1(1:500);
 y2 = meanlfminadaptLF1(1:500);
 plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
 figure(1);hold on;
-plot([x(LF_indexes(1)) x(LF_indexes(1))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if LF_indexes(1) ~= 0
+    plot([x(LF_indexes(1)) x(LF_indexes(1))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 legend('', '')
 title('Low Friction')
 ylabel('LF (N)');
@@ -778,7 +827,9 @@ y3 = meanlfmaxcatchHF1(1:500);
 y4 = meanlfminadaptHF1(1:500);
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
 figure(1);hold on;
-plot([x(LF_indexes(2)) x(LF_indexes(2))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if LF_indexes(2) ~= 0
+    plot([x(LF_indexes(2)) x(LF_indexes(2))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 title('High Friction')
 ylabel('LF (N)');
 ylim([0 LFaxislim]);
@@ -811,7 +862,9 @@ xlim([-timealigned 2]);
 subplot(3,2,5)
 semilogy(x,pval_lfLFcatchmax1(1:500),'LineWidth',1.5)
 figure(1);hold on;
-plot([x(LF_indexes(1)) x(LF_indexes(1))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if LF_indexes(1) ~= 0
+    plot([x(LF_indexes(1)) x(LF_indexes(1))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 xlim([-timealigned 2]);
 ylim([pval_lim 10^0]);
 xlabel('Time (s)');
@@ -821,7 +874,9 @@ ylabel('p-value (-)');
 subplot(3,2,6)
 semilogy(x,pval_lfHFcatchmax1(1:500),'LineWidth',1.5)
 figure(1);hold on;
-plot([x(LF_indexes(2)) x(LF_indexes(2))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if LF_indexes(2) ~= 0
+    plot([x(LF_indexes(2)) x(LF_indexes(2))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 xlim([-timealigned 2]);
 ylim([pval_lim 10^0]);
 xlabel('Time (s)');
@@ -838,7 +893,9 @@ y1 = meangfmaxcatchLF1(1:500);
 y2 = meangfminadaptLF1(1:500);
 plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
 figure(2);hold on;
-plot([x(GF_indexes(1)) x(GF_indexes(1))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if GF_indexes(1) ~= 0
+    plot([x(GF_indexes(1)) x(GF_indexes(1))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 legend('', '')
 title('Low Friction')
 ylabel('GF (N)');
@@ -851,7 +908,9 @@ y3 = meangfmaxcatchHF1(1:500);
 y4 = meangfminadaptHF1(1:500);
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
 figure(2);hold on;
-plot([x(GF_indexes(2)) x(GF_indexes(2))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if GF_indexes(2) ~= 0
+    plot([x(GF_indexes(2)) x(GF_indexes(2))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 title('High Friction')
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
@@ -888,7 +947,9 @@ xlim([-timealigned 2]);
 subplot(3,2,5)
 semilogy(x,pval_gfLFcatchmax1(1:500),'LineWidth',1.5)
 figure(2);hold on;
-plot([x(GF_indexes(1)) x(GF_indexes(1))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if GF_indexes(1) ~= 0
+    plot([x(GF_indexes(1)) x(GF_indexes(1))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 xlim([-timealigned 2]);
 ylim([pval_lim 10^0]);
 xlabel('Time (s)');
@@ -897,7 +958,9 @@ ylabel('p-value (-)');
 subplot(3,2,6)
 semilogy(x,pval_gfHFcatchmax1(1:500),'LineWidth',1.5)
 figure(2);hold on;
-plot([x(GF_indexes(2)) x(GF_indexes(2))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if GF_indexes(2) ~= 0
+    plot([x(GF_indexes(2)) x(GF_indexes(2))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 xlim([-timealigned 2]);
 ylim([pval_lim 10^0]);
 xlabel('Time (s)');
@@ -905,7 +968,6 @@ ylabel('p-value (-)');
 
 
 %% Plots min weight catch
-
 % Figures LF mean curves and relative difference in mean force 
 
 figure(3); 
@@ -914,7 +976,9 @@ y7 = meanlfmaxadaptLF2(1:500);
 y8 = meanlfmincatchLF2(1:500);
 plot(x,y7,'r', x, y8, 'b--', 'LineWidth', 1.5)
 figure(3);hold on;
-plot([x(LF_indexes(3)) x(LF_indexes(3))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if LF_indexes(3) ~= 0
+    plot([x(LF_indexes(3)) x(LF_indexes(3))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 legend('', '')
 title('Low Friction')
 xlabel('Time (s)');
@@ -928,7 +992,9 @@ y9 = meanlfmaxadaptHF2(1:500);
 y10 = meanlfmincatchHF2(1:500);
 plot(x,y9,'r',x,y10,'b--','LineWidth', 1.5)
 figure(3);hold on;
-plot([x(LF_indexes(4)) x(LF_indexes(4))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if LF_indexes(4) ~= 0
+    plot([x(LF_indexes(4)) x(LF_indexes(4))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 title('High Friction')
 ylabel('LF (N)');
 ylim([0 LFaxislim]);
@@ -961,7 +1027,9 @@ xlim([-timealigned 2]);
 subplot(3,2,5)
 semilogy(x,pval_lfLFcatchmin2(1:500),'LineWidth',1.5)
 figure(3);hold on;
-plot([x(LF_indexes(3)) x(LF_indexes(3))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if LF_indexes(3) ~= 0
+    plot([x(LF_indexes(3)) x(LF_indexes(3))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 xlim([-timealigned 2]);
 ylim([pval_lim 10^0]);
 xlabel('Time (s)');
@@ -970,7 +1038,9 @@ ylabel('p-value (-)');
 subplot(3,2,6)
 semilogy(x,pval_lfHFcatchmin2(1:500),'LineWidth',1.5)
 figure(3);hold on;
-plot([x(LF_indexes(4)) x(LF_indexes(4))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if LF_indexes(4) ~= 0
+    plot([x(LF_indexes(4)) x(LF_indexes(4))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 xlabel('Time (s)');
 ylabel('p-value (-)');
 xlim([-timealigned 2]);
@@ -984,7 +1054,9 @@ y1 = meangfmaxadaptLF2(1:500);
 y2 = meangfmincatchLF2(1:500);
 plot(x,y1,'r', x, y2, 'b--', 'LineWidth', 1.5)
 figure(4);hold on;
-plot([x(GF_indexes(3)) x(GF_indexes(3))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if GF_indexes(3) ~= 0
+    plot([x(GF_indexes(3)) x(GF_indexes(3))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 legend('', '')
 title('Low Friction')
 ylabel('GF (N)');
@@ -997,7 +1069,9 @@ y3 = meangfmaxadaptHF2(1:500);
 y4 = meangfmincatchHF2(1:500);
 plot(x,y3,'r',x,y4,'b--','LineWidth', 1.5)
 figure(4);hold on;
-plot([x(GF_indexes(4)) x(GF_indexes(4))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if GF_indexes(4) ~= 0
+    plot([x(GF_indexes(4)) x(GF_indexes(4))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 title('High Friction')
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
@@ -1034,7 +1108,9 @@ xlim([-timealigned 2]);
 subplot(3,2,5)
 semilogy(x,pval_gfLFcatchmin2(1:500),'LineWidth',1.5)
 figure(4);hold on;
-plot([x(GF_indexes(3)) x(GF_indexes(3))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if GF_indexes(3) ~= 0
+    plot([x(GF_indexes(3)) x(GF_indexes(3))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 xlabel('Time (s)');
 ylabel('p-value (-)');
 xlim([-timealigned 2]);
@@ -1043,7 +1119,9 @@ ylim([pval_lim 10^0]);
 subplot(3,2,6)
 semilogy(x,pval_gfHFcatchmin2(1:500),'LineWidth',1.5)
 figure(4);hold on;
-plot([x(GF_indexes(4)) x(GF_indexes(4))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+if GF_indexes(4) ~= 0
+    plot([x(GF_indexes(4)) x(GF_indexes(4))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
 xlabel('Time (s)');
 ylabel('p-value (-)');
 xlim([-timealigned 2]);
