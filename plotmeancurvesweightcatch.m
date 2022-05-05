@@ -669,8 +669,20 @@ for i=minimum:500
         GF_signDiff(4) = 0;
     end 
 end
-LF_time = x(LF_indexes);
-GF_time = x(GF_indexes);
+
+% Computation of time when pvalue becomes under 0.001
+for i=1:4
+    if LF_indexes(i) ~=0
+        LF_time(i) = x(LF_indexes(i));
+    else 
+        LF_time(i) = nan;
+    end
+     if GF_indexes(i) ~=0
+        GF_time(i) = x(GF_indexes(i));
+    else 
+        GF_time(i) = nan;
+    end
+end
 
 %% Moment of significative difference between the curves (T-test)
 %{
