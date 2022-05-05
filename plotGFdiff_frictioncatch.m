@@ -972,7 +972,7 @@ figure(3);hold on;
 fill([x fliplr(x)], [ul_lfHFmaxcatch(1:500) fliplr(ll_lfHFmaxcatch(1:500))], 'g', 'FaceAlpha', 0.2,'LineStyle', "none")
 figure(3);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
-ylabel('\Delta GF (%)');
+ylabel('\Delta LF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
 
@@ -983,7 +983,7 @@ figure(3);hold on;
 fill([x fliplr(x)], [ul_lfHFmincatch(1:500) fliplr(ll_lfHFmincatch(1:500))], 'g', 'FaceAlpha', 0.2, 'LineStyle', "none")
 figure(3);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
-ylabel('\Delta GF (%)');
+ylabel('\Delta LF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
 
