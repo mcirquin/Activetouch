@@ -1,5 +1,5 @@
-function x = plotGFdiff_weightcatch(alignedLFtable, alignedGFtable, tsteps, nparticipants,minimum)
-%[LF_pvalues,LF_time,LF_signDiff,GF_pvalues,GF_time,GF_signDiff]
+function [LF_pvalues,LF_time,LF_signDiff,GF_pvalues,GF_time,GF_signDiff] = plotGFdiff_weightcatch(alignedLFtable, alignedGFtable, tsteps, nparticipants,minimum)
+
 %% Determine participants (for mixed effect model)
 if nparticipants == 15
     names=["AParache" ; "ARommel" ; "ASalden" ; "BDelhaye" ; "DDoumont" ; "FSchiltz" ; "GBrandsteert" ; "JDelforge"; "JDommisse"; "LColmant"; "MBronchart"; "MDausort"; "S_Vandergooten"; "SLedoux" ; "VFischer"];
@@ -682,7 +682,7 @@ for i=1:4
         LF_time(i) = nan;
     end
      if GF_indexes(i) ~=0
-        GF_time(i) = x(LF_indexes(i));
+        GF_time(i) = x(GF_indexes(i));
     else 
         GF_time(i) = nan;
     end
