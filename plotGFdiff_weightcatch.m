@@ -1,4 +1,11 @@
 function [LF_pvalues,LF_time,LF_signDiff,GF_pvalues,GF_time,GF_signDiff] = plotGFdiff_weightcatch(alignedLFtable, alignedGFtable, tsteps, nparticipants,minimum)
+%% Determine participants (for mixed effect model)
+if nparticipants == 15
+    names=["AParache" ; "ARommel" ; "ASalden" ; "BDelhaye" ; "DDoumont" ; "FSchiltz" ; "GBrandsteert" ; "JDelforge"; "JDommisse"; "LColmant"; "MBronchart"; "MDausort"; "S_Vandergooten"; "SLedoux" ; "VFischer"];
+elseif nparticipants == 13 
+    names=["ADommisse" ; "AMarechal" ; "ATikke" ; "AWertelaers" ; "BJonnart" ; "CBedford" ; "CZwaenepoel" ; "ESchoonjans"; "ESpringel"; "LCirquin"; "MJMaldague"; "MRennesson"; "PLefèvre"];
+end
+
 %% Max weight catch (min to max weight)
 %max weight catch under low friction 
 nessais1=4;
@@ -155,7 +162,7 @@ gfHFadaptmin1=[gfHFadaptmin1 alignedGFtable(:,106:108:end)];
 for i = 1:nparticipants
     k=1;
     for j = i:nparticipants:nparticipants*nessais4
-        subjects_lfminadaptHF1(:,k) =  lfHFadaptmin1(:,j); %matrix with trials of a same participant
+        subjects_lfminadaptHF1(:,k) =  lfHFadaptmin1(:,j); %matrix with grouped trials for a same participant
         subjects_gfminadaptHF1(:,k) =  gfHFadaptmin1(:,j);   
         subj_meanlfminadaptHF1(:,i) = mean(subjects_lfminadaptHF1,2);%mean of the trials (for each timestep)
         subj_meangfminadaptHF1(:,i) = mean(subjects_gfminadaptHF1,2); 
@@ -361,7 +368,6 @@ meangfmaxadaptLF2=mean(gfLFadaptmax2,2);
 meangfmincatchHF2=mean(gfHFcatchmin2,2);
 meangfmaxadaptHF2=mean(gfHFadaptmax2,2);
 
-
 %% Compute relative differences between curves per subject (sort des matrices où les lignes sont des pas de temps et les colonnes sont la diff relative entre les 2 conditions par sujet)
 % Catch max weight vs adapt min weight under LF
 for i=1:nparticipants
@@ -448,7 +454,196 @@ for i=1:tsteps-1999
     
 end
 
+%% Moment of significative difference between the curves (Mixed effect model)
+conditions=["catch" ; "normal"];
+%empty vectors to store the index and value of when the pvalue first reaches
+%significance level (<0.001)
+LF_pvalues = [];
+LF_indexes = [];
+LF_signDiff = [];
 
+GF_pvalues = [];
+GF_indexes = [];
+GF_signDiff = [];
+
+%aligned time vector
+%x=10:0.005:12.495; %vecteur temps
+timealigned=minimum*0.005; %temps où toutes les courbes sont alignées
+x=-timealigned:0.005:(-timealigned+2.495); %500 pas de temps, le 0 se trouve à l'alignement des courbes
+
+% Max catch vs min adapt under LF
+nessais_LFcatchmax1 = nessais1+nessais2;
+subjects_LFcatchmax1 = repelem(names,nessais_LFcatchmax1,1);
+cond_LFcatchmax1 = repelem(conditions,[nessais1 nessais2]);
+cond_LFcatchmax1 = repmat(cond_LFcatchmax1,nparticipants,1);
+
+for i = 1:500
+    LF_LFcatchmax1=[];
+    GF_LFcatchmax1=[];
+    for j=1:nparticipants
+         LF_LFcatchmax1 = [LF_LFcatchmax1 lfLFcatchmax1(i,j:nparticipants:end)];
+         LF_LFcatchmax1 = [LF_LFcatchmax1 lfLFadaptmin1(i,j:nparticipants:end)];
+         GF_LFcatchmax1 = [GF_LFcatchmax1 gfLFcatchmax1(i,j:nparticipants:end)];
+         GF_LFcatchmax1 = [GF_LFcatchmax1 gfLFadaptmin1(i,j:nparticipants:end)];
+    end
+    lfLFcatchmax1_table = table(subjects_LFcatchmax1, cond_LFcatchmax1, LF_LFcatchmax1.');
+    lfLFcatchmax1_table.Properties.VariableNames = {'subjName','cond', 'LF'};
+    glme_lfLFcatchmax1 = fitglme(lfLFcatchmax1_table,'LF ~ cond + (1|subjName)');
+    pval_lfLFcatchmax1(i)=glme_lfLFcatchmax1.Coefficients.pValue(2);
+    
+    gfLFcatchmax1_table = table(subjects_LFcatchmax1, cond_LFcatchmax1, GF_LFcatchmax1.');
+    gfLFcatchmax1_table.Properties.VariableNames = {'subjName','cond','GF'};
+    glme_gfLFcatchmax1 = fitglme(gfLFcatchmax1_table,'GF ~ cond + (1|subjName)');
+    pval_gfLFcatchmax1(i)=glme_gfLFcatchmax1.Coefficients.pValue(2);
+end
+for i=minimum:500
+    if pval_lfLFcatchmax1(i) < 0.001
+        LF_pvalues(1) = pval_lfLFcatchmax1(i);
+        LF_indexes(1) = i;
+        LF_signDiff(1) = ((meanlfmaxcatchLF1(i) - meanlfminadaptLF1(i))/min(meanlfmaxcatchLF1(i),meanlfminadaptLF1(i)))*100;
+        break
+    end 
+end
+for i=minimum:500
+    if pval_gfLFcatchmax1(i) < 0.001
+        GF_pvalues(1) = pval_gfLFcatchmax1(i);
+        GF_indexes(1) = i;
+        GF_signDiff(1) = ((meangfmaxcatchLF1(i) - meangfminadaptLF1(i))/min(meangfmaxcatchLF1(i),meangfminadaptLF1(i)))*100;
+        break
+    end 
+end
+
+
+% Max catch vs min adapt under HF
+nessais_HFcatchmax1 = nessais3+nessais4;
+subjects_HFcatchmax1 = repelem(names,nessais_HFcatchmax1,1);
+cond_HFcatchmax1 = repelem(conditions,[nessais3 nessais4]);
+cond_HFcatchmax1 = repmat(cond_HFcatchmax1,nparticipants,1);
+
+for i = 1:500
+    LF_HFcatchmax1=[];
+    GF_HFcatchmax1=[];
+    for j=1:nparticipants
+         LF_HFcatchmax1 = [LF_HFcatchmax1 lfHFcatchmax1(i,j:nparticipants:end)];
+         LF_HFcatchmax1 = [LF_HFcatchmax1 lfHFadaptmin1(i,j:nparticipants:end)];
+         GF_HFcatchmax1 = [GF_HFcatchmax1 gfHFcatchmax1(i,j:nparticipants:end)];
+         GF_HFcatchmax1 = [GF_HFcatchmax1 gfHFadaptmin1(i,j:nparticipants:end)];
+    end
+    lfHFcatchmax1_table = table(subjects_HFcatchmax1, cond_HFcatchmax1, LF_HFcatchmax1.');
+    lfHFcatchmax1_table.Properties.VariableNames = {'subjName','cond', 'LF'};
+    glme_lfHFcatchmax1 = fitglme(lfHFcatchmax1_table,'LF ~ cond + (1|subjName)');
+    pval_lfHFcatchmax1(i)=glme_lfHFcatchmax1.Coefficients.pValue(2);
+    
+    gfHFcatchmax1_table = table(subjects_HFcatchmax1, cond_HFcatchmax1, GF_HFcatchmax1.');
+    gfHFcatchmax1_table.Properties.VariableNames = {'subjName','cond', 'GF'};
+    glme_gfHFcatchmax1 = fitglme(gfHFcatchmax1_table,'GF ~ cond + (1|subjName)');
+    pval_gfHFcatchmax1(i)=glme_gfHFcatchmax1.Coefficients.pValue(2); 
+end
+for i=minimum:500
+    if pval_lfHFcatchmax1(i) < 0.001
+        LF_pvalues(2) = pval_lfHFcatchmax1(i);
+        LF_indexes(2) = i;
+        LF_signDiff(2) = ((meanlfmaxcatchHF1(i) - meanlfminadaptHF1(i))/min(meanlfmaxcatchHF1(i),meanlfminadaptHF1(i)))*100;
+        break
+    end 
+end
+for i=minimum:500
+    if pval_gfHFcatchmax1(i) < 0.001
+        GF_pvalues(2) = pval_gfHFcatchmax1(i);
+        GF_indexes(2) = i;
+        GF_signDiff(2) = ((meangfmaxcatchHF1(i) - meangfminadaptHF1(i))/min(meangfmaxcatchHF1(i),meangfminadaptHF1(i)))*100;
+        break
+    end
+end
+
+% Min catch vs max adapt under LF
+nessais_LFcatchmin2 = nessais5+nessais6;
+subjects_LFcatchmin2 = repelem(names,nessais_LFcatchmin2,1);
+cond_LFcatchmin2 = repelem(conditions,[nessais5 nessais6]);
+cond_LFcatchmin2 = repmat(cond_LFcatchmin2,nparticipants,1);
+
+for i = 1:500
+    LF_LFcatchmin2=[];
+    GF_LFcatchmin2=[];
+    for j=1:nparticipants
+         LF_LFcatchmin2 = [LF_LFcatchmin2 lfLFcatchmin2(i,j:nparticipants:end)];
+         LF_LFcatchmin2 = [LF_LFcatchmin2 lfLFadaptmax2(i,j:nparticipants:end)];
+         GF_LFcatchmin2 = [GF_LFcatchmin2 gfLFcatchmin2(i,j:nparticipants:end)];
+         GF_LFcatchmin2 = [GF_LFcatchmin2 gfLFadaptmax2(i,j:nparticipants:end)];
+    end
+    lfLFcatchmin2_table = table(subjects_LFcatchmin2, cond_LFcatchmin2, LF_LFcatchmin2.');
+    lfLFcatchmin2_table.Properties.VariableNames = {'subjName','cond', 'LF'};
+    glme_lfLFcatchmin2 = fitglme(lfLFcatchmin2_table,'LF ~ cond + (1|subjName)');
+    pval_lfLFcatchmin2(i)=glme_lfLFcatchmin2.Coefficients.pValue(2);
+       
+    gfLFcatchmin2_table = table(subjects_LFcatchmin2, cond_LFcatchmin2, GF_LFcatchmin2.');
+    gfLFcatchmin2_table.Properties.VariableNames = {'subjName','cond', 'GF'};
+    glme_gfLFcatchmin2 = fitglme(gfLFcatchmin2_table,'GF ~ cond + (1|subjName)');
+    pval_gfLFcatchmin2(i)=glme_gfLFcatchmin2.Coefficients.pValue(2);
+end
+
+for i=minimum:500
+    if pval_lfLFcatchmin2(i) < 0.001
+        LF_pvalues(3) = pval_lfLFcatchmin2(i);
+        LF_indexes(3) = i;
+        LF_signDiff(3) = ((meanlfmaxadaptLF2(i) - meanlfmincatchLF2(i))/min(meanlfmaxadaptLF2(i),meanlfmincatchLF2(i)))*100;
+        break
+    end 
+end
+for i=minimum:500
+    if pval_gfLFcatchmin2(i) < 0.001
+        GF_pvalues(3) = pval_gfLFcatchmin2(i);
+        GF_indexes(3) = i;
+        GF_signDiff(3) = ((meangfmaxadaptLF2(i) - meangfmincatchLF2(i))/min(meangfmaxadaptLF2(i),meangfmincatchLF2(i)))*100;
+        break
+    end 
+end
+
+% Min catch vs max adapt under HF
+nessais_HFcatchmin2 = nessais7+nessais8;
+subjects_HFcatchmin2 = repelem(names,nessais_HFcatchmin2,1);
+cond_HFcatchmin2 = repelem(conditions,[nessais7 nessais8]);
+cond_HFcatchmin2 = repmat(cond_HFcatchmin2,nparticipants,1);
+
+for i = 1:500
+    LF_HFcatchmin2=[];
+    GF_HFcatchmin2=[];
+    for j=1:nparticipants
+         LF_HFcatchmin2 = [LF_HFcatchmin2 lfHFcatchmin2(i,j:nparticipants:end)];
+         LF_HFcatchmin2 = [LF_HFcatchmin2 lfHFadaptmax2(i,j:nparticipants:end)];
+         GF_HFcatchmin2 = [GF_HFcatchmin2 gfHFcatchmin2(i,j:nparticipants:end)];
+         GF_HFcatchmin2 = [GF_HFcatchmin2 gfHFadaptmax2(i,j:nparticipants:end)];
+    end
+    lfHFcatchmin2_table = table(subjects_HFcatchmin2, cond_HFcatchmin2, LF_HFcatchmin2.');
+    lfHFcatchmin2_table.Properties.VariableNames = {'subjName','cond', 'LF'};
+    glme_lfHFcatchmin2 = fitglme(lfHFcatchmin2_table,'LF ~ cond + (1|subjName)');
+    pval_lfHFcatchmin2(i)=glme_lfHFcatchmin2.Coefficients.pValue(2);
+    
+    gfHFcatchmin2_table = table(subjects_HFcatchmin2, cond_HFcatchmin2, GF_HFcatchmin2.');
+    gfHFcatchmin2_table.Properties.VariableNames = {'subjName','cond', 'GF'};
+    glme_gfHFcatchmin2 = fitglme(gfHFcatchmin2_table,'GF ~ cond + (1|subjName)');
+    pval_gfHFcatchmin2(i)=glme_gfHFcatchmin2.Coefficients.pValue(2);
+end
+for i=minimum:500
+    if pval_lfHFcatchmin2(i) < 0.001
+        LF_pvalues(4) = pval_lfHFcatchmin2(i);
+        LF_indexes(4) = i;
+        LF_signDiff(4) = ((meanlfmaxadaptHF2(i) - meanlfmincatchHF2(i))/min(meanlfmaxadaptHF2(i),meanlfmincatchHF2(i)))*100;
+        break
+    end 
+end
+for i=minimum:500
+    if pval_gfHFcatchmin2(i) < 0.001
+        GF_pvalues(4) = pval_gfHFcatchmin2(i);
+        GF_indexes(4) = i;
+        GF_signDiff(4) = ((meangfmaxadaptHF2(i) - meangfmincatchHF2(i))/min(meangfmaxadaptHF2(i),meangfmincatchHF2(i)))*100;
+        break
+    end 
+end
+LF_time = x(LF_indexes);
+GF_time = x(GF_indexes);
+
+%{
 %% Moment of significative difference between the curves (T-test)
 %x=10:0.005:12.495
 timealigned=minimum*0.005-0.005; %temps où toutes les courbes sont alignées
@@ -557,17 +752,20 @@ end
 
 LF_time = x(LF_indexes);
 GF_time = x(GF_indexes);
-
+%}
 %% Plots max weight catch
 % Figures LF mean curves and relative difference in mean force 
 LFaxislim = 7; %limit of y axis of graphs for GF curves
 Rdlfaxislim = 350; %limit of y axis of graphs for relative difference curves
+pval_lim = 10^(-5);
 
 figure(1); 
 subplot(3,2,1)
 y1 = meanlfmaxcatchLF1(1:500);
 y2 = meanlfminadaptLF1(1:500);
 plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
+figure(1);hold on;
+plot([x(LF_indexes(1)) x(LF_indexes(1))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 legend('', '')
 title('Low Friction')
 ylabel('LF (N)');
@@ -579,6 +777,8 @@ subplot(3,2,2)
 y3 = meanlfmaxcatchHF1(1:500);
 y4 = meanlfminadaptHF1(1:500);
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
+figure(1);hold on;
+plot([x(LF_indexes(2)) x(LF_indexes(2))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('High Friction')
 ylabel('LF (N)');
 ylim([0 LFaxislim]);
@@ -593,8 +793,6 @@ figure(1);hold on;
 fill([x fliplr(x)], [ul_lfLFmaxcatch(1:500) fliplr(ll_lfLFmaxcatch(1:500))], 'g', 'FaceAlpha', 0.2,'LineStyle', "none")
 figure(1);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
-figure(1);hold on;
-plot([x(LF_indexes(1)) x(LF_indexes(1))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 ylabel('\Delta LF (%)');
 ylim([-40 Rdlfaxislim]);
 xlim([-timealigned 2]);
@@ -606,25 +804,26 @@ figure(1);hold on;
 fill([x fliplr(x)], [ul_lfHFmaxcatch(1:500) fliplr(ll_lfHFmaxcatch(1:500))], 'g', 'FaceAlpha', 0.2, 'LineStyle', "none")
 figure(1);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
-figure(1);hold on;
-plot([x(LF_indexes(2)) x(LF_indexes(2))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 ylabel('\Delta LF (%)');
 ylim([-40 Rdlfaxislim]);
 xlim([-timealigned 2]);
 
 subplot(3,2,5)
-plot(x,p1(1:500),'LineWidth',1.5)
+semilogy(x,pval_lfLFcatchmax1(1:500),'LineWidth',1.5)
 figure(1);hold on;
 plot([x(LF_indexes(1)) x(LF_indexes(1))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlim([-timealigned 2]);
+ylim([pval_lim 10^0]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
 
+
 subplot(3,2,6)
-plot(x,p2(1:500),'LineWidth',1.5)
+semilogy(x,pval_lfHFcatchmax1(1:500),'LineWidth',1.5)
 figure(1);hold on;
 plot([x(LF_indexes(2)) x(LF_indexes(2))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlim([-timealigned 2]);
+ylim([pval_lim 10^0]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
 
@@ -638,6 +837,8 @@ subplot(3,2,1)
 y1 = meangfmaxcatchLF1(1:500);
 y2 = meangfminadaptLF1(1:500);
 plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
+figure(2);hold on;
+plot([x(GF_indexes(1)) x(GF_indexes(1))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 legend('', '')
 title('Low Friction')
 ylabel('GF (N)');
@@ -649,6 +850,8 @@ subplot(3,2,2)
 y3 = meangfmaxcatchHF1(1:500);
 y4 = meangfminadaptHF1(1:500);
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
+figure(2);hold on;
+plot([x(GF_indexes(2)) x(GF_indexes(2))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('High Friction')
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
@@ -664,7 +867,7 @@ fill([x fliplr(x)], [ul_gfLFmaxcatch(1:500) fliplr(ll_gfLFmaxcatch(1:500))], 'g'
 figure(2);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(2);hold on;
-plot([x(GF_indexes(1)) x(GF_indexes(1))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+plot([-timealigned 2],[55 55], 'r','LineWidth',0.8)
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
@@ -677,26 +880,29 @@ fill([x fliplr(x)], [ul_gfHFmaxcatch(1:500) fliplr(ll_gfHFmaxcatch(1:500))], 'g'
 figure(2);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(2);hold on;
-plot([x(GF_indexes(2)) x(GF_indexes(2))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+plot([-timealigned 2],[55 55], 'r','LineWidth',0.8)
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
 
 subplot(3,2,5)
-plot(x,p5(1:500),'LineWidth',1.5)
+semilogy(x,pval_gfLFcatchmax1(1:500),'LineWidth',1.5)
 figure(2);hold on;
 plot([x(GF_indexes(1)) x(GF_indexes(1))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlim([-timealigned 2]);
+ylim([pval_lim 10^0]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
 
 subplot(3,2,6)
-plot(x,p6(1:500),'LineWidth',1.5)
+semilogy(x,pval_gfHFcatchmax1(1:500),'LineWidth',1.5)
 figure(2);hold on;
 plot([x(GF_indexes(2)) x(GF_indexes(2))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlim([-timealigned 2]);
+ylim([pval_lim 10^0]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
+
 
 %% Plots min weight catch
 
@@ -707,6 +913,8 @@ subplot(3,2,1)
 y7 = meanlfmaxadaptLF2(1:500);
 y8 = meanlfmincatchLF2(1:500);
 plot(x,y7,'r', x, y8, 'b--', 'LineWidth', 1.5)
+figure(3);hold on;
+plot([x(LF_indexes(3)) x(LF_indexes(3))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 legend('', '')
 title('Low Friction')
 xlabel('Time (s)');
@@ -719,6 +927,8 @@ subplot(3,2,2)
 y9 = meanlfmaxadaptHF2(1:500);
 y10 = meanlfmincatchHF2(1:500);
 plot(x,y9,'r',x,y10,'b--','LineWidth', 1.5)
+figure(3);hold on;
+plot([x(LF_indexes(4)) x(LF_indexes(4))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('High Friction')
 ylabel('LF (N)');
 ylim([0 LFaxislim]);
@@ -733,8 +943,6 @@ figure(3);hold on;
 fill([x fliplr(x)], [ul_lfLFmincatch(1:500) fliplr(ll_lfLFmincatch(1:500))], 'g', 'FaceAlpha', 0.2,'LineStyle', "none")
 figure(3);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
-figure(3);hold on;
-plot([x(LF_indexes(3)) x(LF_indexes(3))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 ylabel('\Delta LF (%)');
 ylim([-40 Rdlfaxislim]);
 xlim([-timealigned 2]);
@@ -746,27 +954,27 @@ figure(3);hold on;
 fill([x fliplr(x)], [ul_lfHFmincatch(1:500) fliplr(ll_lfHFmincatch(1:500))], 'g', 'FaceAlpha', 0.2, 'LineStyle', "none")
 figure(3);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
-figure(3);hold on;
-plot([x(LF_indexes(4)) x(LF_indexes(4))],[-40 Rdlfaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 ylabel('\Delta LF (%)');
 ylim([-40 Rdlfaxislim]);
 xlim([-timealigned 2]);
 
 subplot(3,2,5)
-plot(x,p3(1:500),'LineWidth',1.5)
+semilogy(x,pval_lfLFcatchmin2(1:500),'LineWidth',1.5)
 figure(3);hold on;
 plot([x(LF_indexes(3)) x(LF_indexes(3))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlim([-timealigned 2]);
+ylim([pval_lim 10^0]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
 
 subplot(3,2,6)
-plot(x,p4(1:500),'LineWidth',1.5)
+semilogy(x,pval_lfHFcatchmin2(1:500),'LineWidth',1.5)
 figure(3);hold on;
 plot([x(LF_indexes(4)) x(LF_indexes(4))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlabel('Time (s)');
 ylabel('p-value (-)');
 xlim([-timealigned 2]);
+ylim([pval_lim 10^0]);
 
 % Figures GF mean curves and relative difference in mean force 
 
@@ -775,6 +983,8 @@ subplot(3,2,1)
 y1 = meangfmaxadaptLF2(1:500);
 y2 = meangfmincatchLF2(1:500);
 plot(x,y1,'r', x, y2, 'b--', 'LineWidth', 1.5)
+figure(4);hold on;
+plot([x(GF_indexes(3)) x(GF_indexes(3))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 legend('', '')
 title('Low Friction')
 ylabel('GF (N)');
@@ -786,6 +996,8 @@ subplot(3,2,2)
 y3 = meangfmaxadaptHF2(1:500);
 y4 = meangfmincatchHF2(1:500);
 plot(x,y3,'r',x,y4,'b--','LineWidth', 1.5)
+figure(4);hold on;
+plot([x(GF_indexes(4)) x(GF_indexes(4))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 title('High Friction')
 ylabel('GF (N)');
 ylim([0 GFaxislim]);
@@ -801,7 +1013,7 @@ fill([x fliplr(x)], [ul_gfLFmincatch(1:500) fliplr(ll_gfLFmincatch(1:500))], 'g'
 figure(4);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(4);hold on;
-plot([x(GF_indexes(3)) x(GF_indexes(3))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+plot([-timealigned 2],[55 55], 'r','LineWidth',0.8)
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
@@ -814,26 +1026,28 @@ fill([x fliplr(x)], [ul_gfHFmincatch(1:500) fliplr(ll_gfHFmincatch(1:500))], 'g'
 figure(4);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(4);hold on;
-plot([x(GF_indexes(4)) x(GF_indexes(4))],[-40 Rdaxislim], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+plot([-timealigned 2],[55 55], 'r','LineWidth',0.8)
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
 
 subplot(3,2,5)
-plot(x,p7(1:500),'LineWidth',1.5)
+semilogy(x,pval_gfLFcatchmin2(1:500),'LineWidth',1.5)
 figure(4);hold on;
 plot([x(GF_indexes(3)) x(GF_indexes(3))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlabel('Time (s)');
 ylabel('p-value (-)');
 xlim([-timealigned 2]);
+ylim([pval_lim 10^0]);
 
 subplot(3,2,6)
-plot(x,p8(1:500),'LineWidth',1.5)
+semilogy(x,pval_gfHFcatchmin2(1:500),'LineWidth',1.5)
 figure(4);hold on;
 plot([x(GF_indexes(4)) x(GF_indexes(4))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
 xlabel('Time (s)');
 ylabel('p-value (-)');
 xlim([-timealigned 2]);
+ylim([pval_lim 10^0]);
 
 end
         
