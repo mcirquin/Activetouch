@@ -7,7 +7,7 @@ elseif nparticipants == 15
 elseif nparticipants == 13
     names=["ADommisse" ; "AMarechal" ; "ATikke" ; "AWertelaers" ; "BJonnart" ; "CBedford"; "CZwaenepoel" ; "ESchoonjans"; "ESpringel"; "LCirquin"; "MJMaldague"; "MRennesson"; "PLefèvre"];
 else
-    names=["ADommisse" ; "AMarechal" ; "ATikke" ; "AWertelaers" ; "BJonnart" ; "CZwaenepoel" ; "ESchoonjans"; "ESpringel"; "LCirquin"; "LColmant"; "MJMaldague"; "MRennesson"; "PLefèvre"];
+    names=["ADommisse" ; "AMarechal" ; "ATikke" ; "AWertelaers" ; "BJonnart" ; "CZwaenepoel" ; "ESchoonjans"; "ESpringel"; "LCirquin"; "MJMaldague"; "MRennesson"; "PLefèvre"];
 end
 
 %% Friction catch low friction (high to low friction) 
