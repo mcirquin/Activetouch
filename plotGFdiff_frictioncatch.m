@@ -2,7 +2,7 @@ function [LF_pvalues,LF_time,LF_signDiff, GF_pvalues,GF_time,GF_signDiff] = plot
 
 %% Determine participants (for mixed effect model)
 if nparticipants == 8
-    names=["ASalden" ; "BDelhaye" ; "FSchiltz" ; "GBrandsteert" ; "JDommisse"; "LColmant"; "S_Vandergooten"; "SLedoux" ; "VFischer"];
+    names=["ASalden" ; "BDelhaye" ; "FSchiltz"  ; "JDommisse"; "LColmant"; "S_Vandergooten"; "SLedoux" ; "VFischer"];
 elseif nparticipants == 15
     names=["AParache" ; "ARommel" ; "ASalden" ; "BDelhaye" ; "DDoumont" ; "FSchiltz" ; "GBrandsteert" ; "JDelforge"; "JDommisse"; "LColmant"; "MBronchart"; "MDausort"; "S_Vandergooten"; "SLedoux" ; "VFischer"];
 elseif nparticipants == 13
