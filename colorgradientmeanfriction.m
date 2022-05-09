@@ -14,8 +14,8 @@ Rdvec=zeros(nparticipants,1);%vector containing the relative difference for each
 xvec=zeros(nparticipants,1); %vector containing the x coordinates (LF) for each participant
 yvec=zeros(nparticipants,1); %vector containing the y coordinates (HF) for each participant
 
-colors={[0 0 1], [0.0833 0 0.9167], [0.1667 0 0.8333], [0.25 0 0.75], [0.3333 0 0.6667], [0.4167 0 0.5833], [0.5 0 0.5], [0.5833 0 0.4167], [0.6667 0 0.3333], [0.75 0 0.25], [0.8333 0 0.1667], [0.9167 0 0.0833], [1 0 0]}; %for elderly participants
-%colors={[0 0 1], [0.0714 0 0.9286], [0.1429 0 0.8571], [0.2143 0 0.7857], [0.2857 0 0.7143], [0.3571 0 0.6429], [0.4286 0 0.5714], [0.5 0 0.5], [0.5714 0 0.4286], [0.6429 0 0.3571], [0.7143 0 0.2857], [0.7857 0 0.2143], [0.85 0 0.1429], [0.9286 0 0.0714], [1 0 0]}; %for young
+%colors={[0 0 1], [0.0833 0 0.9167], [0.1667 0 0.8333], [0.25 0 0.75], [0.3333 0 0.6667], [0.4167 0 0.5833], [0.5 0 0.5], [0.5833 0 0.4167], [0.6667 0 0.3333], [0.75 0 0.25], [0.8333 0 0.1667], [0.9167 0 0.0833], [1 0 0]}; %for elderly participants
+colors={[0 0 1], [0.0714 0 0.9286], [0.1429 0 0.8571], [0.2143 0 0.7857], [0.2857 0 0.7143], [0.3571 0 0.6429], [0.4286 0 0.5714], [0.5 0 0.5], [0.5714 0 0.4286], [0.6429 0 0.3571], [0.7143 0 0.2857], [0.7857 0 0.2143], [0.85 0 0.1429], [0.9286 0 0.0714], [1 0 0]}; %for young
 %participants
 colors=flip(colors);
 
@@ -23,7 +23,7 @@ colors=flip(colors);
 
 %% For each participant, compute the mean LF and the mean HF friction coeff
 
-D = 'Aged_friction';
+D = 'Data Friction 18-35';
 S = dir(fullfile(D, '*'));
 N = setdiff({S([S.isdir]).name},{'.','..'}); % list of subfolders of D.
 
@@ -81,9 +81,13 @@ end
 %title('Mean coefficient of friction - Elderly participants')
 xlabel('Coefficient of friction - Low [-]')
 ylabel('Coefficient of friction - High [-]')
-ylim([0 axislim])
+ylim([0 axislim]);
+xlim([0 axislim]);
 yticks([0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6]);
-xticks([0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6])
+xticks([0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 pos2 = [0.7 0.15 0.1 0.7];
 subplot('Position',pos2); hold on;
@@ -98,3 +102,5 @@ ylabel('Relative difference in Friction [%]')
 
 figure(1); hold on;
 h2=errorbar(1,mean(Rdvecsort),std(Rdvecsort),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+hold on;
+plot([0,2], [10 10],'k--');
