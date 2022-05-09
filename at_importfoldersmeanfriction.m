@@ -30,13 +30,19 @@ for ii = 1:numel(N)  %loop going through the folders
     filelist = filelist(idx);
     nfiles=length(filelist);
     C = {filelist(~[filelist.isdir]).name}; %files in subfolder (cell created for the loop)
-    [indexglassLF, indexglassHF] = at_frictionplots(N{ii}, filelist, tsteps); %calculates the frictions for LF and HF for the participant
+    [indexglassLF,thumbglassLF,indexglassHF,thumbglassHF] = at_frictionplots(N{ii}, filelist, tsteps); %calculates the frictions for LF and HF for the participant
     
     
     %Mean of the friction coefficient on the Force interval
-    meanCF_LF = mean(indexglassLF.k.*Fint.^(indexglassLF.n-1));
-    meanCF_HF = mean(indexglassHF.k.*Fint.^(indexglassHF.n-1));
+    meanCFindex_LF = mean(indexglassLF.k.*Fint.^(indexglassLF.n-1));
+    meanCFthumb_LF = mean(thumbglassLF.k.*Fint.^(thumbglassLF.n-1));
+    meanCF_LF =(meanCFindex_LF + meanCFthumb_LF)/2;
     
+    meanCFindex_HF = mean(indexglassHF.k.*Fint.^(indexglassHF.n-1));
+    meanCFthumb_HF = mean(thumbglassHF.k.*Fint.^(thumbglassHF.n-1));
+    meanCF_HF =(meanCFindex_HF + meanCFthumb_HF)/2;
+    
+
     %relative difference in friction
     Rd = ((meanCF_HF-meanCF_LF)/min(meanCF_HF,meanCF_LF))*100;
     Rdvector(ii) = Rd;
