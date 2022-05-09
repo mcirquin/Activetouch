@@ -683,6 +683,10 @@ for i= 1:nparticipants
     ylim([0 axis])
     xticks(0:1:axis)
     title('Min weight')
+    hold on;
+    grid on;
+    ax=gca;
+    ax.GridAlpha = 0.07;
     
     %relative difference 
     pos2 = [0.4 0.6 0.05 0.35];
@@ -694,7 +698,7 @@ for i= 1:nparticipants
     plot(0.5,Rd1,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
     xlim([0 1])
-    set(gca, 'YDir','reverse')
+    set(gca, 'YDir')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]')
      if i == nparticipants
@@ -715,6 +719,10 @@ for i= 1:nparticipants
     ylim([0 axis])
     xticks(0:1:axis)
     title('Max weight')
+    hold on;
+    grid on;
+    ax=gca;
+    ax.GridAlpha = 0.07;
     
     %relative difference
     pos4 = [0.4 0.1 0.05 0.35];
@@ -726,7 +734,7 @@ for i= 1:nparticipants
     plot(0.5,Rd2,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
     xlim([0 1])
-    set(gca, 'YDir','reverse')
+    set(gca, 'YDir')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]')
     if i == nparticipants
@@ -752,6 +760,10 @@ for i= 1:nparticipants
     ylim([0 axis])
     xticks(0:1:axis)
     title('Min weight')
+    hold on;
+    grid on;
+    ax=gca;
+    ax.GridAlpha = 0.07;
     
     %relative difference 
     pos2 = [0.4 0.6 0.05 0.35];
@@ -763,7 +775,7 @@ for i= 1:nparticipants
     plot(0.5,Rd1stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
     xlim([0 1])
-    set(gca, 'YDir','reverse')
+    set(gca, 'YDir')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]')
     if i == nparticipants
@@ -784,6 +796,10 @@ for i= 1:nparticipants
     ylim([0 axis])
     xticks(0:1:axis)
     title('Max weight')
+    hold on;
+    grid on;
+    ax=gca;
+    ax.GridAlpha = 0.07;
     
     %relative difference 
     pos4 = [0.4 0.1 0.05 0.35];
@@ -795,7 +811,7 @@ for i= 1:nparticipants
     plot(0.5,Rd2stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
     xlim([0 1])
-    set(gca, 'YDir','reverse')
+    set(gca, 'YDir');
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]')
     if i == nparticipants
@@ -824,6 +840,10 @@ for i= 1:nparticipants
     ylim([0 axis])
     xticks(0:1:axis)
     title('Min weight')
+    hold on;
+    grid on;
+    ax=gca;
+    ax.GridAlpha = 0.07;
     
     %relative difference 
     pos2 = [0.4 0.6 0.05 0.35];
@@ -835,7 +855,7 @@ for i= 1:nparticipants
     plot(0.5,Rd3,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
     xlim([0 1])
-    set(gca, 'YDir','reverse')
+    set(gca, 'YDir')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]') 
     if i == nparticipants
@@ -856,6 +876,10 @@ for i= 1:nparticipants
     ylim([0 axis])
     xticks(0:1:axis)
     title('Max weight')
+    hold on;
+    grid on;
+    ax=gca;
+    ax.GridAlpha = 0.07;
     
     %relative difference 
     pos4 = [0.4 0.1 0.05 0.35];
@@ -867,7 +891,7 @@ for i= 1:nparticipants
     plot(0.5,Rd4,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
     xlim([0 1])
-    set(gca, 'YDir','reverse')
+    set(gca, 'YDir')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]') 
     if i == nparticipants
@@ -876,7 +900,7 @@ for i= 1:nparticipants
     end
 
 end
-%suptitle('Grip Force magnitude of GF peaks for high friction catch trials');
+%suptitle('Grip Force magnitude of stabilization for high friction catch trials');
 
 figure(5);
 for i= 1:nparticipants
@@ -893,6 +917,10 @@ for i= 1:nparticipants
     ylim([0 axis])
     xticks(0:1:axis)
     title('Min weight')
+    hold on;
+    grid on;
+    ax=gca;
+    ax.GridAlpha = 0.07;
     
     %relative difference 
     pos2 = [0.4 0.6 0.05 0.35];
@@ -904,7 +932,7 @@ for i= 1:nparticipants
     plot(0.5,Rd3stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
     xlim([0 1])
-    set(gca, 'YDir','reverse')
+    set(gca, 'YDir')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]') 
     if i == nparticipants
@@ -925,6 +953,10 @@ for i= 1:nparticipants
     ylim([0 axis])
     xticks(0:1:axis)
     title('Max weight')
+    hold on;
+    grid on;
+    ax=gca;
+    ax.GridAlpha = 0.07;
     
     %relative difference 
     pos4 = [0.4 0.1 0.05 0.35];
@@ -936,7 +968,7 @@ for i= 1:nparticipants
     plot(0.5,Rd4stab,'.', 'MarkerSize',10,'Color', C{i});
     set(gca,'XTick',[])
     xlim([0 1])
-    set(gca, 'YDir','reverse')
+    set(gca, 'YDir')
     set(gcf,'position',[0,0,200,500])
     ylabel('Relative change in GF [%]') 
     if i == nparticipants
@@ -1015,12 +1047,15 @@ for i=1:nparticipants
     %h2.MarkerFaceAlpha = alphaelderly(i);
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
-
 xlabel('GF - Low friction catch [N]')
 ylabel('GF - High friction normal [N]')
 xlim([0 axis])
 ylim([0 axis])
 title('Min weight')
+figure(2);hold on;
+grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
 
 %relative difference
 figure(2); hold on;
@@ -1038,7 +1073,7 @@ for i=1:nparticipants
 end
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
@@ -1057,6 +1092,10 @@ ylabel('GF - High friction normal [N]')
 xlim([0 axis])
 ylim([0 axis])
 title('Max weight')
+figure(2); hold on;
+grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
     
 %relative difference
 pos4 = [0.4 0.1 0.05 0.35];
@@ -1072,7 +1111,7 @@ for i=1:nparticipants
 end
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
@@ -1087,6 +1126,10 @@ for i=1:nparticipants
     %h2.MarkerFaceAlpha = alphaelderly(i);
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
+figure(3); hold on;
+grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
 
 
 xlabel('GF - Low friction catch [N]')
@@ -1110,7 +1153,7 @@ for i=1:nparticipants
 end
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
@@ -1130,6 +1173,10 @@ ylabel('GF - High friction normal [N]')
 xlim([0 axis])
 ylim([0 axis])
 title('Max weight')
+figure(3); hold on;
+grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
     
 %relative difference
 pos4 = [0.4 0.1 0.05 0.35];
@@ -1145,7 +1192,7 @@ for i=1:nparticipants
 end
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
@@ -1170,6 +1217,10 @@ ylabel('GF - High friction catch [N]')
 xlim([0 axis])
 ylim([0 axis])
 title('Min weight')
+figure(4); hold on;
+grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
 
 %relative difference
 figure(4); hold on;
@@ -1186,7 +1237,7 @@ for i=1:nparticipants
 end
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
@@ -1206,7 +1257,11 @@ ylabel('GF - High friction catch [N]')
 xlim([0 axis])
 ylim([0 axis])
 title('Max weight')
-    
+figure(4); hold on;
+grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
+
 %relative difference
 pos4 = [0.4 0.1 0.05 0.35];
 subplot('Position',pos4);
@@ -1221,7 +1276,7 @@ for i=1:nparticipants
 end
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
@@ -1237,12 +1292,15 @@ for i=1:nparticipants
     %h2.MarkerFaceAlpha = alphaelderly(i);
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
-
 xlabel('GF - Low friction normal [N]')
 ylabel('GF - High friction catch [N]')
 xlim([0 axis])
 ylim([0 axis])
 title('Min weight')
+figure(5); hold on;
+grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
 
 %relative difference
 figure(5); hold on;
@@ -1259,7 +1317,7 @@ for i=1:nparticipants
 end
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
@@ -1279,6 +1337,10 @@ ylabel('GF - High friction catch [N]')
 xlim([0 axis])
 ylim([0 axis])
 title('Max weight')
+figure(5); hold on;
+grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
     
 %relative difference
 pos4 = [0.4 0.1 0.05 0.35];
@@ -1294,7 +1356,7 @@ for i=1:nparticipants
 end
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
