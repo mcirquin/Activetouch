@@ -486,20 +486,15 @@ b(1).FaceAlpha = 0.7;
 legend('Maximal weight normal','Minimal weight catch', 'Location','north')
 ylabel('Grip force peak(N)')
 ylim([0 baraxis])
-
-
 xdata= get (b(2),'XData');
 xoffset1 = -0.14;
 xoffset2 = 0.14;
-
-
 hold on
 y1 = meanmaxLFparticipants;
 y2 = meanmaxtominLFparticipants;
 for i=1:nparticipants
     figure(1); hold on;
     plot(xdata(1)+xoffset1,y1(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
-
     hold on
     figure(1); hold on;
     plot(xdata(1)+xoffset2,y2(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
@@ -513,16 +508,13 @@ y4 = meanmaxtominHFparticipants;
 for i=1:nparticipants
     figure(1); hold on;
     plot(xdata(2)+xoffset1,y3(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
-
     hold on
     figure(1); hold on;
     plot(xdata(2)+xoffset2,y4(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
     
     line([xdata(2)+xoffset1,xdata(2)+xoffset2], [y3(i), y4(i)], 'Color', C{i},'HandleVisibility','off')
 end
-
 %Deuxième subplot
-
 subplot(1,4,2)
 ysecond=[meanminLF meanmintomaxLF ; meanminHF meanmintomaxHF];
 b = bar(ysecond);
@@ -536,37 +528,31 @@ b(1).FaceAlpha = 0.7;
 legend('Minimal weight normal','Maximal weight catch', 'Location','north')
 ylabel('Grip force peak (N)')
 ylim([0 baraxis])
-
 hold on
 y5 = meanminLFparticipants;
 y6 = meanmintomaxLFparticipants;
 for i=1:nparticipants
     figure(1); hold on;
     plot(xdata(1)+xoffset1,y5(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
-
     hold on
     figure(1); hold on;
     plot(xdata(1)+xoffset2,y6(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
     
     line([xdata(1)+xoffset1,xdata(1)+xoffset2], [y5(i), y6(i)], 'Color', C{i},'HandleVisibility','off')
 end
-
 hold on
 y7 = meanminHFparticipants;
 y8 = meanmintomaxHFparticipants;
 for i=1:nparticipants
     figure(1); hold on;
     plot(xdata(2)+xoffset1,y7(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
-
     hold on
     figure(1); hold on;
     plot(xdata(2)+xoffset2,y8(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
     
     line([xdata(2)+xoffset1,xdata(2)+xoffset2], [y7(i), y8(i)], 'Color', C{i},'HandleVisibility','off')
 end
-
 text(-1.7, 31,{'Comparison of GF peaks for weight catch and normal trials';''}, 'FontSize', 14)
-
 % Troisième subplot
 subplot(1,4,3)
 ythird=[meanmaxstabLF meanmaxtominstabLF; meanmaxstabHF meanmaxtominstabHF];
@@ -581,38 +567,31 @@ b(1).FaceAlpha = 0.7;
 legend('Maximal weight normal','Minimal weight catch', 'Location','north')
 ylabel('Mean grip force (N)')
 ylim([0 baraxis])
-
-
 hold on
 y9 = meanmaxstabLFparticipants;
 y10 = meanmaxtominstabLFparticipants;
 for i=1:nparticipants
     figure(1); hold on;
     plot(xdata(1)+xoffset1,y9(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
-
     hold on
     figure(1); hold on;
     plot(xdata(1)+xoffset2,y10(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
     
     line([xdata(1)+xoffset1,xdata(1)+xoffset2], [y9(i), y10(i)], 'Color', C{i},'HandleVisibility','off')
 end
-
 hold on
 y11 = meanmaxstabHFparticipants;
 y12 = meanmaxtominstabHFparticipants;
 for i=1:nparticipants
     figure(1); hold on;
     plot(xdata(2)+xoffset1,y11(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
-
     hold on
     figure(1); hold on;
     plot(xdata(2)+xoffset2,y12(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
     
     line([xdata(2)+xoffset1,xdata(2)+xoffset2], [y11(i), y12(i)], 'Color', C{i},'HandleVisibility','off')
 end
-
 %Quatrième subplot
-
 subplot(1,4,4)
 yforth=[meanminstabLF meanmintomaxstabLF ; meanminstabHF meanmintomaxstabHF];
 b = bar(yforth);
@@ -626,35 +605,30 @@ b(1).FaceAlpha = 0.7;
 legend('Minimal weight normal','Maximal weight catch', 'Location','north')
 ylabel('Mean grip force (N)')
 ylim([0 baraxis])
-
 hold on
 y13 = meanminstabLFparticipants;
 y14 = meanmintomaxstabLFparticipants;
 for i=1:nparticipants
     figure(1); hold on;
     plot(xdata(1)+xoffset1,y13(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
-
     hold on
     figure(1); hold on;
     plot(xdata(1)+xoffset2,y14(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
     
     line([xdata(1)+xoffset1,xdata(1)+xoffset2], [y13(i), y14(i)], 'Color', C{i},'HandleVisibility','off')
 end
-
 hold on
 y15 = meanminstabHFparticipants;
 y16 = meanmintomaxstabLFparticipants;
 for i=1:nparticipants
     figure(1); hold on;
     plot(xdata(2)+xoffset1,y15(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
-
     hold on
     figure(1); hold on;
     plot(xdata(2)+xoffset2,y16(i),'.', 'MarkerSize',15,'color',C{i},'HandleVisibility','off')
     
     line([xdata(2)+xoffset1,xdata(2)+xoffset2], [y15(i), y16(i)], 'Color', C{i},'HandleVisibility','off')
 end
-
 text(-2.3, 31,{'Comparison of GF during stabilization for weight catch and normal trials';''}, 'FontSize', 14)
 %}
 
@@ -664,16 +638,11 @@ text(-2.3, 31,{'Comparison of GF during stabilization for weight catch and norma
 %for catches and one for stabilization)
 Rdcatch = [];
 Rdstab = [];
-
-
 axis=20;% axis limits of the plots
 xfriction1=linspace(0,axis);
 yfriction1=linspace(0,axis);
 Rdvector = []; %vector saving the relative differnce values for each participant
-
-
 figure(2);
-
 for i= 1:nparticipants
     %GF peaks: Comparison min weight catches under low friction
     pos1 = [0.1 0.6 0.25 0.35];
@@ -708,7 +677,6 @@ for i= 1:nparticipants
         figure(2);hold on;
         errorbar(0.5,mean(Rdvector(1,:),2),std(Rdvector(1,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
-
     %GF peaks: Comparison min weight catches under high friction
     pos3 = [0.1 0.1 0.25 0.35];
     subplot('Position',pos3); hold on;
@@ -742,10 +710,8 @@ for i= 1:nparticipants
         figure(2);hold on;
         errorbar(0.5,mean(Rdvector(2,:),2),std(Rdvector(2,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
-
 end
 %suptitle('Grip Force magnitude of GF peaks for min weight catch trials');
-
 figure(3);
 for i= 1:nparticipants
     %Stab: Comparison min weight catches under low friction
@@ -781,7 +747,6 @@ for i= 1:nparticipants
         figure(3);hold on;
         errorbar(0.5,mean(Rdvector(3,:),2),std(Rdvector(3,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
-
     %stab: Comparison min weight catches under high friction
     pos3 = [0.1 0.1 0.25 0.35];
     subplot('Position',pos3); hold on;
@@ -817,12 +782,8 @@ for i= 1:nparticipants
     end
 end
 %suptitle('Grip Force magnitude during stabilization for min weight catch trials');
-
-
 %% Quantification GF of HF friction catch with respect to normal trials (GF peaks and stabilization)
-
 figure(4);
-
 for i= 1:nparticipants
     %GF peaks: Comparison max weight catches under low friction
     pos1 = [0.1 0.6 0.25 0.35];
@@ -857,7 +818,6 @@ for i= 1:nparticipants
         figure(4);hold on;
         errorbar(0.5,mean(Rdvector(5,:),2),std(Rdvector(5,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
-
     %GF peaks: Comparison max weight catches under high friction
     pos3 = [0.1 0.1 0.25 0.35];
     subplot('Position',pos3); hold on;
@@ -891,10 +851,8 @@ for i= 1:nparticipants
         figure(4);hold on;
         errorbar(0.5,mean(Rdvector(6,:),2),std(Rdvector(6,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
-
 end
 %suptitle('Grip Force magnitude of GF peaks for max weight catch trials');
-
 figure(5);
 for i= 1:nparticipants
     %Stab: Comparison max weight catches under low friction
@@ -930,7 +888,6 @@ for i= 1:nparticipants
         figure(5);hold on;
         errorbar(0.5,mean(Rdvector(7,:),2),std(Rdvector(7,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
-
     %stab: Comparison max weight catches under high friction
     pos3 = [0.1 0.1 0.25 0.35];
     subplot('Position',pos3); hold on;
@@ -965,9 +922,7 @@ for i= 1:nparticipants
         errorbar(0.5,mean(Rdvector(8,:),2),std(Rdvector(8,:),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
 end
-
 %suptitle('Grip Force magnitude during stabilization for max weight catch trials');
-
 %}
 
 %% Quantification GF of Min weight catch with respect to normal trials (GF peaks and stabilization)
@@ -1050,7 +1005,7 @@ subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
     h2=plot(0.5,Rd1(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
-    plot([0,1], [55 55],'r');
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
@@ -1088,7 +1043,7 @@ subplot('Position',pos4);
 hold on;
 for i=1:nparticipants
     h2=plot(0.5,Rd2(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
-    plot([0,1], [55 55],'r');
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
@@ -1129,7 +1084,7 @@ subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
     h2=plot(0.5,Rd1stab(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
-    plot([0,1], [55 55],'r');
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2=scatter(0.5, Rd1stab(i), 13, 'r', 'filled'); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
@@ -1167,7 +1122,7 @@ subplot('Position',pos4);
 hold on;
 for i=1:nparticipants
     h2=plot(0.5,Rd2stab(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
-    plot([0,1], [55 55],'r');
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
@@ -1208,7 +1163,7 @@ subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
     h2=plot(0.5, Rd3(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
-    plot([0,1], [55 55],'r');
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
         figure(4);hold on;
@@ -1249,7 +1204,7 @@ subplot('Position',pos4);
 figure(4); hold on;
 for i=1:nparticipants
     h2=plot(0.5, Rd4(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
-    plot([0,1], [55 55],'r');
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
         figure(4);hold on;
@@ -1290,7 +1245,7 @@ subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
     h2=plot(0.5, Rd3stab(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
-    plot([0,1], [55 55],'r');
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
         figure(5);hold on;
@@ -1331,7 +1286,7 @@ subplot('Position',pos4);
 figure(5); hold on;
 for i=1:nparticipants
     h2=plot(0.5, Rd4stab(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
-    plot([0,1], [55 55],'r');
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
         figure(5);hold on;
