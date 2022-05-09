@@ -1014,12 +1014,12 @@ Rd3stab = zeros(1,nparticipants);
 Rd4stab = zeros(1,nparticipants);
 
 for i = 1:nparticipants
-    Rd1(i) = ((meanmaxLFparticipantssort(i)-meanmaxtominLFparticipantssort(i))/min(meanmaxtominLFparticipantssort(i),meanmaxLFparticipantssort(i)))*100;
-    Rd2(i) = ((meanmaxHFparticipantssort(i)-meanmaxtominHFparticipantssort(i))/min(meanmaxtominHFparticipantssort(i),meanmaxHFparticipantssort(i)))*100;
+    Rd1(i) = ((meanmaxtominLFparticipantssort(i)-meanmaxLFparticipantssort(i))/min(meanmaxtominLFparticipantssort(i),meanmaxLFparticipantssort(i)))*100;
+    Rd2(i) = ((meanmaxtominHFparticipantssort(i)-meanmaxHFparticipantssort(i))/min(meanmaxtominHFparticipantssort(i),meanmaxHFparticipantssort(i)))*100;
     Rd3(i) = ((meanmintomaxLFparticipantssort(i)-meanminLFparticipantssort(i))/min(meanminLFparticipantssort(i),meanmintomaxLFparticipantssort(i)))*100;
     Rd4(i) = ((meanmintomaxHFparticipantssort(i)-meanminHFparticipantssort(i))/min(meanminHFparticipantssort(i),meanmintomaxHFparticipantssort(i)))*100;
-    Rd1stab(i) = ((meanmaxstabLFparticipantssort(i)-meanmaxtominstabLFparticipantssort(i))/min(meanmaxtominstabLFparticipantssort(i),meanmaxstabLFparticipantssort(i)))*100;
-    Rd2stab(i) = ((meanmaxstabHFparticipantssort(i)-meanmaxtominstabHFparticipantssort(i))/min(meanmaxtominstabHFparticipantssort(i),meanmaxstabHFparticipantssort(i)))*100;
+    Rd1stab(i) = ((meanmaxtominstabLFparticipantssort(i)-meanmaxstabLFparticipantssort(i))/min(meanmaxtominstabLFparticipantssort(i),meanmaxstabLFparticipantssort(i)))*100;
+    Rd2stab(i) = ((meanmaxtominstabHFparticipantssort(i)-meanmaxstabHFparticipantssort(i))/min(meanmaxtominstabHFparticipantssort(i),meanmaxstabHFparticipantssort(i)))*100;
     Rd3stab(i) = ((meanmintomaxstabLFparticipantssort(i)-meanminstabLFparticipantssort(i))/min(meanminstabLFparticipantssort(i),meanmintomaxstabLFparticipantssort(i)))*100;
     Rd4stab(i) = ((meanmintomaxstabHFparticipantssort(i)-meanminstabHFparticipantssort(i))/min(meanminstabHFparticipantssort(i),meanmintomaxstabHFparticipantssort(i)))*100;
 end
@@ -1039,7 +1039,9 @@ ylabel('GF - Max weight normal [N]')
 xlim([0 axis])
 ylim([0 axis])
 title('Low friction')
-
+figure(2); grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
 
 %relative difference
 figure(2); hold on;
@@ -1058,7 +1060,7 @@ for i=1:nparticipants
 end
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
@@ -1076,7 +1078,10 @@ ylabel('GF - Max weight normal [N]')
 xlim([0 axis])
 ylim([0 axis])
 title('High friction')
-    
+figure(2); grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
+
 %relative difference 
 pos4 = [0.4 0.1 0.05 0.35];
 subplot('Position',pos4);
@@ -1093,7 +1098,7 @@ for i=1:nparticipants
 end
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
@@ -1113,7 +1118,9 @@ ylabel('GF - Max weight normal [N]')
 xlim([0 axis])
 ylim([0 axis])
 title('Low friction')
-
+figure(3); grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
 
 %relative difference
 figure(3); hold on;
@@ -1132,7 +1139,7 @@ for i=1:nparticipants
 end
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
@@ -1150,7 +1157,10 @@ ylabel('GF - Max weight normal [N]')
 xlim([0 axis])
 ylim([0 axis])
 title('High friction')
-    
+figure(3); grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
+
 %relative difference 
 pos4 = [0.4 0.1 0.05 0.35];
 subplot('Position',pos4);
@@ -1167,7 +1177,7 @@ for i=1:nparticipants
 end
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
@@ -1186,6 +1196,9 @@ ylabel('GF - Max weight catch [N]')
 xlim([0 axis])
 ylim([0 axis])
 title('Low friction')
+figure(4); grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
 
 %relative difference
 
@@ -1205,7 +1218,7 @@ end
 
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
@@ -1225,6 +1238,9 @@ ylabel('GF - Max weight catch [N]')
 xlim([0 axis])
 ylim([0 axis])
 title('High friction')
+figure(4); grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
 
 %relative difference
 
@@ -1243,7 +1259,7 @@ end
 
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
@@ -1262,6 +1278,9 @@ ylabel('GF - Max weight catch [N]')
 xlim([0 axis])
 ylim([0 axis])
 title('Low friction')
+figure(5); grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
 
 %relative difference
 
@@ -1281,7 +1300,7 @@ end
 
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
@@ -1301,6 +1320,9 @@ ylabel('GF - Max weight catch [N]')
 xlim([0 axis])
 ylim([0 axis])
 title('High friction')
+figure(5); grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
 
 %relative difference
 
@@ -1319,7 +1341,7 @@ end
 
 set(gca,'XTick',[])
 xlim([0 1])
-set(gca, 'YDir','reverse')
+set(gca, 'YDir')
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
