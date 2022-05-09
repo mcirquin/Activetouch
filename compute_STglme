@@ -1,0 +1,34 @@
+function [pvalue_vector,pvalue,index] = compute_STglme(names,catchdata,normaldata,nessais_catch,nessais_normal,tstop)
+conditions=["catch";"normal"];
+nparticipants = length(names);
+
+nessais_tot = nessais_catch+nessais_normal;
+subjects_vector  = repelem(names,nessais_tot,1);
+cond = repelem(conditions,[nessais_catch nessais_normal]);
+cond = repmat(cond,nparticipants,1);
+
+for i = 1:tstop
+    data=[];
+    for j=1:nparticipants
+         data = [data catchdata(i,1+nessais_catch*(j-1):nessais_catch+nessais_catch*(j-1))];
+         data = [data normaldata(i,1+nessais_normal*(j-1):nessais_normal+nessais_normal*(j-1))];
+    end
+
+    glme_table = table(subjects_vector, cond, data.');
+    glme_table.Properties.VariableNames = {'subjName','cond', 'data'};
+    glme = fitglme(glme_table,'data ~ cond + (1|subjName)');
+    pvalue_vector(i)=glme.Coefficients.pValue(2);
+end
+
+for i=1:tstop
+    if pvalue_vector(i) < 0.001
+        pvalue = pvalue_vector(i);
+        index = i;
+        break
+    else
+        pvalue = 0;
+        index = 0;
+    end 
+end
+
+end
