@@ -1064,6 +1064,7 @@ subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
     h2=plot(0.5,Rd1(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
@@ -1102,7 +1103,8 @@ pos4 = [0.4 0.1 0.05 0.35];
 subplot('Position',pos4);
 figure(2); hold on;
 for i=1:nparticipants
-    h2=plot(0.5, Rd2(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    h2=plot(0.5, Rd2(i), '.', 'MarkerSize', 10, 'color', colors{i});
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
         figure(2);hold on;
@@ -1145,6 +1147,7 @@ subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
     h2=plot(0.5, Rd1stab(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
         figure(3);hold on;
@@ -1184,6 +1187,7 @@ subplot('Position',pos4);
 figure(3); hold on;
 for i=1:nparticipants
     h2=plot(0.5, Rd2stab(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
         figure(3);hold on;
@@ -1229,6 +1233,7 @@ subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
     h2=plot(0.5, Rd3(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
         figure(4);hold on;
@@ -1268,6 +1273,7 @@ subplot('Position',pos4);
 figure(4); hold on;
 for i=1:nparticipants
     h2=plot(0.5, Rd4(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
         figure(4);hold on;
@@ -1309,6 +1315,7 @@ subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
     h2=plot(0.5, Rd3stab(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
         figure(5);hold on;
@@ -1348,6 +1355,7 @@ subplot('Position',pos4);
 figure(5); hold on;
 for i=1:nparticipants
     h2=plot(0.5, Rd4stab(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
         figure(5);hold on;
