@@ -15,7 +15,7 @@
 % output:
 %    imarray     array of pictures, dim = (m,n,npic)
 
-function alignedST = align_ST(matrixname,group,nparticipants,minimum,tsteps,npic)
+function [friction_pvalues,friction_time,friction_signDiff,weight_pvalues,weight_time,weight_signDiff] = align_ST(matrixname,group,nparticipants,minimum,tsteps,npic)
 
 %load the shiftmatrix
 s=load(matrixname);
@@ -24,6 +24,7 @@ shiftmatrix=s.shiftmatrix; %shiftmatrix is a (1,ntrials*nparticipants) matrix co
 %string vectors containing the names of participants in correct order 
 if group == 'YP'
     names=["AParache" ; "ARommel" ; "ASalden" ; "BDelhaye" ; "DDoumont" ; "FSchiltz" ; "GBrandsteert" ; "JDelforge"; "JDommisse"; "LColmant"; "MBronchart"; "MDausort"; "SLedoux" ; "SVandergooten" ; "VFischer"];
+    %names=["ASalden" ; "BDelhaye" ; "FSchiltz" ; "JDommisse"; "LColmant"; "SLedoux" ; "SVandergooten" ; "VFischer"];
 else
     names=["ADommisse" ; "AMarechal" ; "ATikke" ; "AWertelaers" ; "BJonnart" ; "CBedford" ; "CZwaenepoel" ;"ESchoonjans"; "ESpringel"; "LCirquin"; "MMaldague"; "MRenneson"; "PLefevre"];   
 end
@@ -450,8 +451,7 @@ for i=1:length(STnames)
         Rd_maxcatchHF(j,i) = ((subjmean_normmaxcatchHF(j,i) - subjmean_normminHF(j,i)) /min(subjmean_normmaxcatchHF(j,i),subjmean_normminHF(j,i)))*100;
     end
 end
-disp(subjmean_normLFcatchmin)
-disp(Rd_LFcatchmin)
+
 %% Computation of means and standard deviations of relative differences in strain norm 
 %friction catches
 meanRd_LFcatchmin = mean(Rd_LFcatchmin,2);
@@ -509,14 +509,87 @@ for i=1:length(Rd_LFcatchmin)
     ll_Rd_maxcatchHF(i) = meanRd_maxcatchHF(i) - stdRd_maxcatchHF(i);
     
 end
+
+%% Moment of significative difference between the curves (Mixed-effect model)
+%%GLME for friction catch trials
+friction_pvalues = [];
+friction_indexes = [];
+friction_signDiff = [];
+
+% LF catch vs HF normal under max weight
+[pval_LFcatchmax,friction_pvalue,friction_index] = compute_STglme(STnames.',stnorm_LFcatchmax,stnorm_maxHF,length(bl_LFcatchmax),length(bl_maxHF),npic-1)
+friction_pvalues(1) = friction_pvalue;
+friction_indexes(1) = friction_index;
+friction_signDiff(1) = meanRd_LFcatchmax(friction_index);
+
+% LF catch vs HF normal under min weight
+[pval_LFcatchmin,friction_pvalue,friction_index] = compute_STglme(STnames.',stnorm_LFcatchmin,stnorm_minHF,length(bl_LFcatchmin),length(bl_minHF),npic-1)
+friction_pvalues(2) = friction_pvalue;
+friction_indexes(2) = friction_index;
+friction_signDiff(2) = meanRd_LFcatchmin(friction_index);
+
+% HF catch vs LF normal under max weight
+[pval_HFcatchmax,friction_pvalue,friction_index] = compute_STglme(STnames.',stnorm_HFcatchmax,stnorm_maxLF,length(bl_HFcatchmax),length(bl_maxLF),npic-1)
+friction_pvalues(3) = friction_pvalue;
+friction_indexes(3) = friction_index;
+friction_signDiff(3) = meanRd_HFcatchmax(friction_index);
+
+% HF catch vs LF normal under min weight
+[pval_HFcatchmin,friction_pvalue,friction_index] = compute_STglme(STnames.',stnorm_HFcatchmin,stnorm_minLF,length(bl_HFcatchmin),length(bl_minLF),npic-1)
+friction_pvalues(4) = friction_pvalue;
+friction_indexes(4) = friction_index;
+friction_signDiff(4) = meanRd_HFcatchmin(friction_index);
+
+%%GLME for weight catch trials
+weight_pvalues = [];
+weight_indexes = [];
+weight_signDiff = [];
+
+% max catch vs min normal under low friction
+[pval_maxcatchLF,weight_pvalue,weight_index] = compute_STglme(STnames.',stnorm_maxcatchLF,stnorm_minLF,length(bl_maxcatchLF),length(bl_minLF),npic-1)
+weight_pvalues(1) = weight_pvalue;
+weight_indexes(1) = weight_index;
+weight_signDiff(1) = meanRd_maxcatchLF(weight_index);
+
+% max catch vs min normal under high friction
+[pval_maxcatchHF,weight_pvalue,weight_index] = compute_STglme(STnames.',stnorm_maxcatchHF,stnorm_minHF,length(bl_maxcatchHF),length(bl_minHF),npic-1)
+weight_pvalues(2) = weight_pvalue;
+weight_indexes(2) = weight_index;
+weight_signDiff(2) = meanRd_maxcatchHF(weight_index);
+
+% min catch vs max normal under low friction
+[pval_mincatchLF,weight_pvalue,weight_index] = compute_STglme(STnames.',stnorm_mincatchLF,stnorm_maxLF,length(bl_mincatchLF),length(bl_maxLF),npic-1)
+weight_pvalues(3) = weight_pvalue;
+weight_indexes(3) = weight_index;
+weight_signDiff(3) = meanRd_mincatchLF(weight_index);
+
+% min catch vs max normal under high friction
+[pval_mincatchHF,weight_pvalue,weight_index] = compute_STglme(STnames.',stnorm_mincatchHF,stnorm_maxHF,length(bl_mincatchHF),length(bl_maxHF),npic-1)
+weight_pvalues(4) = weight_pvalue;
+weight_indexes(4) = weight_index;
+weight_signDiff(4) = meanRd_mincatchHF(weight_index);
+
 %% Time conversion for x-axis of plots 
 
 timealigned=(minimum/conv_factor) * (3.8/npic) %time of alignement of the LF curves (3.8 stands for the 3.8seconds of recording, corresponding term = timestep)
 x=-timealigned:(3.8/npic):(-timealigned+2.515) %time steps for graphs
-size(x)
 
+%% Time conversion of significative moments
+for i=1:length(friction_pvalue)
+    if friction_indexes(i) ~= 0
+        friction_time(i) = x(friction_indexes(i));
+    else 
+        friction_time(i) = nan;
+    end
+     if weight_indexes(i) ~=0
+        weight_time(i) = x(weight_indexes(i));
+    else 
+        weight_time(i) = nan;
+    end
+end 
 
 %% Friction catch plots (2x2 plots with friction catches)
+%{
 figure(1);
 
 subplot(2,2,1)
@@ -573,8 +646,9 @@ ylabel('Normalized Strain Rate [-]');
 xlim([-timealigned 2]);
 legend('Low friction normal', 'High friction catch');
 
-                        
+%}                        
 %% Weight catch plots  (2x2 plots with weight catches)
+%{
 figure(2);
 
 subplot(2,2,1)
@@ -629,32 +703,40 @@ legend('', '')
 xlabel('Time [s]');
 ylabel('Normalized Strain Rate [-]');
 xlim([-timealigned 2]);
-legend('Maximal weight normal', 'Minimal weight catch');      
-        
+legend('Maximal weight normal', 'Minimal weight catch');             
+%}
 
 %% Low friction catch plots (2x2 plots with strain norm curves ans Rd strain curves) 
+pval_lim = 10^(-5); %lower limit for the pvalue plots 
+
 %Low friction catch  
 figure(3); 
-subplot(2,2,1)
+subplot(3,2,1)
 y1 = enmean_LFcatchmax(1:120).';
 y2 = enmean_maxHF(1:120).';
 plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
+figure(3);hold on;
+fill([x fliplr(x)], [ul_stnorm_LFcatchmax(1:120) fliplr(ll_stnorm_LFcatchmax(1:120))], 'r', 'FaceAlpha', 0.2,'LineStyle', "none")
+fill([x fliplr(x)], [ul_stnorm_maxHF(1:120) fliplr(ll_stnorm_maxHF(1:120))], 'b', 'FaceAlpha', 0.2,'LineStyle', "none")
 legend('', '')
 title('Maximal weight')
 ylabel('Normalized Strain Rate [-]');
 xlim([-timealigned 2]);
 legend('Low friction catch', 'High friction normal');
 
-subplot(2,2,2)
+subplot(3,2,2)
 y3 = enmean_LFcatchmin(1:120).';
 y4 = enmean_minHF(1:120).';
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
+figure(3);hold on;
+fill([x fliplr(x)], [ul_stnorm_LFcatchmin(1:120) fliplr(ll_stnorm_LFcatchmin(1:120))], 'r', 'FaceAlpha', 0.2,'LineStyle', "none")
+fill([x fliplr(x)], [ul_stnorm_minHF(1:120) fliplr(ll_stnorm_minHF(1:120))], 'b', 'FaceAlpha', 0.2,'LineStyle', "none")
 title('Minimal weight')
 ylabel('Normalized Strain Rate [-]');
 xlim([-timealigned 2]);
 legend('Low friction catch', 'High friction normal');
 
-subplot(2,2,3)
+subplot(3,2,3)
 y5 = meanRd_LFcatchmax(1:120).';
 plot(x,y5,'g','LineWidth', 1.5)
 figure(3);hold on;
@@ -664,7 +746,7 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta Strain (%)');
 xlim([-timealigned 2]);
 
-subplot(2,2,4)
+subplot(3,2,4)
 y6 = meanRd_LFcatchmin(1:120).';
 plot(x,y6,'g','LineWidth', 1.5)
 figure(3);hold on;
@@ -674,29 +756,59 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta Strain (%)');
 xlim([-timealigned 2]);
 
+subplot(3,2,5)
+semilogy(x,pval_LFcatchmax,'LineWidth',1.5)
+figure(3);hold on;
+if friction_indexes(1)~=0 
+    plot([x(friction_indexes(1)) x(friction_indexes(1))],[-100 100], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
+xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
+ylim([pval_lim 10^0]);
+
+subplot(3,2,6)
+semilogy(x,pval_LFcatchmin,'LineWidth',1.5)
+figure(3);hold on;
+if friction_indexes(2)~=0 
+    plot([x(friction_indexes(2)) x(friction_indexes(2))],[-100 100], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
+xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
+ylim([pval_lim 10^0]);
+
 %% High friction catch plots (2x2 plots with strain norm curves ans Rd strain curves) 
+pval_lim = 10^(-5);
+
 %High friction catch 
 figure(4); 
-subplot(2,2,1)
+subplot(3,2,1)
 y1 = enmean_maxLF(1:120).';
 y2 = enmean_HFcatchmax(1:120).';
 plot(x,y1,'r', x, y2, 'b--', 'LineWidth', 1.5)
+figure(4);hold on;
+fill([x fliplr(x)], [ul_stnorm_HFcatchmax(1:120) fliplr(ll_stnorm_HFcatchmax(1:120))], 'b', 'FaceAlpha', 0.2,'LineStyle', "none")
+fill([x fliplr(x)], [ul_stnorm_maxLF(1:120) fliplr(ll_stnorm_maxLF(1:120))], 'r', 'FaceAlpha', 0.2,'LineStyle', "none")
 legend('', '')
 title('Maximal weight')
 ylabel('Normalized Strain Rate [-]');
 xlim([-timealigned 2]);
 legend('Low friction normal', 'High friction catch');
 
-subplot(2,2,2)
+subplot(3,2,2)
 y3 = enmean_minLF(1:120).';
 y4 = enmean_HFcatchmin(1:120).';
 plot(x,y3,'r',x,y4,'b--','LineWidth', 1.5)
+figure(4);hold on;
+fill([x fliplr(x)], [ul_stnorm_HFcatchmin(1:120) fliplr(ll_stnorm_HFcatchmin(1:120))], 'b', 'FaceAlpha', 0.2,'LineStyle', "none")
+fill([x fliplr(x)], [ul_stnorm_minLF(1:120) fliplr(ll_stnorm_minLF(1:120))], 'r', 'FaceAlpha', 0.2,'LineStyle', "none")
 title('Minimal weight')
 ylabel('Normalized Strain Rate [-]');
 xlim([-timealigned 2]);
 legend('Low friction normal', 'High friction catch');
 
-subplot(2,2,3)
+subplot(3,2,3)
 y5 = meanRd_HFcatchmax(1:120).';
 plot(x,y5,'g','LineWidth', 1.5)
 figure(4);hold on;
@@ -706,7 +818,7 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta Strain (%)');
 xlim([-timealigned 2]);
 
-subplot(2,2,4)
+subplot(3,2,4)
 y6 = meanRd_HFcatchmin(1:120).';
 plot(x,y6,'g','LineWidth', 1.5)
 figure(4);hold on;
@@ -716,30 +828,58 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta Strain (%)');
 xlim([-timealigned 2]);
 
+subplot(3,2,5)
+semilogy(x,pval_HFcatchmax,'LineWidth',1.5)
+figure(4);hold on;
+if friction_indexes(3)~=0 
+    plot([x(friction_indexes(3)) x(friction_indexes(3))],[-100 100], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
+xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
+ylim([pval_lim 10^0]);
+
+subplot(3,2,6)
+semilogy(x,pval_HFcatchmin,'LineWidth',1.5)
+figure(4);hold on;
+if friction_indexes(4)~=0 
+    plot([x(friction_indexes(4)) x(friction_indexes(4))],[-100 100], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
+xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
+ylim([pval_lim 10^0]);
+
 
 %% Max weight catch plots (2x2 plots with strain norm curves ans Rd strain curves) 
 
 figure(5); 
-subplot(2,2,1)
+subplot(3,2,1)
 y1 = enmean_maxcatchLF(1:120).';
 y2 = enmean_minLF(1:120).';
 plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
+figure(5);hold on;
+fill([x fliplr(x)], [ul_stnorm_maxcatchLF(1:120) fliplr(ll_stnorm_maxcatchLF(1:120))], 'r', 'FaceAlpha', 0.2,'LineStyle', "none")
+fill([x fliplr(x)], [ul_stnorm_minLF(1:120) fliplr(ll_stnorm_minLF(1:120))], 'b', 'FaceAlpha', 0.2,'LineStyle', "none")
 legend('', '')
 title('Low Friction')
 ylabel('Normalized Strain Rate [-]');
 xlim([-timealigned 2]);
 legend('Maximal weight catch', 'Minimal weight normal');
 
-subplot(2,2,2)
+subplot(3,2,2)
 y3 = enmean_maxcatchHF(1:120).';
 y4 = enmean_minHF(1:120).';
 plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
+figure(5);hold on;
+fill([x fliplr(x)], [ul_stnorm_maxcatchHF(1:120) fliplr(ll_stnorm_maxcatchHF(1:120))], 'r', 'FaceAlpha', 0.2,'LineStyle', "none")
+fill([x fliplr(x)], [ul_stnorm_minHF(1:120) fliplr(ll_stnorm_minHF(1:120))], 'b', 'FaceAlpha', 0.2,'LineStyle', "none")
 title('High Friction')
 ylabel('Normalized Strain Rate [-]');
 xlim([-timealigned 2]);
 legend('Maximal weight catch', 'Minimal weight normal');
 
-subplot(2,2,3)
+subplot(3,2,3)
 y5 = meanRd_maxcatchLF(1:120).';
 plot(x,y5,'g','LineWidth', 1.5)
 figure(5);hold on;
@@ -749,7 +889,7 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta Strain (%)');
 xlim([-timealigned 2]);
 
-subplot(2,2,4)
+subplot(3,2,4)
 y6 = meanRd_maxcatchHF(1:120).';
 plot(x,y6,'g','LineWidth', 1.5)
 figure(5);hold on;
@@ -759,30 +899,58 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta Strain (%)');
 xlim([-timealigned 2]);
 
+subplot(3,2,5)
+semilogy(x,pval_maxcatchLF,'LineWidth',1.5)
+figure(5);hold on;
+if weight_indexes(1)~=0 
+    plot([x(weight_indexes(1)) x(weight_indexes(1))],[-100 100], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
+xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
+ylim([pval_lim 10^0]);
+
+subplot(3,2,6)
+semilogy(x,pval_maxcatchHF,'LineWidth',1.5)
+figure(5);hold on;
+if weight_indexes(2)~=0 
+    plot([x(weight_indexes(2)) x(weight_indexes(2))],[-100 100], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
+xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
+ylim([pval_lim 10^0]);
+
 
 %% Min weight catch plots (2x2 plots with strain norm curves ans Rd strain curves) 
 
 figure(6); 
-subplot(2,2,1)
+subplot(3,2,1)
 y1 = enmean_maxLF(1:120).';
 y2 = enmean_mincatchLF(1:120).';
 plot(x,y1,'r', x, y2, 'b--', 'LineWidth', 1.5)
+figure(6);hold on;
+fill([x fliplr(x)], [ul_stnorm_mincatchLF(1:120) fliplr(ll_stnorm_mincatchLF(1:120))], 'b', 'FaceAlpha', 0.2,'LineStyle', "none")
+fill([x fliplr(x)], [ul_stnorm_maxLF(1:120) fliplr(ll_stnorm_maxLF(1:120))], 'r', 'FaceAlpha', 0.2,'LineStyle', "none")
 legend('', '')
 title('Low Friction')
 ylabel('Normalized Strain Rate [-]');
 xlim([-timealigned 2]);
 legend('Maximal weight normal', 'Minimal weight catch');
 
-subplot(2,2,2)
+subplot(3,2,2)
 y3 = enmean_maxHF(1:120).';
 y4 = enmean_mincatchHF(1:120).';
 plot(x,y3,'r',x,y4,'b--','LineWidth', 1.5)
+figure(6);hold on;
+fill([x fliplr(x)], [ul_stnorm_maxHF(1:120) fliplr(ll_stnorm_maxHF(1:120))], 'r', 'FaceAlpha', 0.2,'LineStyle', "none")
+fill([x fliplr(x)], [ul_stnorm_mincatchHF(1:120) fliplr(ll_stnorm_mincatchHF(1:120))], 'b', 'FaceAlpha', 0.2,'LineStyle', "none")
 title('High Friction')
 ylabel('Normalized Strain Rate [-]');
 xlim([-timealigned 2]);
 legend('Maximal weight normal', 'Minimal weight catch');
 
-subplot(2,2,3)
+subplot(3,2,3)
 y5 = meanRd_mincatchLF(1:120).';
 plot(x,y5,'g','LineWidth', 1.5)
 figure(6);hold on;
@@ -792,7 +960,7 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta Strain (%)');
 xlim([-timealigned 2]);
 
-subplot(2,2,4)
+subplot(3,2,4)
 y6 = meanRd_mincatchHF(1:120).';
 plot(x,y6,'g','LineWidth', 1.5)
 figure(6);hold on;
@@ -801,5 +969,28 @@ figure(6);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta Strain (%)');
 xlim([-timealigned 2]);
+
+subplot(3,2,5)
+semilogy(x,pval_mincatchLF,'LineWidth',1.5)
+figure(6);hold on;
+if weight_indexes(3)~=0 
+    plot([x(weight_indexes(3)) x(weight_indexes(3))],[-100 100], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
+xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
+ylim([pval_lim 10^0]);
+
+subplot(3,2,6)
+semilogy(x,pval_mincatchHF,'LineWidth',1.5)
+figure(6);hold on;
+if weight_indexes(4)~=0 
+    plot([x(weight_indexes(4)) x(weight_indexes(4))],[-100 100], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
+end
+xlim([-timealigned 2]);
+xlabel('Time (s)');
+ylabel('p-value (-)');
+ylim([pval_lim 10^0]);
+
 
 end
