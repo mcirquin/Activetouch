@@ -1,4 +1,4 @@
-function [pvalue_vector,pvalue,index] = compute_STglme(names,catchdata,normaldata,nessais_catch,nessais_normal,tstop)
+function [pvalue_vector,pvalue,index,sign_Rd] = compute_STglme(names,catchdata,normaldata,meanRd,nessais_catch,nessais_normal,tstop)
 conditions=["catch";"normal"];
 nparticipants = length(names);
 
@@ -24,10 +24,12 @@ for i=1:tstop
     if pvalue_vector(i) < 0.001
         pvalue = pvalue_vector(i);
         index = i;
+        sign_Rd = meanRd(i);
         break
     else
         pvalue = 0;
         index = 0;
+        sign_Rd = 0;
     end 
 end
 
