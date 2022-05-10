@@ -386,16 +386,16 @@ end
 % Catch high friction vs adapt low friction under max weight
 for i=1:nparticipants
     for j=1:tsteps-1999
-        Rd_lfHFmaxcatch(j,i) = ((subj_meanlfmaxadaptLF2(j,i) - subj_meanlfmaxcatchHF2(j,i))/min(subj_meanlfmaxadaptLF2(j,i),subj_meanlfmaxcatchHF2(j,i)))*100;
-        Rd_gfHFmaxcatch(j,i) = ((subj_meangfmaxadaptLF2(j,i) - subj_meangfmaxcatchHF2(j,i))/min(subj_meangfmaxadaptLF2(j,i),subj_meangfmaxcatchHF2(j,i)))*100;
+        Rd_lfHFmaxcatch(j,i) = ((subj_meanlfmaxcatchHF2(j,i) - subj_meanlfmaxadaptLF2(j,i))/min(subj_meanlfmaxadaptLF2(j,i),subj_meanlfmaxcatchHF2(j,i)))*100;
+        Rd_gfHFmaxcatch(j,i) = ((subj_meangfmaxcatchHF2(j,i) - subj_meangfmaxadaptLF2(j,i))/min(subj_meangfmaxadaptLF2(j,i),subj_meangfmaxcatchHF2(j,i)))*100;
     end
 end
 
 % Catch high friction vs adapt low friction under min weight
 for i=1:nparticipants
     for j=1:tsteps-1999
-        Rd_lfHFmincatch(j,i) = ((subj_meanlfminadaptLF2(j,i) - subj_meanlfmincatchHF2(j,i)) /min(subj_meanlfminadaptLF2(j,i),subj_meanlfmincatchHF2(j,i)))*100;
-        Rd_gfHFmincatch(j,i) = ((subj_meangfminadaptLF2(j,i) - subj_meangfmincatchHF2(j,i)) /min(subj_meangfminadaptLF2(j,i),subj_meangfmincatchHF2(j,i)))*100;
+        Rd_lfHFmincatch(j,i) = ((subj_meanlfmincatchHF2(j,i) - subj_meanlfminadaptLF2(j,i)) /min(subj_meanlfminadaptLF2(j,i),subj_meanlfmincatchHF2(j,i)))*100;
+        Rd_gfHFmincatch(j,i) = ((subj_meangfmincatchHF2(j,i) - subj_meangfminadaptLF2(j,i)) /min(subj_meangfminadaptLF2(j,i),subj_meangfmincatchHF2(j,i)))*100;
     end
 end
 
