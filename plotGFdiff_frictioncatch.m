@@ -748,12 +748,12 @@ end
 
 for i=1:4
     if LF_indexes(i) ~=0
-        LF_time(i) = x(LF_indexes(i));
+        LF_time(i) = x(LF_indexes(i))+timealigned;
     else 
         LF_time(i) = nan;
     end
      if GF_indexes(i) ~=0
-        GF_time(i) = x(LF_indexes(i));
+        GF_time(i) = x(LF_indexes(i))+timealigned;
     else 
         GF_time(i) = nan;
     end
