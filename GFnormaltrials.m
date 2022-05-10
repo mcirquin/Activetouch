@@ -1,4 +1,4 @@
-function output = GFnormaltrials(maxGFmatrix, meanstabGFmatrix, nparticipants, shiftRd)
+function [Rdpeak, Rdstab] = GFnormaltrials(maxGFmatrix, meanstabGFmatrix, nparticipants, shiftRd)
 %Comparison of the GF values during peak & stabilization for normal (adaptation) trials 
 %maxGFmatrix : matrix with all the peak GF values for all the trials of
 %all the participants
