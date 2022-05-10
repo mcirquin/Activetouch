@@ -821,6 +821,9 @@ ylabel('LF (N)');
 ylim([0 LFaxislim]);
 xlim([-timealigned 2]);
 legend('Maximal weight catch', 'Minimal weight normal');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,2)
 y3 = meanlfmaxcatchHF1(1:500);
@@ -835,6 +838,9 @@ ylabel('LF (N)');
 ylim([0 LFaxislim]);
 xlim([-timealigned 2]);
 legend('Maximal weight catch', 'Minimal weight normal');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 
 subplot(3,2,3)
@@ -847,6 +853,9 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta LF (%)');
 ylim([-40 Rdlfaxislim]);
 xlim([-timealigned 2]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,4)
 y6 = Rd_meanlfHFmaxcatch(1:500);
@@ -858,29 +867,33 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta LF (%)');
 ylim([-40 Rdlfaxislim]);
 xlim([-timealigned 2]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,5)
 semilogy(x,pval_lfLFcatchmax1(1:500),'LineWidth',1.5)
 figure(1);hold on;
-if LF_indexes(1) ~= 0
-    plot([x(LF_indexes(1)) x(LF_indexes(1))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-end
+plot([-timealigned 2],[0.001 0.001], 'r--','LineWidth',1)
 xlim([-timealigned 2]);
 ylim([pval_lim 10^0]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
-
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,6)
 semilogy(x,pval_lfHFcatchmax1(1:500),'LineWidth',1.5)
 figure(1);hold on;
-if LF_indexes(2) ~= 0
-    plot([x(LF_indexes(2)) x(LF_indexes(2))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-end
+plot([-timealigned 2],[0.001 0.001], 'r--','LineWidth',1)
 xlim([-timealigned 2]);
 ylim([pval_lim 10^0]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 
 % Figures GF mean curves and relative difference in mean force 
@@ -902,6 +915,9 @@ ylabel('GF (N)');
 ylim([0 GFaxislim]);
 xlim([-timealigned 2]);
 legend('Maximal weight catch', 'Minimal weight normal');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,2)
 y3 = meangfmaxcatchHF1(1:500);
@@ -916,7 +932,9 @@ ylabel('GF (N)');
 ylim([0 GFaxislim]);
 xlim([-timealigned 2]);
 legend('Maximal weight catch', 'Minimal weight normal');
-
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,3)
 y5 = Rd_meangfLFmaxcatch(1:500);
@@ -929,6 +947,9 @@ figure(2);hold on;
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,4)
 y6 = Rd_meangfHFmaxcatch(1:500);
@@ -940,28 +961,33 @@ plot([-timealigned 2],[55 55], 'r','LineWidth',0.8)
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,5)
 semilogy(x,pval_gfLFcatchmax1(1:500),'LineWidth',1.5)
 figure(2);hold on;
-if GF_indexes(1) ~= 0
-    plot([x(GF_indexes(1)) x(GF_indexes(1))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-end
+plot([-timealigned 2],[0.001 0.001], 'r--','LineWidth',1)
 xlim([-timealigned 2]);
 ylim([pval_lim 10^0]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,6)
 semilogy(x,pval_gfHFcatchmax1(1:500),'LineWidth',1.5)
 figure(2);hold on;
-if GF_indexes(2) ~= 0
-    plot([x(GF_indexes(2)) x(GF_indexes(2))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-end
+plot([-timealigned 2],[0.001 0.001], 'r--','LineWidth',1)
 xlim([-timealigned 2]);
 ylim([pval_lim 10^0]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 
 %% Plots min weight catch
@@ -983,6 +1009,9 @@ ylabel('LF (N)');
 ylim([0 LFaxislim]);
 xlim([-timealigned 2]);
 legend('Maximal weight normal', 'Minimal weight catch');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,2)
 y9 = meanlfmaxadaptHF2(1:500);
@@ -997,7 +1026,9 @@ ylabel('LF (N)');
 ylim([0 LFaxislim]);
 xlim([-timealigned 2]);
 legend('Maximal weight normal', 'Minimal weight catch');
-
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,3)
 y11 = Rd_meanlfLFmincatch(1:500);
@@ -1009,6 +1040,9 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta LF (%)');
 ylim([-40 Rdlfaxislim]);
 xlim([-timealigned 2]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,4)
 y12 = Rd_meanlfHFmincatch(1:500);
@@ -1020,28 +1054,33 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta LF (%)');
 ylim([-40 Rdlfaxislim]);
 xlim([-timealigned 2]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,5)
 semilogy(x,pval_lfLFcatchmin2(1:500),'LineWidth',1.5)
 figure(3);hold on;
-if LF_indexes(3) ~= 0
-    plot([x(LF_indexes(3)) x(LF_indexes(3))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-end
+plot([-timealigned 2],[0.001 0.001], 'r--','LineWidth',1)
 xlim([-timealigned 2]);
 ylim([pval_lim 10^0]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,6)
 semilogy(x,pval_lfHFcatchmin2(1:500),'LineWidth',1.5)
 figure(3);hold on;
-if LF_indexes(4) ~= 0
-    plot([x(LF_indexes(4)) x(LF_indexes(4))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-end
+plot([-timealigned 2],[0.001 0.001], 'r--','LineWidth',1)
 xlabel('Time (s)');
 ylabel('p-value (-)');
 xlim([-timealigned 2]);
 ylim([pval_lim 10^0]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 % Figures GF mean curves and relative difference in mean force 
 
@@ -1060,6 +1099,9 @@ ylabel('GF (N)');
 ylim([0 GFaxislim]);
 xlim([-timealigned 2]);
 legend('Maximal weight normal', 'Minimal weight catch');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,2)
 y3 = meangfmaxadaptHF2(1:500);
@@ -1074,7 +1116,9 @@ ylabel('GF (N)');
 ylim([0 GFaxislim]);
 xlim([-timealigned 2]);
 legend('Maximal weight normal', 'Minimal weight catch');
-
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,3)
 y5 = Rd_meangfLFmincatch(1:500);
@@ -1086,6 +1130,9 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,4)
 y6 = Rd_meangfHFmincatch(1:500);
@@ -1097,28 +1144,33 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,5)
 semilogy(x,pval_gfLFcatchmin2(1:500),'LineWidth',1.5)
 figure(4);hold on;
-if GF_indexes(3) ~= 0
-    plot([x(GF_indexes(3)) x(GF_indexes(3))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-end
+plot([-timealigned 2],[0.001 0.001], 'r--','LineWidth',1)
 xlabel('Time (s)');
 ylabel('p-value (-)');
 xlim([-timealigned 2]);
 ylim([pval_lim 10^0]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,6)
 semilogy(x,pval_gfHFcatchmin2(1:500),'LineWidth',1.5)
 figure(4);hold on;
-if GF_indexes(4) ~= 0
-    plot([x(GF_indexes(4)) x(GF_indexes(4))],[0 1], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-end
+plot([-timealigned 2],[0.001 0.001], 'r--','LineWidth',1)
 xlabel('Time (s)');
 ylabel('p-value (-)');
 xlim([-timealigned 2]);
 ylim([pval_lim 10^0]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 end
         
