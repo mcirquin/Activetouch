@@ -1,0 +1,33 @@
+%Plots the typical GF and LF curve for a trial vs position
+
+name = 'Bloc14_BDelhaye_5.csv';
+tsteps = 760;
+
+x = at_import(name, 'freqFiltForces', 5);
+y = at_import(name, 'freqFiltPos', 5);
+GF = x.gf(2000:2500);
+LF = x.lf(2000:2500);
+pos = y.pos(2000:2500);
+time = x.time(2000:2500);
+%{
+a = zeros(1,1)
+for i = 1:tsteps
+    if LF >= 2
+        a(1,1) = i
+        break
+    end
+end
+disp(LF)
+
+%timealigned=zero(1)*0.005-0.005; %temps où courbe LF dépasse 2N
+%time=-timealigned:0.005:(-timealigned+2.495); %500 pas de temps, le 0 se trouve à l'alignement des courbes
+%}
+figure;
+subplot(2,1,1)
+plot(time,GF, 'r')
+hold on;
+plot(time,LF, 'b')
+xlim([10 12])
+
+subplot(2,1,2)
+plot(time,(pos(1)-pos))
