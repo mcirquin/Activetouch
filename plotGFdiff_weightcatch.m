@@ -926,7 +926,6 @@ fill([x fliplr(x)], [ul_gfLFmaxcatch(1:500) fliplr(ll_gfLFmaxcatch(1:500))], 'g'
 figure(2);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(2);hold on;
-plot([-timealigned 2],[55 55], 'r','LineWidth',0.8)
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
@@ -936,8 +935,6 @@ y6 = Rd_meangfHFmaxcatch(1:500);
 plot(x,y6,'g','LineWidth', 1.5)
 figure(2);hold on;
 fill([x fliplr(x)], [ul_gfHFmaxcatch(1:500) fliplr(ll_gfHFmaxcatch(1:500))], 'g', 'FaceAlpha', 0.2, 'LineStyle', "none")
-figure(2);hold on;
-plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(2);hold on;
 plot([-timealigned 2],[55 55], 'r','LineWidth',0.8)
 ylabel('\Delta GF (%)');
@@ -1086,8 +1083,6 @@ figure(4);hold on;
 fill([x fliplr(x)], [ul_gfLFmincatch(1:500) fliplr(ll_gfLFmincatch(1:500))], 'g', 'FaceAlpha', 0.2,'LineStyle', "none")
 figure(4);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
-figure(4);hold on;
-plot([-timealigned 2],[55 55], 'r','LineWidth',0.8)
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
@@ -1099,8 +1094,6 @@ figure(4);hold on;
 fill([x fliplr(x)], [ul_gfHFmincatch(1:500) fliplr(ll_gfHFmincatch(1:500))], 'g', 'FaceAlpha', 0.2, 'LineStyle', "none")
 figure(4);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
-figure(4);hold on;
-plot([-timealigned 2],[55 55], 'r','LineWidth',0.8)
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
