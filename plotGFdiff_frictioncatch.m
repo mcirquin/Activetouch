@@ -781,6 +781,9 @@ ylabel('LF (N)');
 ylim([0 LFaxislim]);
 xlim([-timealigned 2]);
 legend('Low friction catch', 'High friction normal');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,2)
 y3 = meanlfmincatchLF1(1:500);
@@ -795,6 +798,9 @@ ylabel('LF (N)');
 ylim([0 LFaxislim]);
 xlim([-timealigned 2]);
 legend('Low friction catch', 'High friction normal');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 
 subplot(3,2,3)
@@ -808,6 +814,9 @@ figure(1);hold on;
 ylabel('\Delta LF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,4)
 y6 = Rd_meanlfLFmincatch(1:500);
@@ -820,6 +829,9 @@ figure(1);hold on;
 ylabel('\Delta LF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,5)
 semilogy(x,pval_lfmaxcatchLF1,'LineWidth',1.5)
@@ -831,6 +843,9 @@ xlim([-timealigned 2]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
 ylim([pval_lim 10^0]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,6)
 semilogy(x,pval_lfmincatchLF1,'LineWidth',1.5)
@@ -842,6 +857,9 @@ xlim([-timealigned 2]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
 ylim([pval_lim 10^0]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 %% Plots low friction catch - GF
 % Figures GF mean curves and relative difference in mean force 
@@ -888,6 +906,9 @@ fill([x fliplr(x)], [ul_gfLFmaxcatch(1:500) fliplr(ll_gfLFmaxcatch(1:500))], 'g'
 figure(2);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(2);hold on;
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
@@ -900,6 +921,9 @@ fill([x fliplr(x)], [ul_gfLFmincatch(1:500) fliplr(ll_gfLFmincatch(1:500))], 'g'
 figure(2);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 figure(2);hold on;
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
@@ -907,9 +931,10 @@ xlim([-timealigned 2]);
 subplot(3,2,5)
 semilogy(x,pval_gfmaxcatchLF1,'LineWidth',1.5)
 figure(2);hold on;
-if GF_indexes(1)~=0 
-    plot([x(GF_indexes(1)) x(GF_indexes(1))],[-100 100], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-end
+plot([-timealigned 2],[0.001 0.001], 'r--','LineWidth',1)
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 xlim([-timealigned 2]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
@@ -918,11 +943,13 @@ ylim([pval_lim 10^0]);
 subplot(3,2,6)
 semilogy(x,pval_gfmincatchLF1,'LineWidth',1.5)
 figure(2);hold on;
-if GF_indexes(2)~=0 
-    plot([x(GF_indexes(2)) x(GF_indexes(2))],[-100 100], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-end
 xlim([-timealigned 2]);
 xlabel('Time (s)');
+figure(2); hold on;
+plot([-timealigned 2],[0.001 0.001], 'r--','LineWidth',1)
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 ylabel('p-value (-)');
 ylim([pval_lim 10^0]);
 
@@ -949,6 +976,9 @@ ylabel('LF (N)');
 ylim([0 LFaxislim]);
 xlim([-timealigned 2]);
 legend('Low friction normal', 'High friction catch');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,2)
 y3 = meanlfminadaptLF2(1:500);
@@ -963,6 +993,9 @@ ylabel('LF (N)');
 ylim([0 LFaxislim]);
 xlim([-timealigned 2]);
 legend('Low friction normal', 'High friction catch');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 
 subplot(3,2,3)
@@ -975,6 +1008,9 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta LF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,4)
 y6 = Rd_meanlfHFmincatch(1:500);
@@ -986,28 +1022,31 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta LF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,5)
 semilogy(x,pval_lfmaxcatchHF2,'LineWidth',1.5)
 figure(3);hold on;
-if LF_indexes(3)~=0 
-    plot([x(LF_indexes(3)) x(LF_indexes(3))],[-100 100], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-end
 xlim([-timealigned 2]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
 ylim([pval_lim 10^0]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,6)
 semilogy(x,pval_lfmincatchHF2,'LineWidth',1.5)
 figure(3);hold on;
-if LF_indexes(4)~=0 
-    plot([x(LF_indexes(4)) x(LF_indexes(4))],[-100 100], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-end
 xlim([-timealigned 2]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
 ylim([pval_lim 10^0]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 %% Plots high friction catch - GF
 % Figures GF mean curves and relative difference in mean force 
@@ -1030,6 +1069,9 @@ ylabel('GF (N)');
 ylim([0 GFaxislim]);
 xlim([-timealigned 2]);
 legend('Low friction normal', 'High friction catch');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,2)
 y3 = meangfminadaptLF2(1:500);
@@ -1044,6 +1086,9 @@ ylabel('GF (N)');
 ylim([0 GFaxislim]);
 xlim([-timealigned 2]);
 legend('Low friction normal', 'High friction catch');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 
 subplot(3,2,3)
@@ -1057,6 +1102,9 @@ figure(4);hold on;
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,4)
 y6 = Rd_meangfHFmincatch(1:500);
@@ -1068,27 +1116,32 @@ plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta GF (%)');
 ylim([-40 Rdaxislim]);
 xlim([-timealigned 2]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,5)
 semilogy(x,pval_gfmaxcatchHF2,'LineWidth',1.5)
 figure(4);hold on;
-if GF_indexes(3)~=0 
-    plot([x(GF_indexes(3)) x(GF_indexes(3))],[-100 100], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-end
+plot([-timealigned 2],[0.001 0.001], 'r--','LineWidth',1)
 xlim([-timealigned 2]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
 ylim([pval_lim 10^0]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 subplot(3,2,6)
 semilogy(x,pval_gfmincatchHF2,'LineWidth',1.5)
 figure(4);hold on;
-if GF_indexes(4)~=0 
-    plot([x(GF_indexes(4)) x(GF_indexes(4))],[-100 100], 'Color',[0.5 0.5 0.5],'LineWidth',1.2)
-end
+plot([-timealigned 2],[0.001 0.001], 'r--','LineWidth',1)
 xlim([-timealigned 2]);
 xlabel('Time (s)');
 ylabel('p-value (-)');
 ylim([pval_lim 10^0]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
 end
