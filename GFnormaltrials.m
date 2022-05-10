@@ -974,4 +974,8 @@ xlim([0 1])
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
+Rdpeak = [Rd1; Rd2; Rd3; Rd4];
+Rdstab = [Rd1stab; Rd2stab; Rd3stab; Rd4stab];
+
+
 end
