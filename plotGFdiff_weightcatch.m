@@ -389,8 +389,8 @@ end
 % Catch min weight vs adapt max weight under LF
 for i=1:nparticipants
     for j=1:tsteps-1999
-        Rd_lfmincatchLF(j,i) = ((subj_meanlfmaxadaptLF2(j,i) - subj_meanlfmincatchLF2(j,i)) /min(subj_meanlfmincatchLF2(j,i),subj_meanlfmaxadaptLF2(j,i)))*100;
-        Rd_gfmincatchLF(j,i) = ((subj_meangfmaxadaptLF2(j,i) - subj_meangfmincatchLF2(j,i)) /min(subj_meangfmincatchLF2(j,i),subj_meangfmaxadaptLF2(j,i)))*100;
+        Rd_lfmincatchLF(j,i) = ((subj_meanlfmincatchLF2(j,i) - subj_meanlfmaxadaptLF2(j,i)) /min(subj_meanlfmincatchLF2(j,i),subj_meanlfmaxadaptLF2(j,i)))*100;
+        Rd_gfmincatchLF(j,i) = ((subj_meangfmincatchLF2(j,i) - subj_meangfmaxadaptLF2(j,i)) /min(subj_meangfmincatchLF2(j,i),subj_meangfmaxadaptLF2(j,i)))*100;
     end
 end
 
@@ -398,8 +398,8 @@ end
 % Catch min weight vs adapt max weight under HF
 for i=1:nparticipants
     for j=1:tsteps-1999
-        Rd_lfmincatchHF(j,i) = ((subj_meanlfmaxadaptHF2(j,i) - subj_meanlfmincatchHF2(j,i)) /min(subj_meanlfmincatchHF2(j,i),subj_meanlfmaxadaptHF2(j,i)))*100;
-        Rd_gfmincatchHF(j,i) = ((subj_meangfmaxadaptHF2(j,i) - subj_meangfmincatchHF2(j,i)) /min(subj_meangfmincatchHF2(j,i),subj_meangfmaxadaptHF2(j,i)))*100;
+        Rd_lfmincatchHF(j,i) = ((subj_meanlfmincatchHF2(j,i) - subj_meanlfmaxadaptHF2(j,i)) /min(subj_meanlfmincatchHF2(j,i),subj_meanlfmaxadaptHF2(j,i)))*100;
+        Rd_gfmincatchHF(j,i) = ((subj_meangfmincatchHF2(j,i) - subj_meangfmaxadaptHF2(j,i)) /min(subj_meangfmincatchHF2(j,i),subj_meangfmaxadaptHF2(j,i)))*100;
     end
 end
 
