@@ -558,7 +558,7 @@ for i = 1:500
     pval_gfmaxcatchLF1(i)=glme_gfmaxcatchLF1.Coefficients.pValue(2);
 end
 
-for i=minimum:500
+for i=1:500
     if pval_lfmaxcatchLF1(i) < 0.001
         LF_pvalues(1) = pval_lfmaxcatchLF1(i);
         LF_indexes(1) = i;
@@ -571,7 +571,7 @@ for i=minimum:500
     end 
 end
 
-for i=minimum:500
+for i=1:500
     if pval_gfmaxcatchLF1(i) < 0.001
         GF_pvalues(1) = pval_gfmaxcatchLF1(i);
         GF_indexes(1) = i;
@@ -613,7 +613,7 @@ for i = 1:500
     
 end
 
-for i=minimum:500
+for i=1:500
     if pval_lfmincatchLF1(i) < 0.001
         LF_pvalues(2) = pval_lfmincatchLF1(i);
         LF_indexes(2) = i;
@@ -626,7 +626,7 @@ for i=minimum:500
     end 
 end
 
-for i=minimum:500
+for i=1:500
     if pval_gfmincatchLF1(i) < 0.001
         GF_pvalues(2) = pval_gfmincatchLF1(i);
         GF_indexes(2) = i;
@@ -667,7 +667,7 @@ for i = 1:500
     pval_gfmaxcatchHF2(i)=glme_gfmaxcatchHF2.Coefficients.pValue(2);
 end
 
-for i=minimum:500
+for i=1:500
     if pval_lfmaxcatchHF2(i) < 0.001
         LF_pvalues(3) = pval_lfmaxcatchHF2(i);
         LF_indexes(3) = i;
@@ -680,7 +680,7 @@ for i=minimum:500
     end 
 end
 
-for i=minimum:500
+for i=1:500
     if pval_gfmaxcatchHF2(i) < 0.001
         GF_pvalues(3) = pval_gfmaxcatchHF2(i);
         GF_indexes(3) = i;
@@ -721,7 +721,7 @@ for i = 1:500
     pval_gfmincatchHF2(i)=glme_gfmincatchHF2.Coefficients.pValue(2);
 end
 
-for i=minimum:500
+for i=1:500
     if pval_lfmincatchHF2(i) < 0.001
         LF_pvalues(4) = pval_lfmincatchHF2(i);
         LF_indexes(4) = i;
@@ -733,7 +733,7 @@ for i=minimum:500
         LF_signDiff(4) = 0;
     end 
 end
-for i=minimum:500
+for i=1:500
     if pval_gfmincatchHF2(i) < 0.001
         GF_pvalues(4) = pval_gfmincatchHF2(i);
         GF_indexes(4) = i;
