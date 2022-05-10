@@ -694,12 +694,10 @@ end
 %x=10:0.005:12.495
 timealigned=minimum*0.005-0.005; %temps où toutes les courbes sont alignées
 x=-timealigned:0.005:(-timealigned+2.495); %500 pas de temps, le 0 se trouve à l'alignement des courbes
-
 % T-tests for LF on means per subject 
 LF_pvalues = [];
 LF_indexes = [];
 LF_signDiff = [];
-
 %catch max weight vs adaptation min weight LF
 [h1,p1] = ttest(subj_meanlfmaxcatchLF1.',subj_meanlfminadaptLF1.');%transposée des matrices pour faire le T-test dans le bon sens (pour chaque pas de temps)
 for i = minimum:(tsteps-1999)
@@ -710,7 +708,6 @@ for i = minimum:(tsteps-1999)
         break
     end 
 end
-
 %catch max weight vs adaptation min weight HF
 [h2,p2] = ttest(subj_meanlfmaxcatchHF1.',subj_meanlfminadaptHF1.');
 for i = minimum:(tsteps-1999)
@@ -721,8 +718,6 @@ for i = minimum:(tsteps-1999)
         break
     end 
 end
-
-
 %catch min weight vs adaptation max weight LF
 [h3,p3] = ttest(subj_meanlfmincatchLF2.',subj_meanlfmaxadaptLF2.');
 for i = minimum:(tsteps-1999)
@@ -733,7 +728,6 @@ for i = minimum:(tsteps-1999)
         break
     end 
 end
-
 %catch min weight vs adaptation max weight HF
 [h4,p4] = ttest(subj_meanlfmincatchHF2.',subj_meanlfmaxadaptHF2.');
 for i = minimum:(tsteps-1999)
@@ -744,13 +738,10 @@ for i = minimum:(tsteps-1999)
         break
     end 
 end
-
-
 % T-tests for GF on means per subject 
 GF_pvalues = [];
 GF_indexes = [];
 GF_signDiff = [];
-
 %catch max weight vs adaptation min weight LF
 [h5,p5] = ttest(subj_meangfmaxcatchLF1.',subj_meangfminadaptLF1.');%transposée des matrices pour faire le T-test dans le bon sens (pour chaque pas de temps)
 for i = minimum:(tsteps-1999)
@@ -761,7 +752,6 @@ for i = minimum:(tsteps-1999)
         break
     end 
 end
-
 %catch max weight vs adaptation min weight HF
 [h6,p6] = ttest(subj_meangfmaxcatchHF1.',subj_meangfminadaptHF1.');
 for i = minimum:(tsteps-1999)
@@ -772,8 +762,6 @@ for i = minimum:(tsteps-1999)
         break
     end 
 end
-
-
 %catch min weight vs adaptation max weight LF
 [h7,p7] = ttest(subj_meangfmincatchLF2.',subj_meangfmaxadaptLF2.');
 for i = minimum:(tsteps-1999)
@@ -784,7 +772,6 @@ for i = minimum:(tsteps-1999)
         break
     end 
 end
-
 %catch min weight vs adaptation max weight HF
 [h8,p8] = ttest(subj_meangfmincatchHF2.',subj_meangfmaxadaptHF2.');
 for i = minimum:(tsteps-1999)
@@ -795,7 +782,6 @@ for i = minimum:(tsteps-1999)
         break
     end 
 end
-
 LF_time = x(LF_indexes);
 GF_time = x(GF_indexes);
 %}
@@ -1172,6 +1158,51 @@ grid on
 ax = gca;
 ax.GridAlpha = 0.07;
 
-end
-        
+%% Plot relative differences in parallel 
+figure(5)
+subplot(1,2,1)
+y1 = Rd_meangfLFmaxcatch(1:500);
+y2 = Rd_meangfLFmincatch(1:500);
+plot(x,y1,'Color',[0.4660 0.6740 0.1880],'LineWidth', 1.5);
+plot(x,y2,'Color',[0.3010 0.7450 0.9330],'LineWidth', 1.5);
+figure(5);hold on;
+fill([x fliplr(x)], [ul_gfLFmaxcatch(1:500) fliplr(ll_gfLFmaxcatch(1:500))],'Color',[0.4660 0.6740 0.1880], 'FaceAlpha', 0.2,'LineStyle', "none")
+figure(5);hold on;
+fill([x fliplr(x)], [ul_gfLFmincatch(1:500) fliplr(ll_gfLFmincatch(1:500))],'Color',[0.3010 0.7450 0.9330], 'FaceAlpha', 0.2,'LineStyle', "none")
+figure(5);hold on;
+plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
+ylabel('\Delta GF (%)');
+ylim([-40 Rdaxislim]);
+xlim([-timealigned 2]);
+legend('', '')
+title('Low Friction')
+xlabel('Time (s)');
+legend('Maximal weight catch', 'Minimal weight catch');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
 
+subplot(1,2,2)
+y3 = Rd_meangfHFmaxcatch(1:500);
+y4 = Rd_meangfHFmincatch(1:500);
+plot(x,y3,'Color',[0.4660 0.6740 0.1880],'LineWidth', 1.5);
+plot(x,y4,'Color',[0.3010 0.7450 0.9330],'LineWidth', 1.5);
+figure(5);hold on;
+fill([x fliplr(x)], [ul_gfHFmaxcatch(1:500) fliplr(ll_gfHFmaxcatch(1:500))],'Color',[0.4660 0.6740 0.1880], 'FaceAlpha', 0.2, 'LineStyle', "none")
+figure(5);hold on;
+fill([x fliplr(x)], [ul_gfHFmincatch(1:500) fliplr(ll_gfHFmincatch(1:500))], 'Color',[0.3010 0.7450 0.9330], 'FaceAlpha', 0.2, 'LineStyle', "none")
+figure(5);hold on;
+plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
+ylabel('\Delta GF (%)');
+ylim([-40 Rdaxislim]);
+xlim([-timealigned 2]);
+legend('', '')
+title('High Friction')
+xlabel('Time (s)');
+legend('Maximal weight catch', 'Minimal weight catch');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
+
+
+end
