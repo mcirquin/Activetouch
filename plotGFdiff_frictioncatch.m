@@ -1144,4 +1144,51 @@ grid on
 ax = gca;
 ax.GridAlpha = 0.07;
 
+%% Plot relative differences in parallel 
+figure(5)
+subplot(1,2,1)
+y1 = Rd_meangfLFmaxcatch(1:500);
+y2 = Rd_meangfHFmaxcatch(1:500);
+plot(x,y1,'Color',[0.4660 0.6740 0.1880],'LineWidth', 1.5);
+plot(x,y2,'Color',[0.3010 0.7450 0.9330],'LineWidth', 1.5);
+figure(5);hold on;
+fill([x fliplr(x)], [ul_gfLFmaxcatch(1:500) fliplr(ll_gfLFmaxcatch(1:500))],'Color',[0.4660 0.6740 0.1880], 'FaceAlpha', 0.2,'LineStyle', "none")
+figure(5);hold on;
+fill([x fliplr(x)], [ul_gfHFmaxcatch(1:500) fliplr(ll_gfHFmaxcatch(1:500))],'Color',[0.3010 0.7450 0.9330], 'FaceAlpha', 0.2,'LineStyle', "none")
+figure(5);hold on;
+plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8);
+ylabel('\Delta GF (%)');
+ylim([-40 Rdaxislim]);
+xlim([-timealigned 2]);
+legend('', '')
+title('Maximal weight')
+xlabel('Time (s)');
+legend('Low friction catch', 'High friction catch');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
+
+subplot(1,2,2)
+y3 = Rd_meangfLFmincatch(1:500);
+y4 = Rd_meangfHFmincatch(1:500);
+plot(x,y3,'Color',[0.4660 0.6740 0.1880],'LineWidth', 1.5);
+plot(x,y4,'Color',[0.3010 0.7450 0.9330],'LineWidth', 1.5);
+figure(5);hold on;
+fill([x fliplr(x)], [ul_gfLFmincatch(1:500) fliplr(ll_gfLFmincatch(1:500))],'Color',[0.4660 0.6740 0.1880], 'FaceAlpha', 0.2, 'LineStyle', "none")
+figure(5);hold on;
+fill([x fliplr(x)], [ul_gfHFmincatch(1:500) fliplr(ll_gfHFmincatch(1:500))], 'Color',[0.3010 0.7450 0.9330], 'FaceAlpha', 0.2, 'LineStyle', "none")
+figure(5);hold on;
+plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
+ylabel('\Delta GF (%)');
+ylim([-40 Rdaxislim]);
+xlim([-timealigned 2]);
+legend('', '')
+title('Minimal weight')
+xlabel('Time (s)');
+legend('Low friction catch', 'High friction catch');
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;
+
+
 end
