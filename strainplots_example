@@ -1,0 +1,74 @@
+clear; close all; clc
+
+addpath(genpath('include'))
+
+fn=dir('mat/*_CA_manual.mat');
+
+fn_manual={fn(:).name}';
+fn=cellfun(@(x) x(1:end-14),fn_manual,'uni',0);
+
+nsubj=length(fn);
+
+sj=4;
+bl=4;
+tr=4;
+%%
+% images
+fnim=fullfile('vids',fn{sj},...
+    sprintf('cam_Bloc%d_%s_%03d_014_100_part2.mp4',...
+    bl,fn{sj},tr));
+im=readvid(fnim,180,0,2);
+
+% CA (alternatively use load(fnca) to load ALL trials)
+fnca=fullfile('mat',[fn{sj} 'CA.mat']);
+mca=matfile(fnca);
+caxy=mca.caxy(bl,tr); caxy=caxy{1};
+
+% OF (alternatively use load(fnof) to load ALL trials)
+fnof=fullfile('mat',[fn{sj} 'OF.mat']);
+mof=matfile(fnof);
+flxy=mof.flxy(bl,tr); flxy=flxy{1}; % fingerprint
+flref=mof.flref(bl,tr); flref=flref{1}; % checkerboard references
+
+% ST (alternatively use load(fnst) to load ALL trials)
+fnst=fullfile('mat',[fn{sj} 'ST.mat']);
+disp(fn{sj})
+mst=matfile(fnst);
+st=mst.st(bl,tr); st=st{1};
+
+%% show loaded data
+%player(im,'points',flxy,'morepoints',flref,'contour',caxy,'strain',st(:,[1 2 5],:))
+
+%% show detailled strain grid 
+%strain_show(st)
+
+minimum = 31; %/!\ à changer individuellement suivant le min du participant!!
+conv_factor = 760/179;
+min_conversion = minimum/conv_factor;
+min_conversion = round(min_conversion)+1;
+
+npic = 120;
+skip = 7; %pour pas de temps de 150ms 
+nprints=15;
+figure(2);
+j=0;
+for i = (min_conversion - skip) : skip : 10*skip
+    
+    figure(2);hold on;
+    plot_strain(st(:,:,i),1,'offset',[j 0])
+    figure(2);hold on;
+    plot_strain(st(:,:,i),2,'offset',[j -700])
+    figure(2);hold on;
+    plot_strain(st(:,:,i),3,'offset',[j -1400])
+    j=j+1250;
+end
+axis equal;
+
+
+
+
+
+%% compute norm and norm mean
+figure(2)
+en=strain_norm(st(:,4:6,:)*50); % factor 50 is frame rate
+en_mean=squeeze(nansum(en.*st(:,3,:),1)./nansum(st(:,3,:),1));
