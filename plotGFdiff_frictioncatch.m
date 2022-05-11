@@ -796,7 +796,7 @@ for i=1:500
     if pval_lfmincatchHF2(i) < 0.001
         LF_pvalues(4) = pval_lfmincatchHF2(i);
         LF_indexes(4) = i;
-        LF_signDiff(4) = ((meanlfminadaptLF2(i) - meanlfmincatchHF2(i))/min(meanlfminadaptLF2(i), meanlfmincatchHF2(i)))*100;
+        LF_signDiff(4) = ((meanlfmincatchHF2(i) - meanlfminadaptLF2(i))/min(meanlfminadaptLF2(i), meanlfmincatchHF2(i)))*100;
         break
     else
         LF_pvalues(4) = 0;
@@ -808,7 +808,7 @@ for i=1:500
     if pval_gfmincatchHF2(i) < 0.001
         GF_pvalues(4) = pval_gfmincatchHF2(i);
         GF_indexes(4) = i;
-        GF_signDiff(4) = ((meangfminadaptLF2(i) - meangfmincatchHF2(i))/min(meangfminadaptLF2(i), meangfmincatchHF2(i)))*100;
+        GF_signDiff(4) = ((meangfmincatchHF2(i) - meangfminadaptLF2(i))/min(meangfminadaptLF2(i), meangfmincatchHF2(i)))*100;
         break
     else
         GF_pvalues(4) = 0;
@@ -829,6 +829,7 @@ for i=1:4
         GF_time(i) = nan;
     end
 end       
+
 
 %% Plots low friction catch - LF
 % Figures GF mean curves and relative difference in mean force 
