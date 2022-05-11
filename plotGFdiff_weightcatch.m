@@ -1253,21 +1253,23 @@ ax.GridAlpha = 0.07;
 
 %% Plot relative differences in parallel 
 figure(5)
-c1 = [0.4660 0.6740 0.1880];
-c2= [0.3010 0.7450 0.9330];
-
-subplot(1,2,1)
+subplot(2,1,1)
 y1 = Rd_meangfLFmaxcatch(1:500);
 y2 = Rd_meangfLFmincatch(1:500);
-plot(x,y1,'Color',c1,x,y2,'Color',c2,'LineWidth', 1.5);
+size(y1)
+size(y2)
+size(x)
+plot(x,y1,'Color',[0.4660 0.6740 0.1880],'LineWidth', 1.5);
 figure(5);hold on;
-fill([x fliplr(x)], [ul_gfLFmaxcatch(1:500) fliplr(ll_gfLFmaxcatch(1:500))],'FaceColor',c1, 'FaceAlpha', 0.2,'LineStyle', "none")
+plot(x,y2,'Color',[0.3010 0.7450 0.9330],'LineWidth', 1.5);
 figure(5);hold on;
-fill([x fliplr(x)], [ul_gfLFmincatch(1:500) fliplr(ll_gfLFmincatch(1:500))],'FaceColor',c2, 'FaceAlpha', 0.2,'LineStyle', "none")
+fill([x fliplr(x)], [ul_gfLFmaxcatch(1:500) fliplr(ll_gfLFmaxcatch(1:500))],[0.4660 0.6740 0.1880], 'FaceAlpha', 0.2,'LineStyle', "none")
+figure(5);hold on;
+fill([x fliplr(x)], [ul_gfLFmincatch(1:500) fliplr(ll_gfLFmincatch(1:500))],[0.3010 0.7450 0.9330], 'FaceAlpha', 0.2,'LineStyle', "none")
 figure(5);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta GF (%)');
-ylim([-60 60]);
+ylim([-60 70]);
 xlim([-timealigned 2]);
 legend('', '')
 title('Low Friction')
@@ -1277,18 +1279,20 @@ grid on
 ax = gca;
 ax.GridAlpha = 0.07;
 
-subplot(1,2,2)
+subplot(2,1,2)
 y3 = Rd_meangfHFmaxcatch(1:500);
 y4 = Rd_meangfHFmincatch(1:500);
-plot(x,y3,'Color',c1,x,y4,'Color',c2,'LineWidth', 1.5);
+plot(x,y3,'Color',[0.4660 0.6740 0.1880],'LineWidth', 1.5);
 figure(5);hold on;
-fill([x fliplr(x)], [ul_gfHFmaxcatch(1:500) fliplr(ll_gfHFmaxcatch(1:500))],'FaceColor',c1, 'FaceAlpha', 0.2, 'LineStyle', "none")
+plot(x,y4,'Color',[0.3010 0.7450 0.9330],'LineWidth', 1.5);
 figure(5);hold on;
-fill([x fliplr(x)], [ul_gfHFmincatch(1:500) fliplr(ll_gfHFmincatch(1:500))], 'FaceColor',c2, 'FaceAlpha', 0.2, 'LineStyle', "none")
+fill([x fliplr(x)], [ul_gfHFmaxcatch(1:500) fliplr(ll_gfHFmaxcatch(1:500))],[0.4660 0.6740 0.1880], 'FaceAlpha', 0.2, 'LineStyle', "none")
+figure(5);hold on;
+fill([x fliplr(x)], [ul_gfHFmincatch(1:500) fliplr(ll_gfHFmincatch(1:500))],[0.3010 0.7450 0.9330], 'FaceAlpha', 0.2, 'LineStyle', "none")
 figure(5);hold on;
 plot([-timealigned 2],[0 0], 'Color',[0.5 0.5 0.5],'LineWidth',0.8)
 ylabel('\Delta GF (%)');
-ylim([-60 60]);
+ylim([-60 70]);
 xlim([-timealigned 2]);
 legend('', '')
 title('High Friction')
