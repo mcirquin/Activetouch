@@ -320,7 +320,7 @@ stdgfminadaptLF2 = zeros(1,tsteps-1999);
 meangfmaxcatchLF1=mean(gfmaxcatchLF1,2);
 meangfmaxadaptHF1=mean(gfmaxadaptHF1,2);
 stdgfmaxcatchLF1=std(gfmaxcatchLF1, 0,2);
-stdgfmaxadaptHF1=std(lfmaxadaptHF1,0,2);
+stdgfmaxadaptHF1=std(gfmaxadaptHF1,0,2);
 
 meangfmaxcatchHF2=mean(gfmaxcatchHF2,2);
 meangfmaxadaptLF2=mean(gfmaxadaptLF2,2);
