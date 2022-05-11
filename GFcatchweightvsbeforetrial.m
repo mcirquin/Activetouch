@@ -1142,7 +1142,7 @@ pos1 = [0.1 0.6 0.25 0.35];
 subplot('Position',pos1);
 hold on;
 for i=1:nparticipants
-    h2=plot(meanminLFparticipants(i),meanmintomaxLFparticipants(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    h2=plot(meanminLFparticipantssort(i),meanmintomaxLFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
@@ -1184,7 +1184,7 @@ pos3 = [0.1 0.1 0.25 0.35];
 subplot('Position',pos3); hold on;
 figure(4); hold on;
 for i=1:nparticipants
-    h2=plot(meanminHFparticipants(i),meanmintomaxHFparticipants(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    h2=plot(meanminHFparticipantssort(i),meanmintomaxHFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
@@ -1224,7 +1224,7 @@ pos1 = [0.1 0.6 0.25 0.35];
 subplot('Position',pos1);
 hold on;
 for i=1:nparticipants
-    h2=plot(meanminstabLFparticipants(i),meanmintomaxstabLFparticipants(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    h2=plot(meanminstabLFparticipantssort(i),meanmintomaxstabLFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
@@ -1266,7 +1266,7 @@ pos3 = [0.1 0.1 0.25 0.35];
 subplot('Position',pos3); hold on;
 figure(5); hold on;
 for i=1:nparticipants
-    h2=plot(meanminstabHFparticipants(i),meanmintomaxstabHFparticipants(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    h2=plot(meanminstabHFparticipantssort(i),meanmintomaxstabHFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
