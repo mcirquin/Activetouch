@@ -5,7 +5,6 @@
 %
 % inputs:
 %    matrixname      string name of the shiftmatrix  (MAT-file): 'shiftmatrixYP' or 'shiftmatrixEP' 
-%    group           'YP' or 'EP' depending if young or elderly subjects
 %    nparticipants   number of participants (15 for YP, 13 for EP)
 %    minimum         index of earliest LF curve reaching 2N (obtained by running the script "at_importalignedfolders"
 %    tsteps          number of total time steps for force data (default =
@@ -15,18 +14,21 @@
 % output:
 %    imarray     array of pictures, dim = (m,n,npic)
 
-function [friction_pvalues,friction_time,friction_signDiff,weight_pvalues,weight_time,weight_signDiff] = align_ST(matrixname,group,nparticipants,minimum,tsteps,npic)
+function [friction_pvalues,friction_time,friction_signDiff,weight_pvalues,weight_time,weight_signDiff] = align_ST(matrixname,nparticipants,minimum,tsteps,npic)
 
 %load the shiftmatrix
 s=load(matrixname);
 shiftmatrix=s.shiftmatrix; %shiftmatrix is a (1,ntrials*nparticipants) matrix containing the number of indexes to shift to align the LF on 2N
 
 %string vectors containing the names of participants in correct order 
-if group == 'YP'
+if nparticipants == 15
     names=["AParache" ; "ARommel" ; "ASalden" ; "BDelhaye" ; "DDoumont" ; "FSchiltz" ; "GBrandsteert" ; "JDelforge"; "JDommisse"; "LColmant"; "MBronchart"; "MDausort"; "SLedoux" ; "SVandergooten" ; "VFischer"];
-    %names=["ASalden" ; "BDelhaye" ; "FSchiltz" ; "JDommisse"; "LColmant"; "SLedoux" ; "SVandergooten" ; "VFischer"];
-else
+elseif nparticipants == 10
+    names=["ARommel" ; "ASalden" ; "BDelhaye" ; "FSchiltz" ; "GBrandsteert" ; "JDommisse"; "LColmant"; "SLedoux" ; "SVandergooten" ; "VFischer"];
+elseif nparticipants == 13
     names=["ADommisse" ; "AMarechal" ; "ATikke" ; "AWertelaers" ; "BJonnart" ; "CBedford" ; "CZwaenepoel" ;"ESchoonjans"; "ESpringel"; "LCirquin"; "MMaldague"; "MRenneson"; "PLefevre"];   
+else
+    names=["ADommisse" ; "AMarechal" ; "ATikke" ; "AWertelaers" ; "BJonnart" ; "CZwaenepoel" ;"ESchoonjans"; "ESpringel"; "LCirquin"; "MMaldague"; "MRenneson"; "PLefevre"];
 end
 
 %Determine the participants for which a strain matrix (ST) exists and
@@ -306,81 +308,7 @@ for i = 1:length(STnames)
     end
 end
 
-%% Compute means and standard deviations of the norms + upper and lower variance limits of strain norms
-%friction catches
-enmean_LFcatchmin = mean(stnorm_LFcatchmin,2,'omitnan');
-enmean_LFcatchmax = mean(stnorm_LFcatchmax,2,'omitnan');
-enmean_HFcatchmin = mean(stnorm_HFcatchmin,2,'omitnan');
-enmean_HFcatchmax = mean(stnorm_HFcatchmax,2,'omitnan');
 
-enstd_LFcatchmin = std(stnorm_LFcatchmin,0,2,'omitnan');
-enstd_LFcatchmax = std(stnorm_LFcatchmax,0,2,'omitnan');
-enstd_HFcatchmin = std(stnorm_HFcatchmin,0,2,'omitnan');
-enstd_HFcatchmax = std(stnorm_HFcatchmax,0,2,'omitnan');
-
-%weight catches
-enmean_mincatchLF = mean(stnorm_mincatchLF,2,'omitnan');
-enmean_mincatchHF = mean(stnorm_mincatchHF,2,'omitnan');
-enmean_maxcatchLF = mean(stnorm_maxcatchLF,2,'omitnan');
-enmean_maxcatchHF = mean(stnorm_maxcatchHF,2,'omitnan');
-
-enstd_mincatchLF = std(stnorm_mincatchLF,0,2,'omitnan');
-enstd_mincatchHF = std(stnorm_mincatchHF,0,2,'omitnan');
-enstd_maxcatchLF = std(stnorm_maxcatchLF,0,2,'omitnan');
-enstd_maxcatchHF = std(stnorm_maxcatchHF,0,2,'omitnan');
-
-%normal trials
-enmean_minLF = mean(stnorm_minLF,2,'omitnan');
-enmean_minHF = mean(stnorm_minHF,2,'omitnan');
-enmean_maxLF = mean(stnorm_maxLF,2,'omitnan');
-enmean_maxHF = mean(stnorm_maxHF,2,'omitnan');
-
-enstd_minLF = std(stnorm_minLF,0,2,'omitnan');
-enstd_minHF = std(stnorm_minHF,0,2,'omitnan');
-enstd_maxLF = std(stnorm_maxLF,0,2,'omitnan');
-enstd_maxHF = std(stnorm_maxHF,0,2,'omitnan');
-
-%computation of limits 
-for i=1:length(enmean_LFcatchmin)
-    %friction catches
-    ul_stnorm_LFcatchmin(i) = enmean_LFcatchmin(i) + enstd_LFcatchmin(i);
-    ll_stnorm_LFcatchmin(i) = enmean_LFcatchmin(i) - enstd_LFcatchmin(i);
-    
-    ul_stnorm_LFcatchmax(i) = enmean_LFcatchmax(i) + enstd_LFcatchmax(i);
-    ll_stnorm_LFcatchmax(i) = enmean_LFcatchmax(i) - enstd_LFcatchmax(i);
-    
-    ul_stnorm_HFcatchmin(i) = enmean_HFcatchmin(i) + enstd_HFcatchmin(i);
-    ll_stnorm_HFcatchmin(i) = enmean_HFcatchmin(i) - enstd_HFcatchmin(i);
-    
-    ul_stnorm_HFcatchmax(i) = enmean_HFcatchmax(i) + enstd_HFcatchmax(i);
-    ll_stnorm_HFcatchmax(i) = enmean_HFcatchmax(i) - enstd_HFcatchmax(i);
-    
-    %weight catches 
-    ul_stnorm_mincatchLF(i) = enmean_mincatchLF(i) + enstd_mincatchLF(i);
-    ll_stnorm_mincatchLF(i) = enmean_mincatchLF(i) - enstd_mincatchLF(i);
-    
-    ul_stnorm_mincatchHF(i) = enmean_mincatchHF(i) + enstd_mincatchHF(i);
-    ll_stnorm_mincatchHF(i) = enmean_mincatchHF(i) - enstd_mincatchHF(i);
-    
-    ul_stnorm_maxcatchLF(i) = enmean_maxcatchLF(i) + enstd_maxcatchLF(i);
-    ll_stnorm_maxcatchLF(i) = enmean_maxcatchLF(i) - enstd_maxcatchLF(i);
-    
-    ul_stnorm_maxcatchHF(i) = enmean_maxcatchHF(i) + enstd_maxcatchHF(i);
-    ll_stnorm_maxcatchHF(i) = enmean_maxcatchHF(i) - enstd_maxcatchHF(i);
-    
-    %normal trials
-    ul_stnorm_minLF(i) = enmean_minLF(i) + enstd_minLF(i);
-    ll_stnorm_minLF(i) = enmean_minLF(i) - enstd_minLF(i);
-    
-    ul_stnorm_minHF(i) = enmean_minHF(i) + enstd_minHF(i);
-    ll_stnorm_minHF(i) = enmean_minHF(i) - enstd_minHF(i);
-    
-    ul_stnorm_maxLF(i) = enmean_maxLF(i) + enstd_maxLF(i);
-    ll_stnorm_maxLF(i) = enmean_maxLF(i) - enstd_maxLF(i);
-    
-    ul_stnorm_maxHF(i) = enmean_maxHF(i) + enstd_maxHF(i);
-    ll_stnorm_maxHF(i) = enmean_maxHF(i) - enstd_maxHF(i);
-end
 
 %% Compute means per subject
 k=1;
@@ -445,7 +373,81 @@ for j = 1:length(bl_maxHF):length(bl_maxHF)*length(STnames)
     subjmean_normmaxHF(:,k) = mean(stnorm_maxHF(:,j:(j+length(bl_maxHF)-1)),2,'omitnan');
     k=k+1;
 end
+%% Compute means and standard deviations of the norms + upper and lower variance limits of strain norms
+%friction catches
+enmean_LFcatchmin = mean(subjmean_normLFcatchmin,2,'omitnan');
+enmean_LFcatchmax = mean(subjmean_normLFcatchmax,2,'omitnan');
+enmean_HFcatchmin = mean(subjmean_normHFcatchmin,2,'omitnan');
+enmean_HFcatchmax = mean(subjmean_normHFcatchmax,2,'omitnan');
 
+enstd_LFcatchmin = std(subjmean_normLFcatchmin,0,2,'omitnan');
+enstd_LFcatchmax = std(subjmean_normLFcatchmax,0,2,'omitnan');
+enstd_HFcatchmin = std(subjmean_normHFcatchmin,0,2,'omitnan');
+enstd_HFcatchmax = std(subjmean_normHFcatchmax,0,2,'omitnan');
+
+%weight catches
+enmean_mincatchLF = mean(subjmean_normmincatchLF,2,'omitnan');
+enmean_mincatchHF = mean(subjmean_normmincatchHF,2,'omitnan');
+enmean_maxcatchLF = mean(subjmean_normmaxcatchLF,2,'omitnan');
+enmean_maxcatchHF = mean(subjmean_normmaxcatchHF,2,'omitnan');
+
+enstd_mincatchLF = std(subjmean_normmincatchLF,0,2,'omitnan');
+enstd_mincatchHF = std(subjmean_normmincatchHF,0,2,'omitnan');
+enstd_maxcatchLF = std(subjmean_normmaxcatchLF,0,2,'omitnan');
+enstd_maxcatchHF = std(subjmean_normmaxcatchHF,0,2,'omitnan');
+
+%normal trials
+enmean_minLF = mean(subjmean_normminLF,2,'omitnan');
+enmean_minHF = mean(subjmean_normminHF,2,'omitnan');
+enmean_maxLF = mean(subjmean_normmaxLF,2,'omitnan');
+enmean_maxHF = mean(subjmean_normmaxHF,2,'omitnan');
+
+enstd_minLF = std(subjmean_normminLF,0,2,'omitnan');
+enstd_minHF = std(subjmean_normminHF,0,2,'omitnan');
+enstd_maxLF = std(subjmean_normmaxLF,0,2,'omitnan');
+enstd_maxHF = std(subjmean_normmaxHF,0,2,'omitnan');
+
+%computation of limits 
+for i=1:length(enmean_LFcatchmin)
+    %friction catches
+    ul_stnorm_LFcatchmin(i) = enmean_LFcatchmin(i) + enstd_LFcatchmin(i);
+    ll_stnorm_LFcatchmin(i) = enmean_LFcatchmin(i) - enstd_LFcatchmin(i);
+    
+    ul_stnorm_LFcatchmax(i) = enmean_LFcatchmax(i) + enstd_LFcatchmax(i);
+    ll_stnorm_LFcatchmax(i) = enmean_LFcatchmax(i) - enstd_LFcatchmax(i);
+    
+    ul_stnorm_HFcatchmin(i) = enmean_HFcatchmin(i) + enstd_HFcatchmin(i);
+    ll_stnorm_HFcatchmin(i) = enmean_HFcatchmin(i) - enstd_HFcatchmin(i);
+    
+    ul_stnorm_HFcatchmax(i) = enmean_HFcatchmax(i) + enstd_HFcatchmax(i);
+    ll_stnorm_HFcatchmax(i) = enmean_HFcatchmax(i) - enstd_HFcatchmax(i);
+    
+    %weight catches 
+    ul_stnorm_mincatchLF(i) = enmean_mincatchLF(i) + enstd_mincatchLF(i);
+    ll_stnorm_mincatchLF(i) = enmean_mincatchLF(i) - enstd_mincatchLF(i);
+    
+    ul_stnorm_mincatchHF(i) = enmean_mincatchHF(i) + enstd_mincatchHF(i);
+    ll_stnorm_mincatchHF(i) = enmean_mincatchHF(i) - enstd_mincatchHF(i);
+    
+    ul_stnorm_maxcatchLF(i) = enmean_maxcatchLF(i) + enstd_maxcatchLF(i);
+    ll_stnorm_maxcatchLF(i) = enmean_maxcatchLF(i) - enstd_maxcatchLF(i);
+    
+    ul_stnorm_maxcatchHF(i) = enmean_maxcatchHF(i) + enstd_maxcatchHF(i);
+    ll_stnorm_maxcatchHF(i) = enmean_maxcatchHF(i) - enstd_maxcatchHF(i);
+    
+    %normal trials
+    ul_stnorm_minLF(i) = enmean_minLF(i) + enstd_minLF(i);
+    ll_stnorm_minLF(i) = enmean_minLF(i) - enstd_minLF(i);
+    
+    ul_stnorm_minHF(i) = enmean_minHF(i) + enstd_minHF(i);
+    ll_stnorm_minHF(i) = enmean_minHF(i) - enstd_minHF(i);
+    
+    ul_stnorm_maxLF(i) = enmean_maxLF(i) + enstd_maxLF(i);
+    ll_stnorm_maxLF(i) = enmean_maxLF(i) - enstd_maxLF(i);
+    
+    ul_stnorm_maxHF(i) = enmean_maxHF(i) + enstd_maxHF(i);
+    ll_stnorm_maxHF(i) = enmean_maxHF(i) - enstd_maxHF(i);
+end
  
 %% Computation relative difference between 2 conditions 
 for i=1:length(STnames)
@@ -453,12 +455,12 @@ for i=1:length(STnames)
         %friction catches
         Rd_LFcatchmin(j,i) = ((subjmean_normLFcatchmin(j,i) - subjmean_normminHF(j,i)) /min(subjmean_normminHF(j,i),subjmean_normLFcatchmin(j,i)))*100;
         Rd_LFcatchmax(j,i) = ((subjmean_normLFcatchmax(j,i) - subjmean_normmaxHF(j,i)) /min(subjmean_normmaxHF(j,i),subjmean_normLFcatchmax(j,i)))*100;
-        Rd_HFcatchmin(j,i) = ((subjmean_normminLF(j,i) - subjmean_normHFcatchmin(j,i)) /min(subjmean_normminLF(j,i),subjmean_normHFcatchmin(j,i)))*100;
-        Rd_HFcatchmax(j,i) = ((subjmean_normmaxLF(j,i) - subjmean_normHFcatchmax(j,i)) /min(subjmean_normmaxLF(j,i),subjmean_normHFcatchmax(j,i)))*100;
+        Rd_HFcatchmin(j,i) = (-(subjmean_normminLF(j,i) - subjmean_normHFcatchmin(j,i)) /min(subjmean_normminLF(j,i),subjmean_normHFcatchmin(j,i)))*100;
+        Rd_HFcatchmax(j,i) = (-(subjmean_normmaxLF(j,i) - subjmean_normHFcatchmax(j,i)) /min(subjmean_normmaxLF(j,i),subjmean_normHFcatchmax(j,i)))*100;
     
         %weight catches 
-        Rd_mincatchLF(j,i) = ((subjmean_normmaxLF(j,i) - subjmean_normmincatchLF(j,i)) /min(subjmean_normmaxLF(j,i),subjmean_normmincatchLF(j,i)))*100;
-        Rd_mincatchHF(j,i) = ((subjmean_normmaxHF(j,i) - subjmean_normmincatchHF(j,i)) /min(subjmean_normmaxHF(j,i),subjmean_normmincatchHF(j,i)))*100;
+        Rd_mincatchLF(j,i) = (-(subjmean_normmaxLF(j,i) - subjmean_normmincatchLF(j,i)) /min(subjmean_normmaxLF(j,i),subjmean_normmincatchLF(j,i)))*100;
+        Rd_mincatchHF(j,i) = (-(subjmean_normmaxHF(j,i) - subjmean_normmincatchHF(j,i)) /min(subjmean_normmaxHF(j,i),subjmean_normmincatchHF(j,i)))*100;
         Rd_maxcatchLF(j,i) = ((subjmean_normmaxcatchLF(j,i) - subjmean_normminLF(j,i)) /min(subjmean_normmaxcatchLF(j,i),subjmean_normminLF(j,i)))*100;
         Rd_maxcatchHF(j,i) = ((subjmean_normmaxcatchHF(j,i) - subjmean_normminHF(j,i)) /min(subjmean_normmaxcatchHF(j,i),subjmean_normminHF(j,i)))*100;
     end
