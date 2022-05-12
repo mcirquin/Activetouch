@@ -824,7 +824,7 @@ for i=1:4
         LF_time(i) = nan;
     end
      if GF_indexes(i) ~=0
-        GF_time(i) = x(LF_indexes(i));
+        GF_time(i) = x(GF_indexes(i));
     else 
         GF_time(i) = nan;
     end
