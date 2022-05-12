@@ -742,7 +742,7 @@ for i=1:500
     if pval_lfmaxcatchHF2(i) < 0.001
         LF_pvalues(3) = pval_lfmaxcatchHF2(i);
         LF_indexes(3) = i;
-        LF_signDiff(3) = ((meanlfmaxadaptLF2(i) - meanlfmaxcatchHF2(i))/min(meanlfmaxadaptLF2(i),meanlfmaxcatchHF2(i)))*100;
+        LF_signDiff(3) = ((meanlfmaxcatchHF2(i) - meanlfmaxadaptLF2(i))/min(meanlfmaxadaptLF2(i),meanlfmaxcatchHF2(i)))*100;
         break
     else
         LF_pvalues(3) = 0;
@@ -755,7 +755,7 @@ for i=1:500
     if pval_gfmaxcatchHF2(i) < 0.001
         GF_pvalues(3) = pval_gfmaxcatchHF2(i);
         GF_indexes(3) = i;
-        GF_signDiff(3) = ((meangfmaxadaptLF2(i) - meangfmaxcatchHF2(i))/min(meangfmaxadaptLF2(i),meangfmaxcatchHF2(i)))*100;
+        GF_signDiff(3) = ((meangfmaxcatchHF2(i) - meangfmaxadaptLF2(i))/min(meangfmaxadaptLF2(i),meangfmaxcatchHF2(i)))*100;
         break
     else
         GF_pvalues(3) = 0;
