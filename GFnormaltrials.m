@@ -1,4 +1,4 @@
-function [Rdpeak, Rdstab] = GFnormaltrials(maxGFmatrix, meanstabGFmatrix, nparticipants, shiftRd)
+function output = GFnormaltrials(maxGFmatrix, meanstabGFmatrix, nparticipants, shiftRd)
 %Comparison of the GF values during peak & stabilization for normal (adaptation) trials 
 %maxGFmatrix : matrix with all the peak GF values for all the trials of
 %all the participants
@@ -624,7 +624,7 @@ end
 Rdcatch = [];
 Rdstab = [];
 
-axis=10;% axis limits of the plots
+axis=6;% axis limits of the plots
 xfriction1=linspace(0,axis);
 yfriction1=linspace(0,axis);
 Rdvector = []; %vector saving the relative difference values for each participant
@@ -666,15 +666,19 @@ pos1 = [0.1 0.6 0.25 0.35];
 subplot('Position',pos1);
 hold on;
 for i=1:nparticipants
-    h2=plot(meanminLFparticipantssort(i),meanminHFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot(meanminLFparticipantssort(i),meanminHFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    plot(meanmaxLFparticipantssort(i),meanmaxHFparticipantssort(i), '^', 'MarkerSize', 6, 'color', colors{i}); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
+hold on;
 xlabel('GF - Low friction normal [N]')
 ylabel('GF - High friction normal [N]')
 xlim([0 axis])
 ylim([0 axis])
-title('Min weight')
+legend('')
+legend('Minimal weight','Maximal weight')
 grid on
 ax = gca;
 ax.GridAlpha = 0.07;
@@ -686,57 +690,26 @@ pos2 = [0.4 0.6 0.05 0.35];
 subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
-    h2=plot(0.5,Rd1(i), '.', 'MarkerSize', 10, 'color', colors{i});
-    plot([0,1], [0 0],'k','LineWidth',0.2);
+    plot(0.3,Rd1(i), '.', 'MarkerSize', 12, 'color', colors{i});
     %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
-    if i == nparticipants
-        figure(3);hold on;
-        errorbar(0.5,mean(Rd1,2),std(Rd1,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
-    end
-end
-set(gca,'XTick',[])
-xlim([0 1])
-set(gcf,'position',[0,0,200,500])
-ylabel('Relative change in GF [%]')
-
-
-%GF peaks: Comparison friction under max weight
-pos3 = [0.1 0.1 0.25 0.35];
-subplot('Position',pos3); hold on;
-plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
-hold on;
-for i=1:nparticipants
-    h2=plot(meanmaxLFparticipantssort(i),meanmaxHFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
-    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
-end
-xlabel('GF - Low friction normal [N]')
-ylabel('GF - High friction normal [N]')
-xlim([0 axis])
-ylim([0 axis])
-title('Max weight')
-grid on
-ax = gca;
-ax.GridAlpha = 0.07;
-    
-%relative difference
-pos4 = [0.4 0.1 0.05 0.35];
-subplot('Position',pos4);
-figure(3); hold on;
-for i=1:nparticipants
-    h2=plot(0.5, Rd2(i), '.', 'MarkerSize', 10, 'color', colors{i});
+    plot(0.7, Rd2(i), '^', 'MarkerSize', 6, 'color', colors{i});
+    hold on;
     plot([0,1], [0 0],'k','LineWidth',0.2);
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
         figure(3);hold on;
-        errorbar(0.5,mean(Rd2,2),std(Rd2,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        errorbar(0.3,mean(Rd2,2),std(Rd2,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        figure(3);hold on;
+        errorbar(0.7,mean(Rd1,2),std(Rd1,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
 end
 set(gca,'XTick',[])
 xlim([0 1])
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
+
+
 
 
 
@@ -745,15 +718,20 @@ pos1 = [0.1 0.6 0.25 0.35];
 subplot('Position',pos1);
 hold on;
 for i=1:nparticipants
-    h2=plot(meanminstabLFparticipantssort(i),meanminstabHFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot(meanminstabLFparticipantssort(i),meanminstabHFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
+    figure(4); hold on;
+    plot(meanmaxstabLFparticipantssort(i),meanmaxstabHFparticipantssort(i), '^', 'MarkerSize', 6, 'color', colors{i}); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    figure(4); hold on;
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
 xlabel('GF - Low friction normal [N]')
 ylabel('GF - High friction normal [N]')
 xlim([0 axis])
 ylim([0 axis])
-title('Min weight')
+legend('')
+legend('Minimal weight','Maximal weight')
 grid on
 ax = gca;
 ax.GridAlpha = 0.07;
@@ -765,50 +743,19 @@ pos2 = [0.4 0.6 0.05 0.35];
 subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
-    h2=plot(0.5,Rd1stab(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
-    plot([0,1], [0 0],'k','LineWidth',0.2);
+    plot(0.3,Rd1stab(i), '.', 'MarkerSize', 12, 'color', colors{i});
     %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
-    if i == nparticipants
-        figure(4);hold on;
-        errorbar(0.5,mean(Rd1stab,2),std(Rd1stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
-    end
-end
-set(gca,'XTick',[])
-xlim([0 1])
-set(gcf,'position',[0,0,200,500])
-ylabel('Relative change in GF [%]')
-
-%GF peaks: Comparison friction under max weight
-pos3 = [0.1 0.1 0.25 0.35];
-subplot('Position',pos3); hold on;
-plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
-hold on;
-for i=1:nparticipants
-    h2=plot(meanmaxstabLFparticipantssort(i),meanmaxstabHFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
-    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
-end
-xlabel('GF - Low friction normal [N]')
-ylabel('GF - High friction normal [N]')
-xlim([0 axis])
-ylim([0 axis])
-title('Max weight')
-grid on
-ax = gca;
-ax.GridAlpha = 0.07;
-    
-%relative difference
-pos4 = [0.4 0.1 0.05 0.35];
-subplot('Position',pos4);
-figure(4); hold on;
-for i=1:nparticipants
-    h2=plot(0.5, Rd2stab(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    figure(4); hold on;
+    plot(0.7, Rd2stab(i), '^', 'MarkerSize', 6, 'color', colors{i}); 
+    figure(4); hold on;
     plot([0,1], [0 0],'k','LineWidth',0.2);
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants
         figure(4);hold on;
-        errorbar(0.5,mean(Rd2stab,2),std(Rd2stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        errorbar(0.3,mean(Rd1stab,2),std(Rd1stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        figure(4);hold on;
+        errorbar(0.7,mean(Rd2stab,2),std(Rd2stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
 end
 set(gca,'XTick',[])
@@ -816,22 +763,26 @@ xlim([0 1])
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
+
+ 
 figure(5);
 hold on;
 pos1 = [0.1 0.6 0.25 0.35];
 subplot('Position',pos1);
 hold on;
 for i=1:nparticipants
-    h2=plot(meanminLFparticipantssort(i),meanmaxLFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot(meanminLFparticipantssort(i),meanmaxLFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
-    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
+    figure(5);hold on;
+    plot(meanminHFparticipantssort(i),meanmaxHFparticipantssort(i), '^', 'MarkerSize', 6, 'color', colors{i}); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line  
 end
-
 xlabel('GF - Min weight normal [N]')
 ylabel('GF - Max weight normal [N]')
 xlim([0 axis])
 ylim([0 axis])
-title('Low friction')
+legend('Low friction','High friction')
 grid on
 ax = gca;
 ax.GridAlpha = 0.07;
@@ -841,13 +792,20 @@ pos2 = [0.4 0.6 0.05 0.35];
 subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
-    h2=plot(0.5,Rd3(i), '.', 'MarkerSize', 10, 'color', colors{i});
-    plot([0,1], [0 0],'k','LineWidth',0.2);
+    plot(0.3,Rd3(i), '.', 'MarkerSize', 12, 'color', colors{i});
     %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
+    figure(5); hold on;
+    plot(0.7,Rd4(i), '^', 'MarkerSize', 6, 'color', colors{i});
+    figure(5); hold on;
+    %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    plot([0,1], [0 0],'k','LineWidth',0.2);
     if i == nparticipants
         figure(5);hold on;
-        errorbar(0.5,mean(Rd3,2),std(Rd3,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        errorbar(0.3,mean(Rd3,2),std(Rd3,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+         figure(5);hold on;
+        errorbar(0.7,mean(Rd4,2),std(Rd4,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
 end
 set(gca,'XTick',[])
@@ -855,43 +813,7 @@ xlim([0 1])
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
 
-figure(5);
-hold on;
-pos3 = [0.1 0.1 0.25 0.35];
-subplot('Position',pos3); hold on;
-hold on;
-for i=1:nparticipants
-    h2=plot(meanminHFparticipantssort(i),meanmaxHFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
-    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
-end
-xlabel('GF - Min weight normal [N]')
-ylabel('GF - Max weight normal [N]')
-xlim([0 axis])
-ylim([0 axis])
-title('High friction')
-grid on
-ax = gca;
-ax.GridAlpha = 0.07;
 
-figure(5); hold on;
-pos4 = [0.4 0.1 0.05 0.35];
-subplot('Position',pos4);
-hold on;
-for i=1:nparticipants
-    h2=plot(0.5,Rd4(i), '.', 'MarkerSize', 10, 'color', colors{i});
-    plot([0,1], [0 0],'k','LineWidth',0.2);
-    %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
-    if i == nparticipants
-        figure(5);hold on;
-        errorbar(0.5,mean(Rd4,2),std(Rd4,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
-    end
-end
-set(gca,'XTick',[])
-xlim([0 1])
-set(gcf,'position',[0,0,200,500])
-ylabel('Relative change in GF [%]')
 
 
 %Stabilisation
@@ -902,16 +824,19 @@ pos1 = [0.1 0.6 0.25 0.35];
 subplot('Position',pos1);
 hold on;
 for i=1:nparticipants
-    h2=plot(meanminstabLFparticipantssort(i),meanmaxstabLFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
+    plot(meanminstabLFparticipantssort(i),meanmaxstabLFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
+    figure(6);hold on;
+    plot(meanminstabHFparticipantssort(i),meanmaxstabHFparticipantssort(i), '^', 'MarkerSize', 6, 'color', colors{i}); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    figure(6);hold on;
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
-
 xlabel('GF - Min weight normal [N]')
 ylabel('GF - Max weight normal [N]')
 xlim([0 axis])
 ylim([0 axis])
-title('Low friction')
+legend('Low friction', 'High friction')
 grid on
 ax = gca;
 ax.GridAlpha = 0.07;
@@ -921,61 +846,27 @@ pos2 = [0.4 0.6 0.05 0.35];
 subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
-    h2=plot(0.5,Rd3stab(i), '.', 'MarkerSize', 10, 'color', colors{i});
+    plot(0.3,Rd3stab(i), '.', 'MarkerSize', 12, 'color', colors{i});
+    %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    figure(6); hold on;
+    plot(0.7,Rd4stab(i), '^', 'MarkerSize', 6, 'color', colors{i});
+    figure(6); hold on;
     plot([0,1], [0 0],'k','LineWidth',0.2);
     %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
     %h2.MarkerFaceAlpha = alphaelderly(i);
+    
     if i == nparticipants
         figure(6);hold on;
-        errorbar(0.5,mean(Rd3stab,2),std(Rd3stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        errorbar(0.3,mean(Rd3stab,2),std(Rd3stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        figure(6);hold on;
+        errorbar(0.7,mean(Rd4stab,2),std(Rd4stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
 end
 set(gca,'XTick',[])
 xlim([0 1])
 set(gcf,'position',[0,0,200,500])
 ylabel('Relative change in GF [%]')
-
-figure(6);
-hold on;
-pos3 = [0.1 0.1 0.25 0.35];
-subplot('Position',pos3); hold on;
-hold on;
-for i=1:nparticipants
-    h2=plot(meanminstabHFparticipantssort(i),meanmaxstabHFparticipantssort(i), '.', 'MarkerSize', 10, 'color', colors{i}); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
-    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
-end
-
-xlabel('GF - Min weight normal [N]')
-ylabel('GF - Max weight normal [N]')
-xlim([0 axis])
-ylim([0 axis])
-title('High friction')
-grid on
-ax = gca;
-ax.GridAlpha = 0.07;
-
-figure(6); hold on;
-pos4 = [0.4 0.1 0.05 0.35];
-subplot('Position',pos4);
-hold on;
-for i=1:nparticipants
-    h2=plot(0.5,Rd4stab(i), '.', 'MarkerSize', 10, 'color', colors{i});
-    plot([0,1], [0 0],'k','LineWidth',0.2);
-    %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
-    if i == nparticipants
-        figure(6);hold on;
-        errorbar(0.5,mean(Rd4stab,2),std(Rd4stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
-    end
-end
-set(gca,'XTick',[])
-xlim([0 1])
-set(gcf,'position',[0,0,200,500])
-ylabel('Relative change in GF [%]')
-
-Rdpeak = [Rd1; Rd2; Rd3; Rd4];
-Rdstab = [Rd1stab; Rd2stab; Rd3stab; Rd4stab];
 
 
 end
