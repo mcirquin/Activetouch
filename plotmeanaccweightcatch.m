@@ -1,14 +1,16 @@
-function meanacc = plotmeanaccweightcatch(alignedacctable, tsteps, nparticipants, minimum)
+function meanacc = plotmeanaccweightcatch(alignedacctable, tsteps, nparticipants)
 %% Weight catch max (min to max weight)
 
 %max weight catch under low friction 
 nessais1=4;
 lfLFcatchmax1=zeros(tsteps-1999,nessais1*nparticipants);
 
+
 lfLFcatchmax1 = alignedacctable(:,33:108:end);  
 lfLFcatchmax1 = [lfLFcatchmax1 alignedacctable(:,46:108:end)];
 lfLFcatchmax1 = [lfLFcatchmax1 alignedacctable(:,71:108:end)];
 lfLFcatchmax1 = [lfLFcatchmax1 alignedacctable(:,93:108:end)];
+
 
 %min weight adaptation under low friction
 nessais8=16;
@@ -212,66 +214,110 @@ end
 
 %% Plots 
 % Figures LF
-%x=10:0.05:11.1;
-timealigned=minimum*0.005; %temps où toutes les courbes sont alignées
-x=-timealigned:0.05:(-timealigned+1.1); %500 pas de temps, le 0 se trouve à l'alignement des courbes
-subplot(2,2,1)
+x=10:0.05:11.1;
+
+s1=subplot(2,2,1)
 y1 = meanlfLFcatchmax1(1:23);
 y2 = meanlfLFadaptmin1(1:23);
-plot(x,y1,'r--', x, y2, 'b', 'LineWidth', 1.5)
+f1=fit(x(:),y1,'smoothingspline');
+f2=fit(x(:),y2,'smoothingspline');
+f1plot = plot(f1,x,y1)
+set(f1plot,'Color','r')
+set(f1plot(2),'Linestyle','--')
+set(f1plot(2),'LineWidth',1.2)
+hold on;
+f2plot = plot(f2,x,y2)
+set(f2plot,'Color','b')
+set(f2plot(2),'LineWidth',1.2)
 %fill([x fliplr(x)], [ul_lfLFcatchmax1 fliplr(ll_lfLFcatchmax1)], 'r', 'FaceAlpha', 0.2)
 %hold on
 %fill([x fliplr(x)], [ul_lfLFadaptmin1 fliplr(ll_lfLFadaptmin1)], 'b', 'FaceAlpha', 0.2)
 legend('', '')
 title('Low friction')
-xlim([-timealigned 0.8]);
 xlabel('Time (s)');
 ylabel('Acceleration (cm/s^2)');
-legend('Maximal weight catch', 'Minimal weight normal');
+legend([f1plot(2) f2plot(2)],'Maximal weight catch', 'Minimal weight normal');
 ylim([-200 300]);
+grid on
+ax = gca;
+ax.GridAlpha = 0.07;  
 
-subplot(2,2,2)
+s2=subplot(2,2,2)
 y3 = meanlfHFcatchmax1(1:23);
 y4 = meanlfHFadaptmin1(1:23);
-plot(x,y3,'r--',x,y4,'b','LineWidth', 1.5)
+f3=fit(x(:),y3,'smoothingspline');
+f4=fit(x(:),y4,'smoothingspline');
+f3plot = plot(f3,x,y3)
+set(f3plot,'Color','r')
+set(f3plot(2),'Linestyle','--')
+set(f3plot(2),'LineWidth',1.2)
+hold on;
+f4plot = plot(f4,x,y4)
+set(f4plot,'Color','b')
+set(f4plot(2),'LineWidth',1.2)
 %hold on
 %fill([x fliplr(x)], [ul_lfHFcatchmax1 fliplr(ll_lfLFcatchmax1)], 'r', 'FaceAlpha', 0.2)
 %fill([x fliplr(x)], [ul_lfHFadaptmin1 fliplr(ll_lfHFadaptmin1)], 'b', 'FaceAlpha', 0.2)
 title('High friction')
 xlabel('Time (s)');
 ylabel('Acceleration (cm/s^2)');
-xlim([-timealigned 0.8]);
-legend('Maximal weight catch', 'Minimal weight normal');
+legend([f3plot(2) f4plot(2)],'Maximal weight catch', 'Minimal weight normal');
+grid on
 
-
-subplot(2,2,3)
+s3=subplot(2,2,3)
 y5 = meanlfLFcatchmin2(1:23);
 y6 = meanlfLFadaptmax2(1:23);
-plot(x,y6,'r', x,y5,'b--','LineWidth', 1.5)
+f5=fit(x(:),y5,'smoothingspline');
+f6=fit(x(:),y6,'smoothingspline');
+f5plot = plot(f5,x,y5)
+set(f5plot,'Color','b')
+set(f5plot(2),'Linestyle','--')
+set(f5plot(2),'LineWidth',1.2)
+hold on;
+f6plot = plot(f6,x,y6)
+set(f6plot,'Color','r')
+set(f6plot(2),'LineWidth',1.2)
 %hold on
 %fill([x fliplr(x)], [ul_lfLFcatchmin2 fliplr(ll_lfLFcatchmin2)], 'b', 'FaceAlpha', 0.2)
 %fill([x fliplr(x)], [ul_lfLFadaptmax2 fliplr(ll_lfLFadaptmax2)], 'r', 'FaceAlpha', 0.2)
 title('Low friction')
 xlabel('Time (s)');
-xlim([-timealigned 0.8]);
 ylabel('Acceleration (cm/s^2)');
-legend('Maximal weight normal','Minimal weight catch');
+legend([f6plot(2) f5plot(2)],'Maximal weight normal','Minimal weight catch');
+grid on
 
-subplot(2,2,4)
+s4=subplot(2,2,4)
 y7 = meanlfHFcatchmin2(1:23);
 y8 = meanlfHFadaptmax2(1:23);
-plot(x,y8,'r', x,y7,'b--','LineWidth', 1.5)
+f7=fit(x(:),y7,'smoothingspline');
+f8=fit(x(:),y8,'smoothingspline');
+f7plot = plot(f7,x,y7)
+set(f7plot,'Color','b')
+set(f7plot(2),'Linestyle','--')
+set(f7plot(2),'LineWidth',1.2)
+hold on;
+f8plot = plot(f8,x,y8)
+set(f8plot,'Color','r')
+set(f8plot(2),'LineWidth',1.2)
 %hold on 
 %fill([x fliplr(x)], [ul_lfHFcatchmin2 fliplr(ll_lfHFcatchmin2)], 'b', 'FaceAlpha', 0.2)
 %fill([x fliplr(x)], [ul_lfHFadaptmax2 fliplr(ll_lfHFadaptmax2)], 'r', 'FaceAlpha', 0.2)
 title('High friction')
 xlabel('Time (s)');
 ylabel('Acceleration (cm/s^2)');
-xlim([-timealigned 0.8]);
-legend('Maximal weight normal','Minimal weight catch');
+legend([f8plot(2) f7plot(2)],'Maximal weight normal','Minimal weight catch');
+grid on
 
 
-suptitle('Acceleration during the first movement of weight catch trials - Elderly participants');
+% same scaling of the subplots
+linkaxes([s1 s2 s3 s4], 'xy')
+ax1.XLim = [10 11];
+ax2.YLim = [-400 400];
+%grid on all subplots 
+hlink = linkprop([s1 s2 s3 s4],{'GridAlpha'});
+  
+
+%suptitle('Acceleration during the first movement of weight catch trials - Elderly participants');
 %suptitle( 'Acceleration during the first movement of weight catch trials - Young participants');
 
 end
