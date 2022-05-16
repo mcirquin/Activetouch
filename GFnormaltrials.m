@@ -10,6 +10,7 @@ colors={[0 0 1], [0.0714 0 0.9286], [0.1429 0 0.8571], [0.2143 0 0.7857],[0.2857
 %participants
 colors=flip(colors);
 
+excludedpoints=5; %nb of participants with relative difference in friction below 10%
 %% 1. Computation of GF peaks
 
 %Min LF normal
@@ -628,7 +629,10 @@ axis=6;% axis limits of the plots
 xfriction1=linspace(0,axis);
 yfriction1=linspace(0,axis);
 Rdvector = []; %vector saving the relative difference values for each participant
+xscatter1 = 0.22 + (0.3-0.22)*randn(nparticipants,1); %random x values to plot Rd between 0.2 and 0.3
+xscatter2 = 0.7 + (0.8-0.7)*randn(nparticipants,1); 
 xticks=5;
+
 
 for i = 1:nparticipants %sort the vector in the same order than the relative difference in friction
     meanminLFparticipantssort(i) = meanminLFparticipants(shiftRd(i)); %sort xvec in the same way
@@ -666,10 +670,17 @@ pos1 = [0.1 0.6 0.25 0.35];
 subplot('Position',pos1);
 hold on;
 for i=1:nparticipants
-    plot(meanminLFparticipantssort(i),meanminHFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
-    plot(meanmaxLFparticipantssort(i),meanmaxHFparticipantssort(i), '^', 'MarkerSize', 6, 'color', colors{i}); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
+    if i <= nparticipants-excludedpoints
+        plot(meanminLFparticipantssort(i),meanminHFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        %h2.MarkerFaceAlpha = alphaelderly(i);
+        p=plot(meanmaxLFparticipantssort(i),meanmaxHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i}); 
+        p.MarkerFaceColor = colors{i};
+        %h2.MarkerFaceAlpha = alphaelderly(i);
+    else
+        plot(meanminLFparticipantssort(i),meanminHFparticipantssort(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        %h2.MarkerFaceAlpha = alphaelderly(i);
+        plot(meanmaxLFparticipantssort(i),meanmaxHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i}); 
+    end
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
 hold on;
@@ -690,18 +701,26 @@ pos2 = [0.4 0.6 0.05 0.35];
 subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
-    plot(0.3,Rd1(i), '.', 'MarkerSize', 12, 'color', colors{i});
-    %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
-    plot(0.7, Rd2(i), '^', 'MarkerSize', 6, 'color', colors{i});
+    if i <= nparticipants-excludedpoints
+        plot(xscatter1(i),Rd1(i), '.', 'MarkerSize', 12, 'color', colors{i});
+        %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
+        %h2.MarkerFaceAlpha = alphaelderly(i);
+        p = plot(xscatter2(i), Rd2(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        p.MarkerFaceColor = colors{i};
+    else
+        plot(xscatter1(i),Rd1(i), 'o', 'MarkerSize', 3, 'color', colors{i});
+        %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
+        %h2.MarkerFaceAlpha = alphaelderly(i);
+        plot(xscatter2(i), Rd2(i), '^', 'MarkerSize', 3, 'color', colors{i});
+    end
     hold on;
     plot([0,1], [0 0],'k','LineWidth',0.2);
     %h2.MarkerFaceAlpha = alphaelderly(i);
-    if i == nparticipants
+    if i == nparticipants-excludedpoints
         figure(3);hold on;
-        errorbar(0.3,mean(Rd2,2),std(Rd2,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        errorbar(0.25,mean(Rd2(1:nparticipants-excludedpoints),2),std(Rd2(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
         figure(3);hold on;
-        errorbar(0.7,mean(Rd1,2),std(Rd1,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        errorbar(0.75,mean(Rd1(1:nparticipants-excludedpoints),2),std(Rd1(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
 end
 set(gca,'XTick',[])
@@ -718,11 +737,19 @@ pos1 = [0.1 0.6 0.25 0.35];
 subplot('Position',pos1);
 hold on;
 for i=1:nparticipants
-    plot(meanminstabLFparticipantssort(i),meanminstabHFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
-    figure(4); hold on;
-    plot(meanmaxstabLFparticipantssort(i),meanmaxstabHFparticipantssort(i), '^', 'MarkerSize', 6, 'color', colors{i}); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
+    if i <= nparticipants-excludedpoints
+        plot(meanminstabLFparticipantssort(i),meanminstabHFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        %h2.MarkerFaceAlpha = alphaelderly(i);
+        figure(4); hold on;
+        p=plot(meanmaxstabLFparticipantssort(i),meanmaxstabHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        p.MarkerFaceColor = colors{i};
+        %h2.MarkerFaceAlpha = alphaelderly(i);
+    else
+        plot(meanminstabLFparticipantssort(i),meanminstabHFparticipantssort(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        %h2.MarkerFaceAlpha = alphaelderly(i);
+        figure(4); hold on;
+        plot(meanmaxstabLFparticipantssort(i),meanmaxstabHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i});
+    end
     figure(4); hold on;
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
@@ -743,19 +770,27 @@ pos2 = [0.4 0.6 0.05 0.35];
 subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
-    plot(0.3,Rd1stab(i), '.', 'MarkerSize', 12, 'color', colors{i});
-    %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
-    figure(4); hold on;
-    plot(0.7, Rd2stab(i), '^', 'MarkerSize', 6, 'color', colors{i}); 
+    if i <= nparticipants-excludedpoints
+        plot(xscatter1(i),Rd1stab(i), '.', 'MarkerSize', 12, 'color', colors{i});
+        %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
+        %h2.MarkerFaceAlpha = alphaelderly(i);
+        figure(4); hold on;
+        p=plot(xscatter2(i), Rd2stab(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        p.MarkerFaceColor = colors{i};
+    else
+        figure(4); hold on;
+        plot(xscatter1(i),Rd1stab(i), 'o', 'MarkerSize', 3, 'color', colors{i});
+        figure(4); hold on;
+        plot(xscatter2(i), Rd2stab(i), '^', 'MarkerSize', 3, 'color', colors{i});
+    end
     figure(4); hold on;
     plot([0,1], [0 0],'k','LineWidth',0.2);
     %h2.MarkerFaceAlpha = alphaelderly(i);
-    if i == nparticipants
+    if i == nparticipants-excludedpoints
         figure(4);hold on;
-        errorbar(0.3,mean(Rd1stab,2),std(Rd1stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        errorbar(0.25,mean(Rd1stab(1:nparticipants-excludedpoints),2),std(Rd1stab(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
         figure(4);hold on;
-        errorbar(0.7,mean(Rd2stab,2),std(Rd2stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        errorbar(0.75,mean(Rd2stab(1:nparticipants-excludedpoints),2),std(Rd2stab(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
 end
 set(gca,'XTick',[])
@@ -771,11 +806,18 @@ pos1 = [0.1 0.6 0.25 0.35];
 subplot('Position',pos1);
 hold on;
 for i=1:nparticipants
-    plot(meanminLFparticipantssort(i),meanmaxLFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
+    if i <= nparticipants-excludedpoints
+        plot(meanminLFparticipantssort(i),meanmaxLFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        figure(5);hold on;
+        p=plot(meanminHFparticipantssort(i),meanmaxHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i}); 
+        p.MarkerFaceColor = colors{i};
+    else
+        figure(5);hold on;
+        plot(meanminLFparticipantssort(i),meanmaxLFparticipantssort(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        figure(5);hold on;
+        plot(meanminHFparticipantssort(i),meanmaxHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i}); 
+    end
     figure(5);hold on;
-    plot(meanminHFparticipantssort(i),meanmaxHFparticipantssort(i), '^', 'MarkerSize', 6, 'color', colors{i}); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line  
 end
 xlabel('GF - Min weight normal [N]')
@@ -792,20 +834,24 @@ pos2 = [0.4 0.6 0.05 0.35];
 subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
-    plot(0.3,Rd3(i), '.', 'MarkerSize', 12, 'color', colors{i});
-    %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
-    figure(5); hold on;
-    plot(0.7,Rd4(i), '^', 'MarkerSize', 6, 'color', colors{i});
-    figure(5); hold on;
-    %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
+    if i <= nparticipants-excludedpoints
+        plot(xscatter1(i),Rd3(i), '.', 'MarkerSize', 12, 'color', colors{i});
+        figure(5); hold on;
+        p=plot(xscatter2(i),Rd4(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        p.MarkerFaceColor = colors{i};
+        figure(5); hold on;
+    else
+        plot(xscatter1(i),Rd3(i), 'o', 'MarkerSize', 3, 'color', colors{i});
+        figure(5); hold on;
+        plot(xscatter2(i),Rd4(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        figure(5); hold on;
+    end
     plot([0,1], [0 0],'k','LineWidth',0.2);
-    if i == nparticipants
+    if i == nparticipants-excludedpoints
         figure(5);hold on;
-        errorbar(0.3,mean(Rd3,2),std(Rd3,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
-         figure(5);hold on;
-        errorbar(0.7,mean(Rd4,2),std(Rd4,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        errorbar(0.25,mean(Rd3(1:nparticipants-excludedpoints),2),std(Rd3(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        figure(5);hold on;
+        errorbar(0.75,mean(Rd4(1:nparticipants-excludedpoints),2),std(Rd4(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
 end
 set(gca,'XTick',[])
@@ -824,12 +870,18 @@ pos1 = [0.1 0.6 0.25 0.35];
 subplot('Position',pos1);
 hold on;
 for i=1:nparticipants
-    plot(meanminstabLFparticipantssort(i),meanmaxstabLFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
-    figure(6);hold on;
-    plot(meanminstabHFparticipantssort(i),meanmaxstabHFparticipantssort(i), '^', 'MarkerSize', 6, 'color', colors{i}); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
-    figure(6);hold on;
+    if i <= nparticipants-excludedpoints
+        plot(meanminstabLFparticipantssort(i),meanmaxstabLFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        figure(6);hold on;
+        p=plot(meanminstabHFparticipantssort(i),meanmaxstabHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        p.MarkerFaceColor = colors{i};
+        figure(6);hold on;
+    else
+        plot(meanminstabLFparticipantssort(i),meanmaxstabLFparticipantssort(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        figure(6);hold on;
+        plot(meanminstabHFparticipantssort(i),meanmaxstabHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        figure(6);hold on;
+    end
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
 xlabel('GF - Min weight normal [N]')
@@ -846,21 +898,25 @@ pos2 = [0.4 0.6 0.05 0.35];
 subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
-    plot(0.3,Rd3stab(i), '.', 'MarkerSize', 12, 'color', colors{i});
-    %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
-    figure(6); hold on;
-    plot(0.7,Rd4stab(i), '^', 'MarkerSize', 6, 'color', colors{i});
-    figure(6); hold on;
+    if i <= nparticipants-excludedpoints
+        plot(xscatter1(i),Rd3stab(i), '.', 'MarkerSize', 12, 'color', colors{i});
+        figure(6); hold on;
+        p=plot(xscatter2(i),Rd4stab(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        p.MarkerFaceColor = colors{i};
+        figure(6); hold on;
+    else
+        plot(xscatter1(i),Rd3stab(i), 'o', 'MarkerSize', 3, 'color', colors{i});
+        figure(6); hold on;
+        plot(xscatter2(i),Rd4stab(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        figure(6); hold on;
+    end 
     plot([0,1], [0 0],'k','LineWidth',0.2);
-    %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
-    %h2.MarkerFaceAlpha = alphaelderly(i);
-    
-    if i == nparticipants
+   
+    if i == nparticipants-excludedpoints
         figure(6);hold on;
-        errorbar(0.3,mean(Rd3stab,2),std(Rd3stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        errorbar(0.25,mean(Rd3stab(1:nparticipants-excludedpoints),2),std(Rd3stab(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
         figure(6);hold on;
-        errorbar(0.7,mean(Rd4stab,2),std(Rd4stab,0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        errorbar(0.75,mean(Rd4stab(1:nparticipants-excludedpoints),2),std(Rd4stab(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
 end
 set(gca,'XTick',[])
