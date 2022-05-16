@@ -9,14 +9,12 @@ function [Rdcatch, Rdstab] = GFcatchfrictionvsbeforetrial(maxGFmatrix, meanstabG
 %stabilization GF
 
 %To modify in function of number of participants
-colors={[0 0 1], [0.0833 0 0.9167], [0.1667 0 0.8333], [0.25 0 0.75], [0.3333 0 0.6667], [0.4167 0 0.5833], [0.5 0 0.5], [0.5833 0 0.4167], [0.6667 0 0.3333], [0.75 0 0.25], [0.8333 0 0.1667], [0.9167 0 0.0833], [1 0 0]}; %for elderly participants
-%colors={[0 0 1], [0.0714 0 0.9286], [0.1429 0 0.8571], [0.2143 0 0.7857],
-%[0.2857 0 0.7143], [0.3571 0 0.6429], [0.4286 0 0.5714], [0.5 0 0.5],
-%[0.5714 0 0.4286], [0.6429 0 0.3571], [0.7143 0 0.2857], [0.7857 0
-%0.2143], [0.85 0 0.1429], [0.9286 0 0.0714], [1 0 0]}; %for young
+%colors={[0 0 1], [0.0833 0 0.9167], [0.1667 0 0.8333], [0.25 0 0.75], [0.3333 0 0.6667], [0.4167 0 0.5833], [0.5 0 0.5], [0.5833 0 0.4167], [0.6667 0 0.3333], [0.75 0 0.25], [0.8333 0 0.1667], [0.9167 0 0.0833], [1 0 0]}; %for elderly participants
+colors={[0 0 1], [0.0714 0 0.9286], [0.1429 0 0.8571], [0.2143 0 0.7857],[0.2857 0 0.7143], [0.3571 0 0.6429], [0.4286 0 0.5714], [0.5 0 0.5],[0.5714 0 0.4286], [0.6429 0 0.3571], [0.7143 0 0.2857], [0.7857 0 0.2143], [0.85 0 0.1429], [0.9286 0 0.0714], [1 0 0]}; %for young
 %participants
 colors=flip(colors);
 
+excludedpoints=5; %nb of participants with relative difference in friction below 10% (sujets qu'on ignore)
 
 %% 1. GF peaks
 %% HF to LF (catch) vs HF normal under minimal weight
@@ -166,9 +164,6 @@ meanmaxLF=mean(meanmaxLFsub);
 meanmaxLFparticipants=mean(maxLF);
 
 
-
-
-
 %% 2. Stabilization GF
 
 %% HF to LF (catch) vs HF normal under minimal weight
@@ -287,7 +282,7 @@ meanminstabcatchHFparticipants=mean(minstabcatchHF);
 
 %max LF adaptation
 
-3bis=20;
+nessais3bis=20;
 maxstabLF=zeros(nessais3bis, nparticipants);
 maxstabLF(1,:)=meanstabGFmatrix(14,:);
 maxstabLF(2,:)=meanstabGFmatrix(15,:);
@@ -994,10 +989,12 @@ end
 Rdcatch = [];
 Rdstab = [];
 
-axis=20;% axis limits of the plots
+axis=6;% axis limits of the plots
 xfriction1=linspace(0,axis);
 yfriction1=linspace(0,axis);
 Rdvector = []; %vector saving the relative difference values for each participant
+xscatter1 = 0.22 + (0.3-0.22)*randn(nparticipants,1); %random x values to plot Rd between 0.2 and 0.3
+xscatter2 = 0.72 + (0.8-0.72)*randn(nparticipants,1); 
 xticks=5;
 
 
@@ -1043,6 +1040,7 @@ end
 %alphaelderly=[0 0.15 0.20 0.28 0.36 0.44 0.52 0.60 0.68 0.76 0.84 0.92 1];
 %alphayoung=[0.16 0.22 0.28 0.34 0.4 0.46 0.52 0.58 0.64 0.70 0.76 0.82 0.88 0.94 1];
 
+%% Anciens graphes
 
 
 figure(2); hold on;
@@ -1210,7 +1208,7 @@ ylabel('Relative change in GF [%]')
 
 %suptitle('Grip Force magnitude of GF peaks for low friction catch trials');
 
-%% Quantification GF of HF friction catch with respect to normal trials (GF peaks and stabilization)
+%% Quantification GF of HF friction catch with respect to normal trials (GF peaks and stabilization) (anciens graphes)
 
 figure(4);
 
@@ -1378,7 +1376,263 @@ ylabel('Relative change in GF [%]')
 Rdcatch = [Rd1; Rd2; Rd3; Rd4];
 Rdstab = [Rd1stab; Rd2stab; Rd3stab; Rd4stab];
 
+%% nouveaux graphes
+
+%{
+% Low friction catch
+figure(2); hold on;
+pos1 = [0.1 0.6 0.25 0.35];
+subplot('Position',pos1);
+hold on;
+for i=1:nparticipants
+    if i <= nparticipants-excludedpoints
+        plot(meanmincatchLFparticipantssort(i),meanminHFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        figure(2); hold on;
+        p=plot(meanmaxcatchLFparticipantssort(i),meanmaxHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        p.MarkerFaceColor = colors{i};
+    else
+        plot(meanmincatchLFparticipantssort(i),meanminHFparticipantssort(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        figure(2); hold on;
+        plot(meanmaxcatchLFparticipantssort(i),meanmaxHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i});
+    end
+    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
+end
+xlabel('GF - Low friction catch [N]')
+ylabel('GF - High friction normal [N]')
+xlim([0 axis])
+ylim([0 axis])
+legend('Minimal weight','Maximal weight')
+figure(2);hold on;
+grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
+
+%relative difference
+figure(2); hold on;
+pos2 = [0.4 0.6 0.05 0.35];
+subplot('Position',pos2);
+hold on;
+for i=1:nparticipants
+    if i <= nparticipants-excludedpoints
+        plot(xscatter1(i),Rd1(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        hold on;
+        p=plot(xscatter2(i), Rd2(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        p.MarkerFaceColor = colors{i};
+    else
+        plot(xscatter1(i),Rd1(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        hold on;
+        plot(xscatter2(i), Rd2(i), '^', 'MarkerSize', 3, 'color', colors{i});
+    end
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
+    %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    if i == nparticipants
+        figure(2);hold on;
+        errorbar(0.25,mean(Rd1(1:nparticipants-excludedpoints),2),std(Rd1(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        figure(2);hold on;
+        errorbar(0.75,mean(Rd2(1:nparticipants-excludedpoints),2),std(Rd2(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
+end
+set(gca,'XTick',[])
+xlim([0 1])
+set(gca, 'YDir')
+set(gcf,'position',[0,0,200,500])
+ylabel('Relative change in GF [%]')
 
 
+
+figure(3); hold on;
+pos1 = [0.1 0.6 0.25 0.35];
+subplot('Position',pos1);
+hold on;
+for i=1:nparticipants
+    if i <= nparticipants-excludedpoints
+        plot(meanminstabcatchLFparticipantssort(i),meanminstabHFparticipantssort(i),'.', 'MarkerSize', 12, 'color', colors{i}); 
+        figure(3); hold on;
+        p=plot(meanmaxstabcatchLFparticipantssort(i),meanmaxstabHFparticipantssort(i),'^', 'MarkerSize', 3, 'color', colors{i});
+        p.MarkerFaceColor = colors{i};
+        figure(3); hold on;
+    else
+        plot(meanminstabcatchLFparticipantssort(i),meanminstabHFparticipantssort(i),'o', 'MarkerSize', 3, 'color', colors{i}); 
+        figure(3); hold on;
+        plot(meanmaxstabcatchLFparticipantssort(i),meanmaxstabHFparticipantssort(i),'^', 'MarkerSize', 3, 'color', colors{i});
+    end
+    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
+end
+figure(3); hold on;
+legend('Minimal weight','Maximal weight')
+grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
+xlabel('GF - Low friction catch [N]')
+ylabel('GF - High friction normal [N]')
+xlim([0 axis])
+ylim([0 axis])
+
+
+%relative difference
+figure(3); hold on;
+pos2 = [0.4 0.6 0.05 0.35];
+subplot('Position',pos2);
+hold on;
+for i=1:nparticipants
+    if i <= nparticipants-excludedpoints
+        plot(xscatter1(i), Rd1stab(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        hold on;
+        p=plot(xscatter2(i), Rd2stab(i), '^', 'MarkerSize', 3, 'color', colors{i}); 
+        p.MarkerFaceColor = colors{i};
+    else
+        plot(xscatter1(i), Rd1stab(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        hold on;
+        plot(xscatter2(i), Rd2stab(i), '^', 'MarkerSize', 3, 'color', colors{i}); 
+    end
+    hold on;
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    if i == nparticipants
+        figure(3);hold on;
+        errorbar(0.25,mean(Rd1stab(1:nparticipants-excludedpoints),2),std(Rd1stab(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        figure(3);hold on;
+        errorbar(0.75,mean(Rd2stab(1:nparticipants-excludedpoints),2),std(Rd2stab(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
+end
+set(gca,'XTick',[])
+xlim([0 1])
+set(gca, 'YDir')
+set(gcf,'position',[0,0,200,500])
+ylabel('Relative change in GF [%]')
+
+
+%HF catch trials 
+figure(4);
+
+pos1 = [0.1 0.6 0.25 0.35];
+subplot('Position',pos1);
+hold on;
+for i=1:nparticipants
+    if i <= nparticipants-excludedpoints
+        plot(meanminLFparticipantssort(i),meanmincatchHFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        hold on;
+        p=plot(meanmaxLFparticipantssort(i),meanmaxcatchHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        p.MarkerFaceColor = colors{i};
+        hold on;
+    else
+        plot(meanminLFparticipantssort(i),meanmincatchHFparticipantssort(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        hold on;
+        plot(meanmaxLFparticipantssort(i),meanmaxcatchHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i});
+    end
+    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
+end
+
+xlabel('GF - Low friction normal [N]')
+ylabel('GF - High friction catch [N]')
+xlim([0 axis])
+ylim([0 axis])
+figure(4); hold on;
+legend('Minimal weight','Maximal weight')
+grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
+
+%relative difference
+figure(4); hold on;
+pos2 = [0.4 0.6 0.05 0.35];
+subplot('Position',pos2);
+hold on;
+for i=1:nparticipants
+    if i <= nparticipants-excludedpoints
+        plot(xscatter1(i), Rd3(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        hold on;
+        p=plot(xscatter2(i), Rd4(i), '^', 'MarkerSize', 3, 'color', colors{i}); 
+        p.MarkerFaceColor = colors{i};
+    else
+        plot(xscatter1(i), Rd3(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        hold on;
+        plot(xscatter2(i), Rd4(i), '^', 'MarkerSize', 3, 'color', colors{i});
+    end
+    hold on;
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
+    if i == nparticipants
+        figure(4);hold on;
+        errorbar(0.25,mean(Rd3(1:nparticipants-excludedpoints),2),std(Rd3(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        figure(4); hold on;
+        errorbar(0.75,mean(Rd4(1:nparticipants-excludedpoints),2),std(Rd4(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
+end
+set(gca,'XTick',[])
+xlim([0 1])
+set(gca, 'YDir')
+set(gcf,'position',[0,0,200,500])
+ylabel('Relative change in GF [%]')
+
+
+%suptitle('Grip Force magnitude of GF stab for high friction catch trials');
+
+figure(5); hold on;
+pos1 = [0.1 0.6 0.25 0.35];
+subplot('Position',pos1);
+hold on;
+for i=1:nparticipants
+    if i <= nparticipants-excludedpoints
+        plot(meanminstabLFparticipantssort(i),meanminstabcatchHFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        hold on;
+        p=plot(meanmaxstabLFparticipantssort(i),meanmaxstabcatchHFparticipantssort(i), '^','MarkerSize', 3, 'color', colors{i}); 
+        p.MarkerFaceColor = colors{i};
+    else
+        plot(meanminstabLFparticipantssort(i),meanminstabcatchHFparticipantssort(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        hold on;
+        plot(meanmaxstabLFparticipantssort(i),meanmaxstabcatchHFparticipantssort(i), '^','MarkerSize', 3, 'color', colors{i}); 
+    end
+    plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
+end
+xlabel('GF - Low friction normal [N]')
+ylabel('GF - High friction catch [N]')
+xlim([0 axis])
+ylim([0 axis])
+legend('Minimal weight','Maximal weight')
+figure(5); hold on;
+grid on;
+ax=gca;
+ax.GridAlpha = 0.07;
+
+%relative difference
+figure(5); hold on;
+pos2 = [0.4 0.6 0.05 0.35];
+subplot('Position',pos2);
+hold on;
+for i=1:nparticipants
+    if i <= nparticipants-excludedpoints
+        plot(xscatter1(i), Rd3stab(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        hold on;
+        p=plot(xscatter2(i), Rd4stab(i), '^', 'MarkerSize', 3, 'color', colors{i}); 
+        p.MarkerFaceColor = colors{i};
+    else
+        plot(xscatter1(i), Rd3stab(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        hold on;
+        plot(xscatter2(i), Rd4stab(i), '^', 'MarkerSize', 3, 'color', colors{i});
+    end
+    hold on;
+    plot([0,1], [0 0],'k', 'LineWidth', 0.2);
+    %h2.MarkerFaceAlpha = alphaelderly(i);
+    if i == nparticipants
+        figure(5);hold on;
+        errorbar(0.25,mean(Rd3stab(1:nparticipants-excludedpoints),2),std(Rd3stab(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        figure(5);hold on;
+        errorbar(0.75,mean(Rd4stab(1:nparticipants-excludedpoints),2),std(Rd4stab(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+    end
+end
+set(gca,'XTick',[])
+xlim([0 1])
+set(gca, 'YDir')
+set(gcf,'position',[0,0,200,500])
+ylabel('Relative change in GF [%]')
+
+
+
+Rdcatch = [Rd1; Rd2; Rd3; Rd4];
+Rdstab = [Rd1stab; Rd2stab; Rd3stab; Rd4stab];
+
+
+%}
 
 end
