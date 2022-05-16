@@ -718,9 +718,9 @@ for i=1:nparticipants
     %h2.MarkerFaceAlpha = alphaelderly(i);
     if i == nparticipants-excludedpoints
         figure(3);hold on;
-        errorbar(0.25,mean(Rd2(1:nparticipants-excludedpoints),2),std(Rd2(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        errorbar(0.25,mean(Rd1(1:nparticipants-excludedpoints),2),std(Rd1(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
         figure(3);hold on;
-        errorbar(0.75,mean(Rd1(1:nparticipants-excludedpoints),2),std(Rd1(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
+        errorbar(0.75,mean(Rd2(1:nparticipants-excludedpoints),2),std(Rd2(1:nparticipants-excludedpoints),0,2),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
     end
 end
 set(gca,'XTick',[])
