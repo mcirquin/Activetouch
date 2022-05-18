@@ -97,7 +97,7 @@ mincatchHF=zeros(nessais, nparticipants);
 mincatchHF(1,:)=maxGFmatrix(19,:);
 mincatchHF(2,:)=maxGFmatrix(31,:);
 %mincatchHF(3,:)=maxGFmatrix(49,:);
-mincatchHF(3,:)=maxGFmatrix(97,:);
+mincatchHF(4,:)=maxGFmatrix(97,:);
 meanmincatchHFsub=mean(mincatchHF, 2); %moyenne pour tous les sujets
 meanmincatchHF=mean(meanmincatchHFsub);%moyenne des moyennes de tous les sujets
 meanmincatchHFparticipants=mean(mincatchHF);
@@ -993,8 +993,8 @@ axis=6;% axis limits of the plots
 xfriction1=linspace(0,axis);
 yfriction1=linspace(0,axis);
 Rdvector = []; %vector saving the relative difference values for each participant
-xscatter1 = 0.22 + (0.3-0.22)*randn(nparticipants,1); %random x values to plot Rd between 0.2 and 0.3
-xscatter2 = 0.72 + (0.8-0.72)*randn(nparticipants,1); 
+xscatter1 = 0.23 + (0.3-0.23).*randn(nparticipants,1); %random x values to plot Rd between 0.2 and 0.3
+xscatter2 = 0.72 + (0.8-0.72).*randn(nparticipants,1); 
 xticks=5;
 
 
@@ -1041,7 +1041,7 @@ end
 %alphayoung=[0.16 0.22 0.28 0.34 0.4 0.46 0.52 0.58 0.64 0.70 0.76 0.82 0.88 0.94 1];
 
 %% Anciens graphes
-
+%{
 
 figure(2); hold on;
 pos1 = [0.1 0.6 0.25 0.35];
@@ -1375,10 +1375,11 @@ ylabel('Relative change in GF [%]')
 
 Rdcatch = [Rd1; Rd2; Rd3; Rd4];
 Rdstab = [Rd1stab; Rd2stab; Rd3stab; Rd4stab];
+%}
 
 %% nouveaux graphes
 
-%{
+
 % Low friction catch
 figure(2); hold on;
 pos1 = [0.1 0.6 0.25 0.35];
@@ -1386,14 +1387,14 @@ subplot('Position',pos1);
 hold on;
 for i=1:nparticipants
     if i <= nparticipants-excludedpoints
-        plot(meanmincatchLFparticipantssort(i),meanminHFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        plot(meanmincatchLFparticipantssort(i),meanminHFparticipantssort(i), '.', 'MarkerSize', 13, 'color', colors{i}); 
         figure(2); hold on;
-        p=plot(meanmaxcatchLFparticipantssort(i),meanmaxHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        p=plot(meanmaxcatchLFparticipantssort(i),meanmaxHFparticipantssort(i), '^', 'MarkerSize', 4, 'color', colors{i});
         p.MarkerFaceColor = colors{i};
     else
-        plot(meanmincatchLFparticipantssort(i),meanminHFparticipantssort(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        plot(meanmincatchLFparticipantssort(i),meanminHFparticipantssort(i), 'o', 'MarkerSize', 4, 'color', colors{i}); 
         figure(2); hold on;
-        plot(meanmaxcatchLFparticipantssort(i),meanmaxHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        plot(meanmaxcatchLFparticipantssort(i),meanmaxHFparticipantssort(i), '^', 'MarkerSize', 4, 'color', colors{i});
     end
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
@@ -1414,14 +1415,14 @@ subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
     if i <= nparticipants-excludedpoints
-        plot(xscatter1(i),Rd1(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        plot(xscatter1(i),Rd1(i), '.', 'MarkerSize', 13, 'color', colors{i}); 
         hold on;
-        p=plot(xscatter2(i), Rd2(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        p=plot(xscatter2(i), Rd2(i), '^', 'MarkerSize', 4, 'color', colors{i});
         p.MarkerFaceColor = colors{i};
     else
-        plot(xscatter1(i),Rd1(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        plot(xscatter1(i),Rd1(i), 'o', 'MarkerSize', 4, 'color', colors{i}); 
         hold on;
-        plot(xscatter2(i), Rd2(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        plot(xscatter2(i), Rd2(i), '^', 'MarkerSize', 4, 'color', colors{i});
     end
     plot([0,1], [0 0],'k', 'LineWidth', 0.2);
     %h2=scatter(0.5, Rd1(i), 13, 'r', 'filled'); 
@@ -1447,15 +1448,15 @@ subplot('Position',pos1);
 hold on;
 for i=1:nparticipants
     if i <= nparticipants-excludedpoints
-        plot(meanminstabcatchLFparticipantssort(i),meanminstabHFparticipantssort(i),'.', 'MarkerSize', 12, 'color', colors{i}); 
+        plot(meanminstabcatchLFparticipantssort(i),meanminstabHFparticipantssort(i),'.', 'MarkerSize', 13, 'color', colors{i}); 
         figure(3); hold on;
-        p=plot(meanmaxstabcatchLFparticipantssort(i),meanmaxstabHFparticipantssort(i),'^', 'MarkerSize', 3, 'color', colors{i});
+        p=plot(meanmaxstabcatchLFparticipantssort(i),meanmaxstabHFparticipantssort(i),'^', 'MarkerSize', 4, 'color', colors{i});
         p.MarkerFaceColor = colors{i};
         figure(3); hold on;
     else
-        plot(meanminstabcatchLFparticipantssort(i),meanminstabHFparticipantssort(i),'o', 'MarkerSize', 3, 'color', colors{i}); 
+        plot(meanminstabcatchLFparticipantssort(i),meanminstabHFparticipantssort(i),'o', 'MarkerSize', 4, 'color', colors{i}); 
         figure(3); hold on;
-        plot(meanmaxstabcatchLFparticipantssort(i),meanmaxstabHFparticipantssort(i),'^', 'MarkerSize', 3, 'color', colors{i});
+        plot(meanmaxstabcatchLFparticipantssort(i),meanmaxstabHFparticipantssort(i),'^', 'MarkerSize', 4, 'color', colors{i});
     end
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
@@ -1477,14 +1478,14 @@ subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
     if i <= nparticipants-excludedpoints
-        plot(xscatter1(i), Rd1stab(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        plot(xscatter1(i), Rd1stab(i), '.', 'MarkerSize', 13, 'color', colors{i}); 
         hold on;
-        p=plot(xscatter2(i), Rd2stab(i), '^', 'MarkerSize', 3, 'color', colors{i}); 
+        p=plot(xscatter2(i), Rd2stab(i), '^', 'MarkerSize', 4, 'color', colors{i}); 
         p.MarkerFaceColor = colors{i};
     else
-        plot(xscatter1(i), Rd1stab(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        plot(xscatter1(i), Rd1stab(i), 'o', 'MarkerSize', 4, 'color', colors{i}); 
         hold on;
-        plot(xscatter2(i), Rd2stab(i), '^', 'MarkerSize', 3, 'color', colors{i}); 
+        plot(xscatter2(i), Rd2stab(i), '^', 'MarkerSize', 4, 'color', colors{i}); 
     end
     hold on;
     plot([0,1], [0 0],'k', 'LineWidth', 0.2);
@@ -1511,15 +1512,15 @@ subplot('Position',pos1);
 hold on;
 for i=1:nparticipants
     if i <= nparticipants-excludedpoints
-        plot(meanminLFparticipantssort(i),meanmincatchHFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        plot(meanminLFparticipantssort(i),meanmincatchHFparticipantssort(i), '.', 'MarkerSize', 13, 'color', colors{i}); 
         hold on;
-        p=plot(meanmaxLFparticipantssort(i),meanmaxcatchHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        p=plot(meanmaxLFparticipantssort(i),meanmaxcatchHFparticipantssort(i), '^', 'MarkerSize', 4, 'color', colors{i});
         p.MarkerFaceColor = colors{i};
         hold on;
     else
-        plot(meanminLFparticipantssort(i),meanmincatchHFparticipantssort(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        plot(meanminLFparticipantssort(i),meanmincatchHFparticipantssort(i), 'o', 'MarkerSize', 4, 'color', colors{i}); 
         hold on;
-        plot(meanmaxLFparticipantssort(i),meanmaxcatchHFparticipantssort(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        plot(meanmaxLFparticipantssort(i),meanmaxcatchHFparticipantssort(i), '^', 'MarkerSize', 4, 'color', colors{i});
     end
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
@@ -1541,14 +1542,14 @@ subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
     if i <= nparticipants-excludedpoints
-        plot(xscatter1(i), Rd3(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        plot(xscatter1(i), Rd3(i), '.', 'MarkerSize', 13, 'color', colors{i}); 
         hold on;
-        p=plot(xscatter2(i), Rd4(i), '^', 'MarkerSize', 3, 'color', colors{i}); 
+        p=plot(xscatter2(i), Rd4(i), '^', 'MarkerSize', 4, 'color', colors{i}); 
         p.MarkerFaceColor = colors{i};
     else
-        plot(xscatter1(i), Rd3(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        plot(xscatter1(i), Rd3(i), 'o', 'MarkerSize', 4, 'color', colors{i}); 
         hold on;
-        plot(xscatter2(i), Rd4(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        plot(xscatter2(i), Rd4(i), '^', 'MarkerSize', 4, 'color', colors{i});
     end
     hold on;
     plot([0,1], [0 0],'k', 'LineWidth', 0.2);
@@ -1574,14 +1575,14 @@ subplot('Position',pos1);
 hold on;
 for i=1:nparticipants
     if i <= nparticipants-excludedpoints
-        plot(meanminstabLFparticipantssort(i),meanminstabcatchHFparticipantssort(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        plot(meanminstabLFparticipantssort(i),meanminstabcatchHFparticipantssort(i), '.', 'MarkerSize', 13, 'color', colors{i}); 
         hold on;
-        p=plot(meanmaxstabLFparticipantssort(i),meanmaxstabcatchHFparticipantssort(i), '^','MarkerSize', 3, 'color', colors{i}); 
+        p=plot(meanmaxstabLFparticipantssort(i),meanmaxstabcatchHFparticipantssort(i), '^','MarkerSize', 4, 'color', colors{i}); 
         p.MarkerFaceColor = colors{i};
     else
-        plot(meanminstabLFparticipantssort(i),meanminstabcatchHFparticipantssort(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        plot(meanminstabLFparticipantssort(i),meanminstabcatchHFparticipantssort(i), 'o', 'MarkerSize', 4, 'color', colors{i}); 
         hold on;
-        plot(meanmaxstabLFparticipantssort(i),meanmaxstabcatchHFparticipantssort(i), '^','MarkerSize', 3, 'color', colors{i}); 
+        plot(meanmaxstabLFparticipantssort(i),meanmaxstabcatchHFparticipantssort(i), '^','MarkerSize', 4, 'color', colors{i}); 
     end
     plot(xfriction1,yfriction1,'Color',[0.2 0.2 0.2]) %identity line
 end
@@ -1602,14 +1603,14 @@ subplot('Position',pos2);
 hold on;
 for i=1:nparticipants
     if i <= nparticipants-excludedpoints
-        plot(xscatter1(i), Rd3stab(i), '.', 'MarkerSize', 12, 'color', colors{i}); 
+        plot(xscatter1(i), Rd3stab(i), '.', 'MarkerSize', 13, 'color', colors{i}); 
         hold on;
-        p=plot(xscatter2(i), Rd4stab(i), '^', 'MarkerSize', 3, 'color', colors{i}); 
+        p=plot(xscatter2(i), Rd4stab(i), '^', 'MarkerSize', 4, 'color', colors{i}); 
         p.MarkerFaceColor = colors{i};
     else
-        plot(xscatter1(i), Rd3stab(i), 'o', 'MarkerSize', 3, 'color', colors{i}); 
+        plot(xscatter1(i), Rd3stab(i), 'o', 'MarkerSize', 4, 'color', colors{i}); 
         hold on;
-        plot(xscatter2(i), Rd4stab(i), '^', 'MarkerSize', 3, 'color', colors{i});
+        plot(xscatter2(i), Rd4stab(i), '^', 'MarkerSize', 4, 'color', colors{i});
     end
     hold on;
     plot([0,1], [0 0],'k', 'LineWidth', 0.2);
@@ -1629,10 +1630,10 @@ ylabel('Relative change in GF [%]')
 
 
 
-Rdcatch = [Rd1; Rd2; Rd3; Rd4];
-Rdstab = [Rd1stab; Rd2stab; Rd3stab; Rd4stab];
+Rdcatch = [mean(Rd1,2); mean(Rd2,2); mean(Rd3,2); mean(Rd4,2)];
+Rdstab = [mean(Rd1stab,2); mean(Rd2stab,2); mean(Rd3stab,2); mean(Rd4stab,2)];
 
 
-%}
+
 
 end
