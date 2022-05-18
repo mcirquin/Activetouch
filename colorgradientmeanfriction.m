@@ -19,6 +19,7 @@ colors={[0 0 1], [0.0714 0 0.9286], [0.1429 0 0.8571], [0.2143 0 0.7857], [0.285
 %participants
 colors=flip(colors);
 
+xscatter = 0.9 + (1.15-0.9)*randn(nparticipants,1);
 
 
 %% For each participant, compute the mean LF and the mean HF friction coeff
@@ -93,7 +94,7 @@ pos2 = [0.7 0.15 0.1 0.7];
 subplot('Position',pos2); hold on;
 
 for i=1:nparticipants
-    h2=plot(1, Rdvecsort(i), '.', 'MarkerSize', 10, 'color', colors{i});
+    h2=plot(xscatter(i), Rdvecsort(i), '.', 'MarkerSize', 10, 'color', colors{i});
     %h2.MarkerFaceAlpha = alphaelderly(i);
 end
 set(gca,'XTick',[])
@@ -104,3 +105,5 @@ figure(1); hold on;
 h2=errorbar(1,mean(Rdvecsort),std(Rdvecsort),'-*', 'Color', [0.5 0.5 0.5], 'LineWidth', 0.4, 'Markersize', 10);
 hold on;
 plot([0,2], [10 10],'k--');
+
+disp(mean(Rdvecsort))
