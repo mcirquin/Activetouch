@@ -1630,8 +1630,8 @@ ylabel('Relative change in GF [%]')
 
 
 
-Rdcatch = [mean(Rd1,2); mean(Rd2,2); mean(Rd3,2); mean(Rd4,2)];
-Rdstab = [mean(Rd1stab,2); mean(Rd2stab,2); mean(Rd3stab,2); mean(Rd4stab,2)];
+Rdcatch = [mean(Rd1(1:nparticipants-excludedpoints),2); mean(Rd2(1:nparticipants-excludedpoints),2); mean(Rd3(1:nparticipants-excludedpoints),2); mean(Rd4(1:nparticipants-excludedpoints),2)];
+Rdstab = [mean(Rd1stab(1:nparticipants-excludedpoints),2); mean(Rd2stab(1:nparticipants-excludedpoints),2); mean(Rd3stab(1:nparticipants-excludedpoints),2); mean(Rd4stab(1:nparticipants-excludedpoints),2)];
 
 
 
