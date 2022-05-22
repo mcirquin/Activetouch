@@ -1027,14 +1027,14 @@ Rd3stab = zeros(1,nparticipants);
 Rd4stab = zeros(1,nparticipants);
 
 for i = 1:nparticipants
-    Rd1(i) = ((meanmincatchLFparticipantssort(i)-meanminHFparticipantssort(i))/min(meanmincatchLFparticipantssort(i),meanminHFparticipantssort(i)))*100;
-    Rd2(i) = ((meanmaxcatchLFparticipantssort(i) - meanmaxHFparticipantssort(i))/min(meanmaxcatchLFparticipantssort(i),meanmaxHFparticipantssort(i)))*100;
-    Rd3(i) = ((meanmincatchHFparticipantssort(i)-meanminLFparticipantssort(i))/min(meanminLFparticipantssort(i),meanmincatchHFparticipantssort(i)))*100;
-    Rd4(i) = ((meanmaxcatchHFparticipantssort(i)-meanmaxLFparticipantssort(i))/min(meanmaxLFparticipantssort(i),meanmaxcatchHFparticipantssort(i)))*100;
-    Rd1stab(i) = ((meanminstabcatchLFparticipantssort(i)-meanminstabHFparticipantssort(i))/min(meanminstabcatchLFparticipantssort(i),meanminstabHFparticipantssort(i)))*100;
-    Rd2stab(i) = ((meanmaxstabcatchLFparticipants(i) - meanmaxstabHFparticipants(i))/min(meanmaxstabcatchLFparticipants(i),meanmaxstabHFparticipants(i)))*100;
-    Rd3stab(i) = ((meanminstabcatchHFparticipants(i)-meanminstabLFparticipants(i))/min(meanminstabLFparticipants(i),meanminstabcatchHFparticipants(i)))*100;
-    Rd4stab(i) = ((meanmaxstabcatchHFparticipants(i)-meanmaxstabLFparticipants(i))/min(meanmaxstabLFparticipants(i),meanmaxstabcatchHFparticipants(i)))*100;
+    Rd1(i) = ((meanmincatchLFparticipantssort(i)-meanminHFparticipantssort(i))/abs(meanminHFparticipantssort(i)))*100;
+    Rd2(i) = ((meanmaxcatchLFparticipantssort(i) - meanmaxHFparticipantssort(i))/abs(meanmaxHFparticipantssort(i)))*100;
+    Rd3(i) = ((meanmincatchHFparticipantssort(i)-meanminLFparticipantssort(i))/abs(meanminLFparticipantssort(i)))*100;
+    Rd4(i) = ((meanmaxcatchHFparticipantssort(i)-meanmaxLFparticipantssort(i))/abs(meanmaxLFparticipantssort(i)))*100;
+    Rd1stab(i) = ((meanminstabcatchLFparticipantssort(i)-meanminstabHFparticipantssort(i))/abs(meanminstabHFparticipantssort(i)))*100;
+    Rd2stab(i) = ((meanmaxstabcatchLFparticipants(i) - meanmaxstabHFparticipants(i))/abs(meanmaxstabHFparticipants(i)))*100;
+    Rd3stab(i) = ((meanminstabcatchHFparticipants(i)-meanminstabLFparticipants(i))/abs(meanminstabLFparticipants(i)))*100;
+    Rd4stab(i) = ((meanmaxstabcatchHFparticipants(i)-meanmaxstabLFparticipants(i))/abs(meanmaxstabLFparticipants(i)))*100;
 end
 
 %alphaelderly=[0 0.15 0.20 0.28 0.36 0.44 0.52 0.60 0.68 0.76 0.84 0.92 1];
