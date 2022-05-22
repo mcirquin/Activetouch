@@ -934,8 +934,8 @@ axis=6;% axis limits of the plots
 xfriction1=linspace(0,axis);
 yfriction1=linspace(0,axis);
 Rdvector = []; %vector saving the relative differnce values for each participant
-xscatter1 = 0.22 + (0.3-0.22)*randn(nparticipants,1); %random x values to plot Rd between 0.2 and 0.3
-xscatter2 = 0.7 + (0.8-0.7)*randn(nparticipants,1); 
+xscatter1 = 0.23 + (0.3-0.23).*randn(nparticipants,1); %random x values to plot Rd between 0.2 and 0.3
+xscatter2 = 0.72 + (0.8-0.72).*randn(nparticipants,1); 
 
 for i = 1:nparticipants %sort the vector in the same order than the relative difference in friction
     meanmaxtominLFparticipantssort(i) = meanmaxtominLFparticipants(shiftRd(i)); %sort xvec in the same way
@@ -967,14 +967,14 @@ Rd3stab = zeros(1,nparticipants);
 Rd4stab = zeros(1,nparticipants);
 
 for i = 1:nparticipants
-    Rd1(i) = ((meanmaxtominLFparticipantssort(i)-meanmaxLFparticipantssort(i))/min(meanmaxtominLFparticipantssort(i),meanmaxLFparticipantssort(i)))*100;
-    Rd2(i) = ((meanmaxtominHFparticipantssort(i)-meanmaxHFparticipantssort(i))/min(meanmaxtominHFparticipantssort(i),meanmaxHFparticipantssort(i)))*100;
-    Rd3(i) = ((meanmintomaxLFparticipantssort(i)-meanminLFparticipantssort(i))/min(meanminLFparticipantssort(i),meanmintomaxLFparticipantssort(i)))*100;
-    Rd4(i) = ((meanmintomaxHFparticipantssort(i)-meanminHFparticipantssort(i))/min(meanminHFparticipantssort(i),meanmintomaxHFparticipantssort(i)))*100;
-    Rd1stab(i) = ((meanmaxtominstabLFparticipantssort(i)-meanmaxstabLFparticipantssort(i))/min(meanmaxtominstabLFparticipantssort(i),meanmaxstabLFparticipantssort(i)))*100;
-    Rd2stab(i) = ((meanmaxtominstabHFparticipantssort(i)-meanmaxstabHFparticipantssort(i))/min(meanmaxtominstabHFparticipantssort(i),meanmaxstabHFparticipantssort(i)))*100;
-    Rd3stab(i) = ((meanmintomaxstabLFparticipantssort(i)-meanminstabLFparticipantssort(i))/min(meanminstabLFparticipantssort(i),meanmintomaxstabLFparticipantssort(i)))*100;
-    Rd4stab(i) = ((meanmintomaxstabHFparticipantssort(i)-meanminstabHFparticipantssort(i))/min(meanminstabHFparticipantssort(i),meanmintomaxstabHFparticipantssort(i)))*100;
+    Rd1(i) = ((meanmaxtominLFparticipantssort(i)-meanmaxLFparticipantssort(i))/abs(meanmaxLFparticipantssort(i)))*100;
+    Rd2(i) = ((meanmaxtominHFparticipantssort(i)-meanmaxHFparticipantssort(i))/abs(meanmaxHFparticipantssort(i)))*100;
+    Rd3(i) = ((meanmintomaxLFparticipantssort(i)-meanminLFparticipantssort(i))/abs(meanminLFparticipantssort(i)))*100;
+    Rd4(i) = ((meanmintomaxHFparticipantssort(i)-meanminHFparticipantssort(i))/abs(meanminHFparticipantssort(i)))*100;
+    Rd1stab(i) = ((meanmaxtominstabLFparticipantssort(i)-meanmaxstabLFparticipantssort(i))/abs(meanmaxstabLFparticipantssort(i)))*100;
+    Rd2stab(i) = ((meanmaxtominstabHFparticipantssort(i)-meanmaxstabHFparticipantssort(i))/abs(meanmaxstabHFparticipantssort(i)))*100;
+    Rd3stab(i) = ((meanmintomaxstabLFparticipantssort(i)-meanminstabLFparticipantssort(i))/abs(meanminstabLFparticipantssort(i)))*100;
+    Rd4stab(i) = ((meanmintomaxstabHFparticipantssort(i)-meanminstabHFparticipantssort(i))/abs(meanminstabHFparticipantssort(i)))*100;
 end
 
 %% FIGURES 
