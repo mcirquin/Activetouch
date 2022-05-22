@@ -1032,11 +1032,10 @@ for i = 1:nparticipants
     Rd3(i) = ((meanmincatchHFparticipantssort(i)-meanminLFparticipantssort(i))/abs(meanminLFparticipantssort(i)))*100;
     Rd4(i) = ((meanmaxcatchHFparticipantssort(i)-meanmaxLFparticipantssort(i))/abs(meanmaxLFparticipantssort(i)))*100;
     Rd1stab(i) = ((meanminstabcatchLFparticipantssort(i)-meanminstabHFparticipantssort(i))/abs(meanminstabHFparticipantssort(i)))*100;
-    Rd2stab(i) = ((meanmaxstabcatchLFparticipants(i) - meanmaxstabHFparticipants(i))/abs(meanmaxstabHFparticipants(i)))*100;
-    Rd3stab(i) = ((meanminstabcatchHFparticipants(i)-meanminstabLFparticipants(i))/abs(meanminstabLFparticipants(i)))*100;
-    Rd4stab(i) = ((meanmaxstabcatchHFparticipants(i)-meanmaxstabLFparticipants(i))/abs(meanmaxstabLFparticipants(i)))*100;
+    Rd2stab(i) = ((meanmaxstabcatchLFparticipantssort(i) - meanmaxstabHFparticipantssort(i))/abs(meanmaxstabHFparticipantssort(i)))*100;
+    Rd3stab(i) = ((meanminstabcatchHFparticipantssort(i)-meanminstabLFparticipantssort(i))/abs(meanminstabLFparticipantssort(i)))*100;
+    Rd4stab(i) = ((meanmaxstabcatchHFparticipantssort(i)-meanmaxstabLFparticipantssort(i))/abs(meanmaxstabLFparticipantssort(i)))*100;
 end
-
 %alphaelderly=[0 0.15 0.20 0.28 0.36 0.44 0.52 0.60 0.68 0.76 0.84 0.92 1];
 %alphayoung=[0.16 0.22 0.28 0.34 0.4 0.46 0.52 0.58 0.64 0.70 0.76 0.82 0.88 0.94 1];
 
