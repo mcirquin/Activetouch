@@ -9,7 +9,7 @@ x = x(tstart:tstop,:);
 LF=x.lf;  %exctraction des LF         
 stabGF = [];   %matrice de stockage des GF de stabilisation
 
-indexes = find(LF>=3*tresholdmin ); %reprend les indexes de toutes les LF qui sont plus grandes que poids*treshold
+indexes = find(LF>=3.1*tresholdmin ); %reprend les indexes de toutes les LF qui sont plus grandes que poids*treshold
 for i = indexes
     stabGF = [stabGF, x.gf(i)];  %crée un vecteur avec les valeur des GF pour ces indexes
 end
